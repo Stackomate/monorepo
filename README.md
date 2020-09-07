@@ -1,7 +1,7 @@
 # Data-structures
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Travis](https://img.shields.io/travis/stackomate/data-structures.svg)](https://travis-ci.org/stackomate/data-structures)
+[![Build Status](https://www.travis-ci.com/Stackomate/data-structures.svg?branch=master)](https://www.travis-ci.com/Stackomate/data-structures)
 
 A collection of useful data-structures for Typescript Development.
 
@@ -11,7 +11,7 @@ A stricter type of map that only allows Bijective (one-to-one) relationships.
 
 ![Bijection Mapping Example](https://upload.wikimedia.org/wikipedia/commons/a/a5/Bijection.svg)
 
-(Credits: [Wikipedia](https://commons.wikimedia.org/wiki/File:Bijection.svg))
+(Credit: [Wikipedia](https://commons.wikimedia.org/wiki/File:Bijection.svg))
 
 * Example: *Create a mapping of usernames to their respective IDs*
 
