@@ -10,6 +10,7 @@ A collection of useful data-structures for Typescript Development.
 A stricter type of map that only allows Bijective (one-to-one) relationships.
 
 ![Bijection Mapping Example](https://upload.wikimedia.org/wikipedia/commons/a/a5/Bijection.svg)
+
 (Credits: [Wikipedia](https://commons.wikimedia.org/wiki/File:Bijection.svg))
 
 * Example: *Create a mapping of usernames to their respective IDs*
