@@ -7,13 +7,15 @@ A collection of useful data-structures for Typescript Development.
 
 ## BijectiveMap
 
+* **Documentation:** [BijectiveMap](https://stackomate.github.io/data-structures/classes/bijectivemap.html)
+
 A stricter type of map that only allows Bijective (one-to-one) relationships.
 
 ![Bijection Mapping Example](https://upload.wikimedia.org/wikipedia/commons/a/a5/Bijection.svg)
 
 (Credit: [Wikipedia](https://commons.wikimedia.org/wiki/File:Bijection.svg))
 
-* Example: *Create a mapping of usernames to their respective IDs*
+* Example: *Create a mapping of usernames to their respective IDs* ([CodeSandbox](https://codesandbox.io/s/stackomate-bijective-map-zntoe))
 
 
 ```typescript
