@@ -14,7 +14,7 @@ export const prepareBatcher: Prepare = <T>(
     target?: Set<T>, 
     mutate?: boolean, 
     batcher?: Batcher<Set<T>>) : Batcher<Set<T>> => {
-    //TODO: Remove as Set<T>
+    /* TODO: Remove as Set<T> */
     return batcher || createBatcher(target as Set<T>, mutate);
 }
 
