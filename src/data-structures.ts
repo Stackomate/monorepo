@@ -1,1 +1,2 @@
-export * from './bijective-map/bijective-map'
+export * from './bijective-map';
+export * from './bidirectional-tuple-set';
