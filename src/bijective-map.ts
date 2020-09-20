@@ -10,7 +10,7 @@ export class BijectiveMap<K, V> {
   /** Set for storing registered values. */
   private _values: Set<V> = new Set()
 
-  /** Create a new BijectiveMap.
+  /** Creates a new BijectiveMap.
    * Accepts an iterable for initial values.
    */
   constructor(iterable: Iterable<[K, V]> = []) {
