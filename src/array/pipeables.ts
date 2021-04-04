@@ -1,6 +1,7 @@
 import { Batcher } from "../batcher";
 import { arrFilter, arrMap, arrPush, arrSetIndex, arrSetLength, arrSpread } from "./array-operations";
 
+/* TODO: Why won't generic inference work for arr_filter and arr_map? */
 export const arr_filter = <T> (batcher: Batcher<Array<T>>) => (fn: (a: T) => boolean) : Batcher<Array<T>> => arrFilter(batcher, fn);
 export const arr_map =  <T, U> (batcher: Batcher<Array<T>>) => (fn: (a: T) => U) : Batcher<Array<U>> => arrMap(batcher, fn);
 export const arr_push = <T> (batcher: Batcher<Array<T>>) => (item: T) : Batcher<Array<T>> => arrPush(batcher, item);
