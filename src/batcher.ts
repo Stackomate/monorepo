@@ -1,23 +1,3 @@
-export const cloneSet = <T>(initial: Set<T>) => new Set<T>(initial);
-
-export const createBatcher = <T>(target: Set<T>, mutate: boolean = false) => {
-    return new Batcher(target, mutate, cloneSet);
-}
-
-
-interface Prepare {
-    <T>(target: Set<T>, mutate?: boolean): Batcher<Set<T>>;
-    <T>(target: undefined, mutate: undefined, batcher: Batcher<Set<T>>): Batcher<Set<T>>;
-}
-
-export const prepareBatcher: Prepare = <T>(
-    target?: Set<T>, 
-    mutate?: boolean, 
-    batcher?: Batcher<Set<T>>) : Batcher<Set<T>> => {
-    /* TODO: Remove as Set<T> */
-    return batcher || createBatcher(target as Set<T>, mutate);
-}
-
 export class Batcher<T> {
     public currentValue!: T;
 
@@ -30,10 +10,11 @@ export class Batcher<T> {
     }
 
     hasChanged = false;
-    /* TODO: Add optional arg mutate that will overwrite default mutate */
+
+    /* TODO: Join with similar function, but preserve performance */
     willChange() {
         if (this.isUnlocked) {
-            this.currentValue = this.currentValue || this.initialValue;
+            this.currentValue = this.currentValue;
             this.hasChanged = true;
             return false;            
         } else {
@@ -43,7 +24,27 @@ export class Batcher<T> {
         }
     }
 
+    willChangeWithoutCloning() {
+        if (this.isUnlocked) {
+            this.currentValue = this.currentValue;
+            this.hasChanged = true;
+            return false;            
+        } else {
+            this.currentValue = this.initialValue;
+            this.hasChanged = true;
+            return false;
+        }
+    }    
+
     get isUnlocked() {
         return this.hasChanged || this.mutateInitial === true;
     }
+}
+
+export const value = <T>(batcher: Batcher<T>) : T => {
+    return batcher.currentValue;
+}
+
+export const cloneValue = <T>(batcher: Batcher<T>) : T => {
+    return batcher.cloneFn(value(batcher));
 }
