@@ -9,20 +9,16 @@ import { batch } from "../src/batch-fn";
     arrPush(1, 'abc')       // (Preferred) for many operations
 )
 - _arrPush (b, 1, 'abc');    // For single operations
-- batch(b, 
+- batch(b,
     arrPush(1, 'abc')       // For many operations
 )
 */
-
 /* Notes:
 - mapping to different types may require a new variable assignment (because of Typescript's behavior)
-*/
 
-type VoidFn <A> = (a: A) => void;
-const tap = <A>(fn: VoidFn<A>) => (a: A) : A => {
-    fn(a);
-    return a;
-}
+- You can use tap inside the batch call to make side-effects but return last result.
+- You can use custom functions inside the batch call to access variables on the fly
+*/
 
 describe('documentation', () => {
     describe('example 1', () => {
@@ -66,8 +62,8 @@ describe('documentation', () => {
             let anotherArray = useArrayBatcher<number>([99, 101]);
 
             b.batch(
-                arrSpread(anotherArray),         // [21, 31, 89, 99, 101]
-                arrPush (125)                    // [21, 31, 89, 99, 101, 125]
+                arrSpread(anotherArray),        // [21, 31, 89, 99, 101]
+                arrPush(125)                    // [21, 31, 89, 99, 101, 125]
             )
 
             expect(value(b)).not.toBe(arr);                         // Different object references
