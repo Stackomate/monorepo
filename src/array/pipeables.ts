@@ -1,9 +1,16 @@
 import { Batcher } from "../batcher";
-import { arrFilter, arrMap, arrPush, arrSetIndex, arrSetLength, arrSpread } from "./array-operations";
+import { _arrFilter, _arrMap, _arrPush, _arrSetIndex, _arrSetLength, _arrSpread } from "./array-operations";
 
-export const arr_filter = <T>(fn: (a: T) => boolean) => (batcher: Batcher<Array<T>>) : Batcher<Array<T>> => arrFilter(batcher, fn);
-export const arr_map =  <T, U>(fn: (a: T) => U) => (batcher: Batcher<Array<T>>) : Batcher<Array<U>> => arrMap(batcher, fn);
-export const arr_push = <T>(item: T) => (batcher: Batcher<Array<T>>) : Batcher<Array<T>> => arrPush(batcher, item);
-export const arr_set = <T>(index: number, item: T) => (batcher: Batcher<Array<T>>): Batcher<Array<T>> => arrSetIndex(batcher, index, item);
-export const arr_setLength = <T>(length: number) => (batcher: Batcher<Array<T>>) : Batcher<Array<T>> => arrSetLength(batcher, length);
-export const arr_spread = <S>(...copyArrays: Batcher<Array<S>>[]) => (batcher: Batcher<Array<S>>) : Batcher<Array<S>> => arrSpread(batcher, copyArrays);
+export const arrFilter = <T>(fn: (a: T) => boolean) => (batcher: Batcher<Array<T>>) : Batcher<Array<T>> => _arrFilter(batcher, fn);
+export const arrMap =  <T, U>(fn: (a: T) => U) => (batcher: Batcher<Array<T>>) : Batcher<Array<U>> => _arrMap(batcher, fn);
+export const arrPush = <T>(item: T) => (batcher: Batcher<Array<T>>) : Batcher<Array<T>> => _arrPush(batcher, item);
+export const arrSet = <T>(index: number, item: T) => (batcher: Batcher<Array<T>>): Batcher<Array<T>> => _arrSetIndex(batcher, index, item);
+export const arrSetLength = <T>(length: number) => (batcher: Batcher<Array<T>>) : Batcher<Array<T>> => _arrSetLength(batcher, length);
+export const arrSpread = <S>(...copyArrays: Batcher<Array<S>>[]) => (batcher: Batcher<Array<S>>) : Batcher<Array<S>> => _arrSpread(batcher, copyArrays);
+
+export const $arrFilter = <T> (batcher: Batcher<Array<T>>) => (fn: (a: T) => boolean): Batcher<Array<T>> => _arrFilter(batcher, fn);
+export const $arrMap =  <T, U> (batcher: Batcher<Array<T>>) => (fn: (a: T) => U) : Batcher<Array<U>> => _arrMap(batcher, fn);
+export const $arrPush = <T> (batcher: Batcher<Array<T>>) => (item: T) : Batcher<Array<T>> => _arrPush(batcher, item);
+export const $arrSet = <T> (batcher: Batcher<Array<T>>) => (index: number, item: T) : Batcher<Array<T>> => _arrSetIndex(batcher, index, item);
+export const $arrSetLength = <T>(batcher: Batcher<Array<T>>) => (length: number) : Batcher<Array<T>> => _arrSetLength(batcher, length);
+export const $arrSpread = <S>(batcher: Batcher<Array<S>>) => (...copyArrays: Batcher<Array<S>>[]) : Batcher<Array<S>> => _arrSpread(batcher, copyArrays);

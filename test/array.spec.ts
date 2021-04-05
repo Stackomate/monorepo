@@ -1,5 +1,5 @@
 import { useArrayBatcher } from "../src/array/array-batcher"
-import { arrFilter, arrIndexAt, arrLastIndex, arrLength, arrMap, arrSetLength } from "../src/array/array-operations";
+import { _arrFilter, _arrIndexAt, _arrLastIndex, _arrLength, _arrMap, _arrSetLength } from "../src/array/array-operations";
 import { arrFilterForLocked } from "../src/array/filter-for-locked";
 import { arrFilterForUnlocked } from "../src/array/filter-for-unlocked";
 import { arrMapForLocked } from "../src/array/map-for-locked";
@@ -12,29 +12,29 @@ describe('Array exports', () => {
             it('for array with 4 items', () => {
                 let arr = [22, 12, 67, 33];
                 let batcher = useArrayBatcher(arr);
-                expect(arrIndexAt(batcher, 0)).toBe(0);
-                expect(arrIndexAt(batcher, 10)).toBe(10);
-                expect(arrIndexAt(batcher, 2)).toBe(2);
-                expect(arrIndexAt(batcher, -1)).toBe(3);
-                expect(arrIndexAt(batcher, -2)).toBe(2);
-                expect(arrIndexAt(batcher, -4)).toBe(0);
-                expect(arrIndexAt(batcher, -5)).toBe(-1);
-                expect(arrIndexAt(batcher, -10)).toBe(-6);
+                expect(_arrIndexAt(batcher, 0)).toBe(0);
+                expect(_arrIndexAt(batcher, 10)).toBe(10);
+                expect(_arrIndexAt(batcher, 2)).toBe(2);
+                expect(_arrIndexAt(batcher, -1)).toBe(3);
+                expect(_arrIndexAt(batcher, -2)).toBe(2);
+                expect(_arrIndexAt(batcher, -4)).toBe(0);
+                expect(_arrIndexAt(batcher, -5)).toBe(-1);
+                expect(_arrIndexAt(batcher, -10)).toBe(-6);
             })
 
             it('for array with 7 items', () => {
                 let arr = [22, 12, 67, 33, 18, 99, 10];
                 let batcher = useArrayBatcher(arr);
-                expect(arrIndexAt(batcher, 0)).toBe(0);
-                expect(arrIndexAt(batcher, 10)).toBe(10);
-                expect(arrIndexAt(batcher, 2)).toBe(2);
-                expect(arrIndexAt(batcher, 4)).toBe(4);
-                expect(arrIndexAt(batcher, -1)).toBe(6);
-                expect(arrIndexAt(batcher, -2)).toBe(5);
-                expect(arrIndexAt(batcher, -4)).toBe(3);
-                expect(arrIndexAt(batcher, -5)).toBe(2);
-                expect(arrIndexAt(batcher, -7)).toBe(0)
-                expect(arrIndexAt(batcher, -10)).toBe(-3);
+                expect(_arrIndexAt(batcher, 0)).toBe(0);
+                expect(_arrIndexAt(batcher, 10)).toBe(10);
+                expect(_arrIndexAt(batcher, 2)).toBe(2);
+                expect(_arrIndexAt(batcher, 4)).toBe(4);
+                expect(_arrIndexAt(batcher, -1)).toBe(6);
+                expect(_arrIndexAt(batcher, -2)).toBe(5);
+                expect(_arrIndexAt(batcher, -4)).toBe(3);
+                expect(_arrIndexAt(batcher, -5)).toBe(2);
+                expect(_arrIndexAt(batcher, -7)).toBe(0)
+                expect(_arrIndexAt(batcher, -10)).toBe(-3);
             })            
         })
     })
@@ -44,7 +44,7 @@ describe('Array exports', () => {
             it ('should return -1', () => {
                 let arr: number[] = [];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLastIndex(batcher)).toBe(-1);
+                expect(_arrLastIndex(batcher)).toBe(-1);
             })
         })
 
@@ -52,11 +52,11 @@ describe('Array exports', () => {
             it ('should return length - 1', () => {
                 let arr = ['a', 'b', 'c'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLastIndex(batcher)).toBe(2);
+                expect(_arrLastIndex(batcher)).toBe(2);
 
                 let arr2 = ['a', 'b', 'c', 'd', 'e'];
                 let batcher2 = useArrayBatcher(arr2);
-                expect(arrLastIndex(batcher2)).toBe(4);                
+                expect(_arrLastIndex(batcher2)).toBe(4);                
             })
         })
     })
@@ -66,7 +66,7 @@ describe('Array exports', () => {
             it ('should return 0', () => {
                 let arr: number[] = [];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(0);
+                expect(_arrLength(batcher)).toBe(0);
             })
         })
 
@@ -75,13 +75,13 @@ describe('Array exports', () => {
                 it('should return 5', () => {
                     let arr = ['a', 'b', 'c', 'd', 'e'];
                     let batcher = useArrayBatcher(arr);
-                    expect(arrLength(batcher)).toBe(5);
+                    expect(_arrLength(batcher)).toBe(5);
                 })
     
                 it('should return 3', () => {
                     let arr = ['x', 'y', 'z'];
                     let batcher = useArrayBatcher(arr);
-                    expect(arrLength(batcher)).toBe(3);
+                    expect(_arrLength(batcher)).toBe(3);
                 })
             })
 
@@ -90,7 +90,7 @@ describe('Array exports', () => {
                     let arr: void[]= [];
                     arr.length = 30;
                     let batcher = useArrayBatcher(arr);
-                    expect(arrLength(batcher)).toBe(30);
+                    expect(_arrLength(batcher)).toBe(30);
                 })
             })
         })
@@ -101,46 +101,46 @@ describe('Array exports', () => {
             it('should not change array of 5 items', () => {
                 let arr = ['a', 'b', 'c', 'd', 'e'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, 5)).not.toThrow();
+                expect(() => _arrSetLength(batcher, 5)).not.toThrow();
                 expect(value(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot1);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
             })
 
             it('should not change empty array', () => {
                 let arr: void[] = [];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(0);
+                expect(_arrLength(batcher)).toBe(0);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, 0)).not.toThrow();
+                expect(() => _arrSetLength(batcher, 0)).not.toThrow();
                 expect(value(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot1);
-                expect(arrLength(batcher)).toBe(0);                
+                expect(_arrLength(batcher)).toBe(0);                
             })
 
             it('should not change empty array with negative index', () => {
                 let arr: void[] = [];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(0);
+                expect(_arrLength(batcher)).toBe(0);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, -55)).not.toThrow();
+                expect(() => _arrSetLength(batcher, -55)).not.toThrow();
                 expect(value(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot1);
-                expect(arrLength(batcher)).toBe(0);                          
+                expect(_arrLength(batcher)).toBe(0);                          
             })
 
             it('should expand array of 5 items to 7', () => {
                 let arr = ['a', 'b', 'c', 'd', 'e'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, 7)).not.toThrow();
+                expect(() => _arrSetLength(batcher, 7)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
                 let result = value(batcher);
                 expect(result).not.toBe(arr);
@@ -149,16 +149,16 @@ describe('Array exports', () => {
                 expect(5 in result).toBe(false);
                 expect(7 in result).toBe(false);
                 expect(4 in result).toBe(true);
-                expect(arrLength(batcher)).toBe(7);                
+                expect(_arrLength(batcher)).toBe(7);                
             })
 
             it('should trim array of 5 items to 3', () => {
                 let arr = ['a', 'b', 'c', 'd', 'e'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, 3)).not.toThrow();
+                expect(() => _arrSetLength(batcher, 3)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
                 let result = value(batcher);
                 expect(result).not.toBe(arr);
@@ -166,16 +166,16 @@ describe('Array exports', () => {
                 expect(2 in result).toBe(true);
                 expect(4 in result).toBe(false);
                 expect(3 in result).toBe(false);
-                expect(arrLength(batcher)).toBe(3);                        
+                expect(_arrLength(batcher)).toBe(3);                        
             })
 
             it('should trim array of 5 items to 3 with negative index', () => {
                 let arr = ['a', 'b', 'c', 'd', 'e'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, -2)).not.toThrow();
+                expect(() => _arrSetLength(batcher, -2)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
                 let result = value(batcher);
                 expect(result).not.toBe(arr);
@@ -183,16 +183,16 @@ describe('Array exports', () => {
                 expect(2 in result).toBe(true);
                 expect(4 in result).toBe(false);
                 expect(3 in result).toBe(false);
-                expect(arrLength(batcher)).toBe(3);                        
+                expect(_arrLength(batcher)).toBe(3);                        
             })            
 
             it('should trim array of 5 items to 0', () => {
                 let arr = ['a', 'b', 'c', 'd', 'e'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, 0)).not.toThrow();
+                expect(() => _arrSetLength(batcher, 0)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
                 let result = value(batcher);
                 expect(result).not.toBe(arr);
@@ -200,16 +200,16 @@ describe('Array exports', () => {
                 expect(2 in result).toBe(false);
                 expect(0 in result).toBe(false);
                 expect(3 in result).toBe(false);
-                expect(arrLength(batcher)).toBe(0);                        
+                expect(_arrLength(batcher)).toBe(0);                        
             })                   
             
             it('should trim array of 5 items to 0 with negative index', () => {
                 let arr = ['a', 'b', 'c', 'd', 'e'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, -5)).not.toThrow();
+                expect(() => _arrSetLength(batcher, -5)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
                 let result = value(batcher);
                 expect(result).not.toBe(arr);
@@ -217,16 +217,16 @@ describe('Array exports', () => {
                 expect(2 in result).toBe(false);
                 expect(0 in result).toBe(false);
                 expect(3 in result).toBe(false);
-                expect(arrLength(batcher)).toBe(0);                        
+                expect(_arrLength(batcher)).toBe(0);                        
             })              
 
             it('should trim array of 5 items to 0 with negative index overflow', () => {
                 let arr = ['a', 'b', 'c', 'd', 'e'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, -49)).not.toThrow();
+                expect(() => _arrSetLength(batcher, -49)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
                 let result = value(batcher);
                 expect(result).not.toBe(arr);
@@ -234,16 +234,16 @@ describe('Array exports', () => {
                 expect(2 in result).toBe(false);
                 expect(0 in result).toBe(false);
                 expect(3 in result).toBe(false);
-                expect(arrLength(batcher)).toBe(0);                        
+                expect(_arrLength(batcher)).toBe(0);                        
             })
 
             it('should reuse array in 2nd change', () => {
                 let arr = ['a', 'b', 'c', 'd', 'e'];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(5);
+                expect(_arrLength(batcher)).toBe(5);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, -1)).not.toThrow();
+                expect(() => _arrSetLength(batcher, -1)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
                 let result = value(batcher);
                 expect(result).not.toBe(arr);
@@ -251,8 +251,8 @@ describe('Array exports', () => {
                 expect(5 in result).toBe(false);
                 expect(3 in result).toBe(true);
                 expect(4 in result).toBe(false);
-                expect(arrLength(batcher)).toBe(4);     
-                expect(() => arrSetLength(batcher, -1)).not.toThrow();                
+                expect(_arrLength(batcher)).toBe(4);     
+                expect(() => _arrSetLength(batcher, -1)).not.toThrow();                
                 let result2 = value(batcher);
                 expect(result).not.toBe(arr);
                 expect(result2).toBe(result);
@@ -262,21 +262,21 @@ describe('Array exports', () => {
             it('should not change empty array after 2 changes', () => {
                 let arr: void[] = [];
                 let batcher = useArrayBatcher(arr);
-                expect(arrLength(batcher)).toBe(0);
+                expect(_arrLength(batcher)).toBe(0);
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
-                expect(() => arrSetLength(batcher, 0)).not.toThrow();
+                expect(() => _arrSetLength(batcher, 0)).not.toThrow();
                 expect(value(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot1);
-                expect(arrLength(batcher)).toBe(0);  
+                expect(_arrLength(batcher)).toBe(0);  
 
                 let snapshot2 = cloneValue(batcher);
                 expect(snapshot2).not.toBe(arr);
                 expect(snapshot2).not.toBe(snapshot1);
-                expect(() => arrSetLength(batcher, 0)).not.toThrow();
+                expect(() => _arrSetLength(batcher, 0)).not.toThrow();
                 expect(value(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot2);
-                expect(arrLength(batcher)).toBe(0);  
+                expect(_arrLength(batcher)).toBe(0);  
             })
 
         })
@@ -286,14 +286,14 @@ describe('Array exports', () => {
         it('should filter the items', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
-            arrFilter(batcher, (i) => i % 2 === 0)
+            _arrFilter(batcher, (i) => i % 2 === 0)
             let s1 = value(batcher);
             expect(s1).not.toBe(arr);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
             expect(arr.length).toEqual(7);
             expect(s1).toEqual([2, 84, 122, 126]);
 
-            arrFilter(batcher, (i) => i > 50);
+            _arrFilter(batcher, (i) => i > 50);
             let s2 = value(batcher);
             expect(s2).toBe(s1);
             expect(s2).toEqual([84, 122, 126]);
@@ -307,7 +307,7 @@ describe('Array exports', () => {
         it('should not change the array', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
-            arrFilter(batcher, (i) => i < 1000)
+            _arrFilter(batcher, (i) => i < 1000)
             let s1 = value(batcher);
             expect(s1).toBe(arr);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
@@ -315,7 +315,7 @@ describe('Array exports', () => {
             expect(s1).toEqual([1, 2, 5, 3, 84, 122, 126]);
             expect(s1.length).toEqual(7);
 
-            arrFilter(batcher, (i) => i > -55);
+            _arrFilter(batcher, (i) => i > -55);
             let s2 = value(batcher);
             expect(s2).toBe(s1);
             expect(s1).toBe(arr);
@@ -332,14 +332,14 @@ describe('Array exports', () => {
         it('should map the items', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
-            let batcher2 = arrMap(batcher, (i) => i % 2 === 0)
+            let batcher2 = _arrMap(batcher, (i) => i % 2 === 0)
             expect(value(batcher2)).not.toBe(arr);
             expect(batcher).toBe(batcher2);
             expect(value(batcher2)).toEqual([false, true, false, false, true, true, true]);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
 
-            let batcher3 = arrMap(batcher2, (i) => i ? 1 : 0)
+            let batcher3 = _arrMap(batcher2, (i) => i ? 1 : 0)
             expect(value(batcher3)).toBe(value(batcher2));
             expect(value(batcher2)).not.toBe(arr);
             expect(value(batcher3)).not.toBe(arr);

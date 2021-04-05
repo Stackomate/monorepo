@@ -9,6 +9,7 @@ interface Batch {
     <Z, A, B, C>(a: Batcher<Z>, f1: (a: Batcher<Z>) => A, f2: Fn<A, B>, f3: Fn<B, C>): C;
     <Z, A, B, C, D>(a: Batcher<Z>, f1: (a: Batcher<Z>) => A, f2: Fn<A, B>, f3: Fn<B, C>, f4: Fn<C, D>): D;
     <Z, A, B, C, D, E>(a: Batcher<Z>, f1: (a: Batcher<Z>) => A, f2: Fn<A, B>, f3: Fn<B, C>, f4: Fn<C, D>, f5: Fn<D, E>): E;
+    <Z, A, B, C, D, E, F>(a: Batcher<Z>, f1: (a: Batcher<Z>) => A, f2: Fn<A, B>, f3: Fn<B, C>, f4: Fn<C, D>, f5: Fn<D, E>, f6: Fn<E, F>): F;    
     <Z>(a: Batcher<Z>) : Batcher<Z>
     <Q>(...args: any) : Q
 }

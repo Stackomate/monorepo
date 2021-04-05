@@ -1,12 +1,12 @@
 import { Batcher } from '../batcher';
-import { arrForEach } from './array-operations';
+import { _arrForEach } from './array-operations';
 
 
 export const arrMapForUnlocked = <T, U>(batcher: Batcher<Array<T>>, fn: (a: T) => U): Batcher<Array<U>> => {
     let changed = false;
 
     let arrResult = batcher.currentValue as Array<T | U>;
-    arrForEach(batcher, (item, index) => {
+    _arrForEach(batcher, (item, index) => {
         let itemResult = fn(item);
         if ((item as any) !== (itemResult as any)) {
             changed = true;

@@ -1,10 +1,10 @@
 import { Batcher } from '../batcher';
-import { arrForEach } from './array-operations';
+import { _arrForEach } from './array-operations';
 
 export function arrFilterForLocked<T>(batcher: Batcher<T[]>, fn: (a: T) => boolean) {
     const result: Array<T> = [];
     let hasChanged = false;
-    arrForEach(batcher, item => {
+    _arrForEach(batcher, item => {
         if (fn(item)) {
             result.push(item);
         } else {
