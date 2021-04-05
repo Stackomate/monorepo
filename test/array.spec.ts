@@ -1,5 +1,5 @@
 import { useArrayBatcher } from "../src/array/array-batcher"
-import { _arrFilter, _arrIndexAt, _arrLastIndex, _arrLength, _arrMap, _arrSetLength } from "../src/array/array-operations";
+import { _arrFilter, _arrIndexAt, _arrLastIndex, _arrLength, _arrMap, _arrSetLength, _arrRemove, _arrTrimLength, _arrDel, _arrAt, _arrInsert } from "../src/array/array-operations";
 import { arrFilterForLocked } from "../src/array/filter-for-locked";
 import { arrFilterForUnlocked } from "../src/array/filter-for-unlocked";
 import { arrMapForLocked } from "../src/array/map-for-locked";
@@ -368,8 +368,99 @@ describe('Array exports', () => {
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]); 
             expect(value(batcher3)).toEqual(arr);
         })
-    })    
+    })
+    
+    describe ('remove', () => {
+        describe('in a empty array', () => {
+            it('should not change array', ()=>{
+                let emptyArr: number[] = [];
+                let batcher = useArrayBatcher(emptyArr);
+                let r1 = _arrRemove(batcher,2);
+                expect(value(r1)).toBe(emptyArr)
+            })    
+        })
+        describe('in a non-empty array', () =>{
+            it('should remove the index of array referenced', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = useArrayBatcher(arr);
+                let r1 = _arrRemove(batcher, 2);
+                expect(value(r1)).toEqual([1, 4, 9, 15]);
+                expect(value(r1)).not.toBe(arr);
+            })
+
+            it('should remove the index of array referenced, with a negative index', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = useArrayBatcher(arr);
+                let r1 = _arrRemove(batcher,-2);
+                expect(value(r1)).toEqual([1, 4, 7, 15]);
+                expect(value(r1)).not.toBe(arr);
+            })
+
+            it('should not change the array', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = useArrayBatcher(arr);
+                let r1 = _arrRemove(batcher, 7);
+                expect(value(r1)).toEqual([1, 4, 7, 9, 15]);
+                expect(value(r1)).toBe(arr);
+            })    
+        })
+       
+    })
+    describe ('trimLength', () => {
+        
+        describe('in a non-empty array', () => {
+            it('should remove all undefined positions of array', () => {
+                let arr = [1, 5, 8, 19, 22];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrSetLength(batcher, 10);
+                expect(value(batcher2)).not.toBe(arr);
+                batcher2 = _arrTrimLength(batcher);
+                expect(value(batcher2)).toEqual([1, 5, 8, 19, 22]);
+            })
+        })
+    })
+
+    describe('del', () => {
+        it('should has a undefined value on a deleted position', () => {
+            let arr = [1, 2, 5, 3, 84, 122, 126];
+            let batcher = useArrayBatcher(arr);
+            let batcher2 = _arrDel(batcher, 3);
+            expect(value(batcher2)).not.toBe(arr);
+            expect(value(batcher2)).toEqual([1, 2, 5, undefined, 84, 122, 126]);
+        })
+    })
+
+    describe('at', () => {
+        it('should return the item in the positions referenced', () => {
+            let arr = [1, 2, 5, 3, 84, 122, 126];
+            let batcher = useArrayBatcher(arr);
+            let item = _arrAt(batcher, 3);
+            expect(item).toBe(arr[3]);
+            expect(item).toEqual(3);
+        })
+    })
+
+    describe('at', () => {
+        it('should return the item in the positions referenced', () => {
+            let arr = [1, 2, 5, 3, 84, 122, 126];
+            let batcher = useArrayBatcher(arr);
+            let item = _arrAt(batcher, 3);
+            expect(item).toBe(arr[3]);
+            expect(item).toEqual(3);
+        })
+    })
+
+    describe('insert', () => {
+        it('should insert a item in a especified index', () => {
+            let arr = [1, 2, 5, 3, 84, 122, 126];
+            let batcher = useArrayBatcher(arr);
+            let batcher2 = _arrInsert(batcher, 3, 5);
+            expect(value(batcher2)).not.toBe(arr);
+            expect(value(batcher2)).toEqual([1, 2, 5, 5, 3, 84, 122, 126]);
+        })
+    })
 });
+
 
 describe('Array protected methods', () => {
     describe('filterForUnlocked', () => {
