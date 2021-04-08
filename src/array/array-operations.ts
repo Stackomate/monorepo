@@ -4,6 +4,7 @@ import { arrFilterForLocked } from './filter-for-locked';
 import { arrFilterForUnlocked } from './filter-for-unlocked';
 import { arrMapForLocked } from './map-for-locked';
 import { arrMapForUnlocked } from './map-for-unlocked';
+import { batch } from '../batch-fn';
 
 /** Returns the index corresponding to an input number.
  * If number >= 0, index will be the number itself.
@@ -62,7 +63,7 @@ const _arrPositiveIndexDefined = <T>(batcher: Batcher<Array<T>>, index: number) 
 /**
  * Check whether an array index is not void. Negative indexes will count backwards from end of the array.
  */
-const _arrIndexDefined = <T>(batcher: Batcher<Array<T>>, index: number) : boolean => {
+export const _arrIndexDefined = <T>(batcher: Batcher<Array<T>>, index: number) : boolean => {
     return _arrPositiveIndexDefined(batcher, _arrIndexAt(batcher, index));
 }
 
@@ -94,7 +95,7 @@ export const _arrPush = <T>(batcher: Batcher<Array<T>>, item: T) : Batcher<Array
  */
 export const _arrTrimLength = <T>(batcher: Batcher<Array<T>>) : Batcher<Array<T>> => {
     let i = _arrLastIndex(batcher);
-    while (!_arrPositiveIndexDefined(batcher, i) && (i > 0)) {
+    while (!_arrPositiveIndexDefined(batcher, i) && (i >= 0)) {
         batcher.willChange();
         batcher.currentValue.length = i;
         i = i - 1;
@@ -137,9 +138,12 @@ export const _arrRemove = <T>(batcher: Batcher<Array<T>>, index: number) : Batch
  */
 export const _arrInsert = <T>(batcher: Batcher<Array<T>>, index: number, item: T) : Batcher<Array<T>> => {
     /* TODO: Reuse other functions */
-    let i = _arrIndexAt(batcher, index);
+    let i = _arrIndexAt(batcher, index);   
     if (i >= 0) {
         batcher.willChange();
+        if(i > batcher.currentValue.length - 1){
+            batcher.currentValue.length = i;
+        }
         batcher.currentValue.splice(index, 0, item);
     }
     return batcher;
