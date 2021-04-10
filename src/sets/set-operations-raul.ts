@@ -1,5 +1,8 @@
 import { Batcher } from "/home/raul/Desktop/stackomate/data-structures/src/batcher";
 //import { setMapForUnlocked } from "/home/raul/Desktop/stackomate/data-structures/src/sets/map-for-locked;
+import { setFilterForLocked } from './filter-for-locked';
+import { setFilterForUnlocked } from './filter-for-unlocked';
+import { useSetBatcher } from "../set-batcher";
 
 //TODO: make a size for batchers of sets
 
@@ -48,8 +51,9 @@ export const _setAdd = <T>(batcher: Batcher<Set<T>>, item: T): Batcher<Set<T>> =
     return batcher;
 }
 
-export const _setUnion = <T>(batcher: Batcher<Set<T>>, set: Set<T>): Batcher<Set<T>> => {
-    set.forEach(value => {
+export const _setUnion = <T>(batcher: Batcher<Set<T>>, set1: Set<T>, set2:Set<T>): Batcher<Set<T>> => {
+    batcher = useSetBatcher(set1);
+    set2.forEach(value => {
         _setAdd(batcher, value);
     });
     return batcher;
@@ -63,8 +67,12 @@ export const _setRemove = <T>(batcher: Batcher<Set<T>>, item: T): Batcher<Set<T>
     return batcher;
 }
 //TODO left difference and right difference
-export const _setDifference = <T>(batcher: Batcher<Set<T>>, set: Set<T>): Batcher<Set<T>> => {
-    set.forEach(value => {
+export const _setDifference = <T>(batcher: Batcher<Set<T>>, set1: Set<T>, set2: Set<T>): Batcher<Set<T>> => {
+    useSetBatcher(set1);
+    set1.forEach(value => {
+        _setRemove(batcher, value);
+    });
+    set2.forEach(value => {
         _setRemove(batcher, value);
     });
     return batcher;
@@ -114,13 +122,13 @@ export const _isSubSet = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => {
     return true;
 }
 
-export const _isSuperSet = <T>(set1: Set<T>, set2: Set<T>): boolean => {
+export const _isSuperSet = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => {
     //a smaller set cant be a super set of a bigger set
-    if(set1.size < set2.size)
+    if(set1.currentValue.size < set2.size)
     return false;
 
     for (const value of set2) {
-        if(!set1.has(value))
+        if(!set1.currentValue.has(value))
         return false;
     }
     return true;
@@ -179,17 +187,33 @@ export const _setMap = <T,V>(batcher: Batcher<Set<T>>, fn: (value: T, set: Set<T
     return batcher_;
 }
 
-// export const _setFind = <T>(batcher: Batcher<Set<T>>, fn: (value: T) => boolean): T => {
-//     for(let item in batcher.currentValue){
-//         if(fn(item)){
-//             return item;
-//         }
-//     }
+//TODO: verify with Rafael
+export const _setFind = <T, V>(batcher: Batcher<Set<T>>, fn: (value: T) => boolean): any => {
+    for(let item in batcher.currentValue){
+        if(fn(item as unknown as T)){
+            return item;
+        }
+    }
+}
+
+// export const _setProductCartesian = <T>(batcher: Batcher<Set<T>>, set: Set<T>): Batcher<Set<T>> => {
+//     let batcher_ = batcher;
+//     const result: Set<T> = new Set();
+//     batcher.currentValue.forEach(element => {
+//         set.forEach(elementSet => {
+//             result.add([element, elementSet]);
+//         });
+//     });
+//     batcher.willChange();
+//     batcher_.currentValue = result; 
+//     return batcher_;
 // }
-//TODO: setFilterForUnlocked and setFilterForLocked
-// export const _setFilter= <T>(batcher: Batcher<Set<T>>, fn: (a: T) => boolean) : Batcher<Set<T>> => {
-//     if (batcher.isUnlocked) {
-//         return setFilterForUnlocked(batcher, fn);
-//     }
-//     return setFilterForLocked<T>(batcher, fn);
-// }
+
+export type FilterFn<T> = (value: T, map: Set<T>) => boolean
+
+export const _mapFilter = <T>(batcher: Batcher<Set<T>>, fn: FilterFn<T>) : Batcher<Set<T>> => {
+    if (batcher.isUnlocked) {
+        return setFilterForUnlocked(batcher, fn);
+    }
+    return setFilterForLocked(batcher, fn);
+}
