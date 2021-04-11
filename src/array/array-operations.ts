@@ -4,6 +4,7 @@ import { arrFilterForLocked } from './filter-for-locked';
 import { arrFilterForUnlocked } from './filter-for-unlocked';
 import { arrMapForLocked } from './map-for-locked';
 import { arrMapForUnlocked } from './map-for-unlocked';
+import { batch } from '../batch-fn';
 
 /** Returns the index corresponding to an input number.
  * If number >= 0, index will be the number itself.
@@ -48,7 +49,7 @@ export const _arrLastIndex = <T>(batcher: Batcher<Array<T>>) : number => {
  * Returns item located in desired array index. 
  * Allows for negative indexes to count backwards from end of the array.
  */
-const _arrAt = <T>(batcher: Batcher<Array<T>>, index: number) : T => {
+export const _arrAt = <T>(batcher: Batcher<Array<T>>, index: number) : T => {
     return batcher.currentValue[_arrIndexAt(batcher, index)];
 }
 
@@ -62,7 +63,7 @@ const _arrPositiveIndexDefined = <T>(batcher: Batcher<Array<T>>, index: number) 
 /**
  * Check whether an array index is not void. Negative indexes will count backwards from end of the array.
  */
-const _arrIndexDefined = <T>(batcher: Batcher<Array<T>>, index: number) : boolean => {
+export const _arrIndexDefined = <T>(batcher: Batcher<Array<T>>, index: number) : boolean => {
     return _arrPositiveIndexDefined(batcher, _arrIndexAt(batcher, index));
 }
 
@@ -92,9 +93,9 @@ export const _arrPush = <T>(batcher: Batcher<Array<T>>, item: T) : Batcher<Array
  * Reduce the array length until a non-void item is found.
  * This is useful for updating the length after using the delete method.
  */
-const _arrTrimLength = <T>(batcher: Batcher<Array<T>>) : Batcher<Array<T>> => {
+export const _arrTrimLength = <T>(batcher: Batcher<Array<T>>) : Batcher<Array<T>> => {
     let i = _arrLastIndex(batcher);
-    while (!_arrPositiveIndexDefined(batcher, i) && (i > 0)) {
+    while (!_arrPositiveIndexDefined(batcher, i) && (i >= 0)) {
         batcher.willChange();
         batcher.currentValue.length = i;
         i = i - 1;
@@ -107,7 +108,7 @@ const _arrTrimLength = <T>(batcher: Batcher<Array<T>>) : Batcher<Array<T>> => {
  * This will not change the array length.
  *  
  */
-const _arrDel = <T>(batcher: Batcher<Array<T>>, index: number) : Batcher<Array<T>> => {
+export const _arrDel = <T>(batcher: Batcher<Array<T>>, index: number) : Batcher<Array<T>> => {
     let i = _arrIndexAt(batcher, index);
     if (_arrPositiveIndexDefined(batcher, i)) {
         batcher.willChange();
@@ -122,7 +123,7 @@ const _arrDel = <T>(batcher: Batcher<Array<T>>, index: number) : Batcher<Array<T
  * Remove an item from the array in the specified index.
  * Next items will slide back to fill the void from removed item.
  */
-const _arrRemove = <T>(batcher: Batcher<Array<T>>, index: number) : Batcher<Array<T>> => {
+export const _arrRemove = <T>(batcher: Batcher<Array<T>>, index: number) : Batcher<Array<T>> => {
     let i = _arrIndexAt(batcher, index);
     if (_arrPositiveIndexDefined(batcher, i)) {
         batcher.willChange();
@@ -135,11 +136,14 @@ const _arrRemove = <T>(batcher: Batcher<Array<T>>, index: number) : Batcher<Arra
  * Insert an item into the array in the specified index.
  * Next items will slide forward to make room for added item.
  */
-const _arrInsert = <T>(batcher: Batcher<Array<T>>, index: number, item: T) : Batcher<Array<T>> => {
+export const _arrInsert = <T>(batcher: Batcher<Array<T>>, index: number, item: T) : Batcher<Array<T>> => {
     /* TODO: Reuse other functions */
-    let i = _arrIndexAt(batcher, index);
+    let i = _arrIndexAt(batcher, index);   
     if (i >= 0) {
         batcher.willChange();
+        if(i > batcher.currentValue.length - 1){
+            batcher.currentValue.length = i;
+        }
         batcher.currentValue.splice(index, 0, item);
     }
     return batcher;

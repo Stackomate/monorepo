@@ -1,5 +1,5 @@
 import { useArrayBatcher } from "../src/array/array-batcher"
-import { _arrFilter, _arrIndexAt, _arrLastIndex, _arrLength, _arrMap, _arrSetLength } from "../src/array/array-operations";
+import { _arrFilter, _arrIndexAt, _arrLastIndex, _arrLength, _arrMap, _arrSetLength, _arrRemove, _arrTrimLength, _arrDel, _arrAt, _arrInsert, _arrIndexDefined } from "../src/array/array-operations";
 import { arrFilterForLocked } from "../src/array/filter-for-locked";
 import { arrFilterForUnlocked } from "../src/array/filter-for-unlocked";
 import { arrMapForLocked } from "../src/array/map-for-locked";
@@ -368,8 +368,216 @@ describe('Array exports', () => {
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]); 
             expect(value(batcher3)).toEqual(arr);
         })
-    })    
+    })
+    
+    describe ('remove', () => {
+        describe('in a empty array', () => {
+            it('should not change array', ()=>{
+                let emptyArr: number[] = [];
+                let batcher = useArrayBatcher(emptyArr);
+                let r1 = _arrRemove(batcher,2);
+                expect(value(r1)).toBe(emptyArr)
+            })    
+        })
+        describe('in a non-empty array', () =>{
+            it('should remove the index of array referenced', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = useArrayBatcher(arr);
+                let r1 = _arrRemove(batcher, 2);
+                expect(value(r1)).toEqual([1, 4, 9, 15]);
+                expect(value(r1)).not.toBe(arr);
+            })
+
+            it('should remove the index of array referenced, with a negative index', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = useArrayBatcher(arr);
+                let r1 = _arrRemove(batcher,-2);
+                expect(value(r1)).toEqual([1, 4, 7, 15]);
+                expect(value(r1)).not.toBe(arr);
+            })
+
+            it('should not change the array', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = useArrayBatcher(arr);
+                let r1 = _arrRemove(batcher, 7);
+                expect(value(r1)).toEqual([1, 4, 7, 9, 15]);
+                expect(value(r1)).toBe(arr);
+            })    
+        })
+       
+    })
+    describe ('trimLength', () => {   
+        describe('in a non-empty array', () => {
+            it('should remove all undefined positions of array', () => {
+                let arr = [1, 5, 8, 19, 22];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrSetLength(batcher, 10);
+                expect(value(batcher2)).not.toBe(arr);
+                batcher2 = _arrTrimLength(batcher);
+                expect(value(batcher2)).toEqual([1, 5, 8, 19, 22]);
+            })
+        })
+        describe('in a empty array', () => {
+            it('should remove all undefined positions of array and return a empty array', () => {
+                let emptyArr : number[] = [];
+                let batcher = useArrayBatcher(emptyArr);
+                let batcher2 = _arrSetLength(batcher, 3);
+                expect(value(batcher2)).not.toBe(emptyArr);
+                batcher2 = _arrTrimLength(batcher);
+                expect(value(batcher2)).toEqual([]);
+            })
+        })
+    })
+
+    describe('del', () => {
+        describe('non-empty array', () => {
+            it('should use a positive index and has a undefined value on a deleted position', () => {
+                let arr = [1, 2, 5, 3, 84, 122, 126];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrDel(batcher, 3);
+                expect(value(batcher2)).not.toBe(arr);
+                expect(value(batcher2)).toEqual([1, 2, 5, undefined, 84, 122, 126]);
+            })
+
+            it('should use a negative index and has a undefined value on a deleted position', () => {
+                let arr = [1, 8, 11, 32, 4, 122, 149];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrDel(batcher, -2);
+                expect(value(batcher2)).not.toBe(arr);
+                expect(value(batcher2)).toEqual([1, 8, 11, 32, 4, undefined, 149]);
+            })
+            
+            it('should use a index out of range and has a toBe = true for batcher and array', () => {
+                let arr = [1, 8, 11, 32, 4, 122, 149];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrDel(batcher, 9);
+                expect(value(batcher2)).toBe(arr);
+                expect(value(batcher2)).toEqual([1, 8, 11, 32, 4, 122, 149]);
+            })
+
+
+        })
+        describe('empty array', () => {
+            it('should to be true with array and batcher', () => {
+                let emptyArr : number[] = [];
+                let batcher = useArrayBatcher(emptyArr);
+                let batcher2 = _arrDel(batcher, 2);
+                expect(value(batcher2)).toBe(emptyArr);
+            })
+        })
+    })
+
+    describe('at', () => {    
+        describe('non-empty arrays', () => {
+            it('should return the item in a positive index referenced', () => {
+                let arr = [1, 2, 5, 3, 84, 122, 126];
+                let batcher = useArrayBatcher(arr);
+                let item = _arrAt(batcher, 4);
+                expect(item).toBe(arr[4]);
+                expect(item).toEqual(84);
+            })
+
+            it('should return the item in a negative index referenced', () => {
+                let arr = [1, 2, 5, 3, 84, 122, 126];
+                let batcher = useArrayBatcher(arr);
+                let item = _arrAt(batcher, -2);
+                expect(item).toBe(arr[5]);
+                expect(item).toEqual(122);
+            })
+
+            it('should return the item undefined in a index out of array', () => {
+                let arr = [1, 2, 5, 3, 84, 122, 126];
+                let batcher = useArrayBatcher(arr);
+                let item = _arrAt(batcher, 10);
+                expect(item).toBe(undefined);
+                expect(item).toEqual(undefined);
+            })
+        })
+        describe('empty array', () => {
+            it('should return the item in a positive index referenced', () => {
+                let emptyArr : number[] = [];
+                let batcher = useArrayBatcher(emptyArr);
+                let item = _arrAt(batcher, 5);
+                expect(item).toBe(undefined);
+            })
+        })
+        
+    })
+
+    describe('insert', () => {    
+        describe('non-empty array',() => {
+            it('should insert a item in a especified positive index', () => {
+                let arr = [1, 2, 5, 3, 84, 122, 126];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrInsert(batcher, 3, 5);
+                expect(value(batcher2)).not.toBe(arr);
+                expect(value(batcher2)).toEqual([1, 2, 5, 5, 3, 84, 122, 126]);
+            })
+            it('should insert a item in a especified negative index', () => {
+                let arr = [1, 2, 8, 32, 128, 256];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrInsert(batcher, -2, 64);
+                expect(value(batcher2)).not.toBe(arr);
+                expect(value(batcher2)).toEqual([1, 2, 8, 32, 64, 128, 256]);
+            })
+            it('should insert a item in a especified index', () => {
+                let arr = [1, 2, 8, 32, 128, 256];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrInsert(batcher, 0, 64);
+                expect(value(batcher2)).not.toBe(arr);
+                expect(value(batcher2)).toEqual([64, 1, 2, 8, 32, 128, 256]);
+            })
+            
+            it('should insert a item in a index out of range', () => {
+                let arr = [1, 2, 8, 32, 128, 256];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrInsert(batcher, 8, 64);
+                expect(value(batcher2)).not.toBe(arr);
+                expect(value(batcher2)).toEqual([1, 2, 8, 32, 128, 256, undefined, undefined, 64]);
+            })
+        })
+    })
+
+    describe('index defined', () => {
+        describe('should verify a positive index', () => {
+            it('should verify a index not void', () => {
+                let arr = [1, 2, 5, 3, 84, 122, 126];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrIndexDefined(batcher, 3);
+                expect(batcher2).toEqual(true);
+            })
+            it('should verify a index is void in a index out of range', () => {
+                let arr = [1, 2];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrIndexDefined(batcher, 3);
+                expect(batcher2).toEqual(false);
+            })
+            it('should verify a index is void in a void array', () => {
+                let emptyArr: number[] = [];
+                let batcher = useArrayBatcher(emptyArr);
+                let batcher2 = _arrIndexDefined(batcher, 3);
+                expect(batcher2).toEqual(false);
+            })
+        })
+        describe('should verify a negative index', () => {
+            it('should verify a index not void', () => {
+                let arr = [1, 2, 5, 3, 84, 122, 126];
+                let batcher = useArrayBatcher(arr);
+                let batcher2 = _arrIndexDefined(batcher, -3);
+                expect(batcher2).toEqual(true);
+            })
+            it('should verify a negative index is void in a void array', () => {
+                let emptyArr: number[] = [];
+                let batcher = useArrayBatcher(emptyArr);
+                let batcher2 = _arrIndexDefined(batcher, -3);
+                expect(batcher2).toEqual(false);
+            })
+        })
+    })
+
+
 });
+
 
 describe('Array protected methods', () => {
     describe('filterForUnlocked', () => {
