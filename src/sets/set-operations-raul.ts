@@ -1,4 +1,4 @@
-import { Batcher } from "/home/raul/Desktop/stackomate/data-structures/src/batcher";
+import { Batcher } from '../batcher';
 //import { setMapForUnlocked } from "/home/raul/Desktop/stackomate/data-structures/src/sets/map-for-locked;
 import { setFilterForLocked } from './filter-for-locked';
 import { setFilterForUnlocked } from './filter-for-unlocked';
@@ -134,7 +134,7 @@ export const _isSuperSet = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => 
     return true;
 }
 
-export const _setsymetricDifference = <T>(batcher: Batcher<Set<T>>, set1: Set<T>, set2: Set<T>): Batcher<Set<T>> => {
+export const _setSymmetricDifference = <T>(batcher: Batcher<Set<T>>, set1: Set<T>, set2: Set<T>): Batcher<Set<T>> => {
     let biggerSet = set1;
     let smallerSet = set2;
     

@@ -1,5 +1,5 @@
 import { _arrFilter, useArrayBatcher } from "../src/array"
-import { $arrFilter, arrFilter, arrMap, arrPush, arrSet, arrSetLength, arrSpread } from "../src/array/pipeables";
+import { $arrFilter, arrFilter, arrLength, arrMap, arrPush, arrSet, arrSetLength, arrSpread } from "../src/array/pipeables";
 import { Batcher, value } from "../src/batcher";
 import { batch } from "../src/batch-fn";
 

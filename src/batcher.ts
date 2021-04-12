@@ -24,37 +24,39 @@ export class Batcher<T> {
         public cloneFn: (a: T) => T
     ) { 
         this.currentValue = initialValue;
+        this.isUnlocked = mutateInitial;
     }
 
     hasChanged = false;
+    isUnlocked = false;
 
     /* TODO: Join with similar function, but preserve performance */
     willChange() {
         if (this.isUnlocked) {
-            this.currentValue = this.currentValue;
             this.hasChanged = true;
             return false;            
         } else {
             this.currentValue = this.cloneFn(this.initialValue);
+            this.isUnlocked = true;
             this.hasChanged = true;
             return true;
         }
     }
 
     willChangeWithoutCloning() {
-        if (this.isUnlocked) {
-            this.currentValue = this.currentValue;
+        if (this.isUnlocked) {        
             this.hasChanged = true;
             return false;            
         } else {
             this.currentValue = this.initialValue;
+            this.isUnlocked = true;            
             this.hasChanged = true;
             return false;
         }
-    }    
+    }
 
-    get isUnlocked() {
-        return this.hasChanged || this.mutateInitial === true;
+    lock() {
+        this.isUnlocked = false;
     }
 }
 

@@ -2,7 +2,7 @@ import {add, filter, remove} from '../src/set-operations';
 import { Batcher } from '../src/batcher';
 import { cloneSet, useSetBatcher } from "../src/set-batcher";
 
-describe('SetOperations', () => {
+xdescribe('SetOperations', () => {
     describe('add', () => {
         describe('1 operation', () => {
             describe('mutable', () => {
