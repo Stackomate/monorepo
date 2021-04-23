@@ -133,7 +133,7 @@ describe('map exports', () => {
 
     })
 
-    describe('deletar', () => {
+    describe('delete', () => {
         it('should remove a value of a referenced key myMap', () => {
             let myMap = new Map([['a', 1], ['b', 2], ['c', 3], ['d', 4], ['e', 5]]);
             let batcher = useMapBatcher(myMap);
