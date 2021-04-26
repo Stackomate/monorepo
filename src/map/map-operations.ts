@@ -3,7 +3,7 @@ import { mapFilterForLocked } from './filter-for-locked';
 import { mapFilterForUnlocked } from './filter-for-unlocked';
 
 /** This symbol represents the absence of an argument for value parameter */
-const NO_VALUE_SYMBOL = Symbol('NO_VALUE_SYMBOL');
+export const NO_VALUE_SYMBOL = Symbol('NO_VALUE_SYMBOL');
 
 /** Returns if the Map contains a key 
  * Optionally, if passed a value, will check if the exact (key, value) pair exists

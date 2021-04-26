@@ -4,7 +4,6 @@ import { arrFilterForLocked } from './filter-for-locked';
 import { arrFilterForUnlocked } from './filter-for-unlocked';
 import { arrMapForLocked } from './map-for-locked';
 import { arrMapForUnlocked } from './map-for-unlocked';
-import { batch } from '../batch-fn';
 
 /** Returns the index corresponding to an input number.
  * If number >= 0, index will be the number itself.
@@ -56,7 +55,7 @@ export const _arrAt = <T>(batcher: Batcher<Array<T>>, index: number) : T => {
 /**
  * Check whether an array index is not void. Only accepts positive indexes.
  */
-const _arrPositiveIndexDefined = <T>(batcher: Batcher<Array<T>>, index: number) : boolean => {
+export const _arrPositiveIndexDefined = <T>(batcher: Batcher<Array<T>>, index: number) : boolean => {
     return index in batcher.currentValue;
 }
 
