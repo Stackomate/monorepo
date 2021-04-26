@@ -95,6 +95,7 @@ export const _arrPush = <T>(batcher: Batcher<Array<T>>, item: T) : Batcher<Array
  */
 export const _arrTrimLength = <T>(batcher: Batcher<Array<T>>) : Batcher<Array<T>> => {
     let i = _arrLastIndex(batcher);
+    /* TODO: Optimize */
     while (!_arrPositiveIndexDefined(batcher, i) && (i >= 0)) {
         batcher.willChange();
         batcher.currentValue.length = i;
@@ -126,6 +127,7 @@ export const _arrDel = <T>(batcher: Batcher<Array<T>>, index: number) : Batcher<
 export const _arrRemove = <T>(batcher: Batcher<Array<T>>, index: number) : Batcher<Array<T>> => {
     let i = _arrIndexAt(batcher, index);
     if (_arrPositiveIndexDefined(batcher, i)) {
+        /* TODO: Optimize with will change without cloning */
         batcher.willChange();
         batcher.currentValue.splice(i, 1);
     }
