@@ -2,7 +2,6 @@ import { batch } from "../src/batch-fn"
 import { Batcher } from "../src/batcher"
 import { useMapBatcher } from "../src/map/map-batcher"
 import {_mapClear, _mapDelete, _mapEntries, _mapFilter, _mapForEach, _mapGet, _mapHas, _mapKeys, _mapMap, _mapSet, _mapSize, _mapSpread, _mapValues } from "../src/map/map-operations"
-import { useSetBatcher } from "../src/set-batcher"
 
 
 describe('map exports', () => {

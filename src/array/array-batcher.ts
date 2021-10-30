@@ -2,7 +2,7 @@ import { Batcher } from "../batcher";
 
 export const cloneArray = <T>(initial: Array<T>) => [...initial];
 
-export const createBatcher = <T>(target: Array<T>, mutate: boolean = false) => {
+const createBatcher = <T>(target: Array<T>, mutate: boolean = false) => {
     return new Batcher(target, mutate, cloneArray);
 };
 interface Prepare {

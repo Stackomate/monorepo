@@ -2,7 +2,7 @@ import { Batcher } from "../batcher";
 
 export const cloneMap = <T, S>(initial: Map<T, S>) => new Map(initial);
 
-export const createBatcher = <T, S>(target: Map<T, S>, mutate: boolean = false) => {
+const createBatcher = <T, S>(target: Map<T, S>, mutate: boolean = false) => {
     return new Batcher(target, mutate, cloneMap);
 };
 interface Prepare {

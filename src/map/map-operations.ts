@@ -80,12 +80,12 @@ export const _mapClear = <T, U>(batcher: Batcher<Map<T, U>>): Batcher<Map<T,U>> 
     return batcher;
 }
 
-export type ForEachFn<T, U> = (key: T, value: U, map: Map<T, U>) => void;
+export type MapForEachFn<T, U> = (key: T, value: U, map: Map<T, U>) => void;
 /**
  * Check whether an array index is not void. Negative indexes will count backwards from end of the array.
  * Note: Passed function will be called with (key, value, map) argument order
  */
-export const _mapForEach = <T, U>(batcher: Batcher<Map<T, U>>, fn: ForEachFn<T, U>): Batcher<Map<T, U>> => {
+export const _mapForEach = <T, U>(batcher: Batcher<Map<T, U>>, fn: MapForEachFn<T, U>): Batcher<Map<T, U>> => {
     /* Inverted ordering of key, value arguments */
     batcher.currentValue.forEach((value, key, map) => fn(key, value, map));
     return batcher;
@@ -102,9 +102,9 @@ export const _mapSpread = <T, U>(batcher: Batcher<Map<T, U>>, copyMaps: Batcher<
     return batcher;
 }
 
-export type FilterFn<T, U> = (key: T, value: U, map: Map<T, U>) => boolean
+export type MapFilterFn<T, U> = (key: T, value: U, map: Map<T, U>) => boolean
 
-export const _mapFilter = <T, U>(batcher: Batcher<Map<T, U>>, fn: FilterFn<T, U>) : Batcher<Map<T, U>> => {
+export const _mapFilter = <T, U>(batcher: Batcher<Map<T, U>>, fn: MapFilterFn<T, U>) : Batcher<Map<T, U>> => {
     if (batcher.isUnlocked) {
         return mapFilterForUnlocked(batcher, fn);
     }

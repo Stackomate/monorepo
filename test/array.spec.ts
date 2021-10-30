@@ -4,7 +4,7 @@ import { arrFilterForLocked } from "../src/array/filter-for-locked";
 import { arrFilterForUnlocked } from "../src/array/filter-for-unlocked";
 import { arrMapForLocked } from "../src/array/map-for-locked";
 import { arrMapForUnlocked } from "../src/array/map-for-unlocked";
-import { cloneValue, value } from "../src/batcher";
+import { cloneValue, value } from "../src/utils";
 
 describe('Array exports', () => {
     describe('indexAt', () => {

@@ -43,9 +43,9 @@ export const _objDelete = <T extends Object, K extends keyof T>(batcher: Batcher
     return batcher;
 }
 
-export type ForEachFn<T extends Object> = (key: keyof T, value: T[keyof T], obj: T) => void;
+export type ObjForEachFn<T extends Object> = (key: keyof T, value: T[keyof T], obj: T) => void;
 
-export const _objForEach = <T extends Object>(batcher: Batcher<T>, fn: ForEachFn<T>): Batcher<T> => {
+export const _objForEach = <T extends Object>(batcher: Batcher<T>, fn: ObjForEachFn<T>): Batcher<T> => {
 
     let obj = batcher.currentValue;
     Object.keys(obj).forEach(key => fn(key as keyof T, obj[key as keyof T], obj));

@@ -1,8 +1,7 @@
-import { Batcher, value } from '../batcher';
-//import { setMapForUnlocked } from "/home/raul/Desktop/stackomate/data-structures/src/sets/map-for-locked;
+import { Batcher } from '../batcher';
 import { setFilterForLocked } from './filter-for-locked';
 import { setFilterForUnlocked } from './filter-for-unlocked';
-import { useSetBatcher } from "../set-batcher";
+import { useSetBatcher } from "./set-batcher";
 
 //TODO: make a size for batchers of sets
 
@@ -234,9 +233,9 @@ export const _setCartesianProduct = <T, U>(batcher: Batcher<Set<T>>, set: Set<U>
     return batcher_;
 }
 
-export type FilterFn<T> = (value: T, set: Set<T>) => boolean
+export type SetFilterFn<T> = (value: T, set: Set<T>) => boolean
 
-export const _setFilter = <T>(batcher: Batcher<Set<T>>, fn: FilterFn<T>): Batcher<Set<T>> => {
+export const _setFilter = <T>(batcher: Batcher<Set<T>>, fn: SetFilterFn<T>): Batcher<Set<T>> => {
     if (batcher.isUnlocked) {
         return setFilterForUnlocked(batcher, fn);
     }

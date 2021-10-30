@@ -1,5 +1,5 @@
 import { Batcher } from "../batcher";
-import { FilterFn, ForEachFn, NO_VALUE_SYMBOL, _mapClear, _mapDelete, _mapEntries, _mapFilter, _mapForEach, _mapGet, _mapHas, _mapKeys, _mapMap, _mapSet, _mapSize, _mapSpread, _mapValues } from "./map-operations";
+import { MapFilterFn, MapForEachFn, NO_VALUE_SYMBOL, _mapClear, _mapDelete, _mapEntries, _mapFilter, _mapForEach, _mapGet, _mapHas, _mapKeys, _mapMap, _mapSet, _mapSize, _mapSpread, _mapValues } from "./map-operations";
 
 export const mapHas = <T, U>(key: T, value: U | typeof NO_VALUE_SYMBOL = NO_VALUE_SYMBOL) => (batcher: Batcher<Map<T, U>>): boolean => _mapHas(batcher, key, value);
 export const $mapHas = <T, U>(batcher: Batcher<Map<T, U>>) => (key: T, value: U | typeof NO_VALUE_SYMBOL = NO_VALUE_SYMBOL) : boolean => _mapHas(batcher, key, value);
@@ -28,14 +28,14 @@ export const $mapClear = <T, U> (batcher: Batcher<Map<T, U>>) => () : Batcher<Ma
 export const mapDelete = <T, U> (key: T, value: U | typeof NO_VALUE_SYMBOL = NO_VALUE_SYMBOL) => (batcher: Batcher<Map<T, U>>) : Batcher<Map<T, U>> => _mapDelete(batcher, key, value);
 export const $mapDelete = <T, U> (batcher: Batcher<Map<T, U>>) => (key: T, value: U | typeof NO_VALUE_SYMBOL = NO_VALUE_SYMBOL) : Batcher<Map<T, U>> => _mapDelete(batcher, key, value);
 
-export const mapForEach = <T, U> (fn: ForEachFn<T, U>) => (batcher: Batcher<Map<T, U>>) : Batcher<Map<T, U>> => _mapForEach(batcher, fn);
-export const $mapForEach = <T, U> (batcher: Batcher<Map<T, U>>) => (fn: ForEachFn<T, U>) : Batcher<Map<T, U>> => _mapForEach(batcher, fn);
+export const mapForEach = <T, U> (fn: MapForEachFn<T, U>) => (batcher: Batcher<Map<T, U>>) : Batcher<Map<T, U>> => _mapForEach(batcher, fn);
+export const $mapForEach = <T, U> (batcher: Batcher<Map<T, U>>) => (fn: MapForEachFn<T, U>) : Batcher<Map<T, U>> => _mapForEach(batcher, fn);
 
 export const mapSpread = <T, U> (...copyMaps: Batcher<Map<T, U>>[]) => (batcher: Batcher<Map<T, U>>) => _mapSpread(batcher, copyMaps);
 export const $mapSpread = <T, U> (batcher: Batcher<Map<T, U>>) => (...copyMaps: Batcher<Map<T, U>>[]) => _mapSpread(batcher, copyMaps);
 
-export const mapFilter = <T, U> (fn: FilterFn<T, U>) => (batcher: Batcher<Map<T, U>>) : Batcher<Map<T, U>> => _mapFilter(batcher, fn);
-export const $mapFilter = <T, U> (batcher: Batcher<Map<T, U>>) => (fn: FilterFn<T, U>) : Batcher<Map<T, U>> => _mapFilter(batcher, fn); 
+export const mapFilter = <T, U> (fn: MapFilterFn<T, U>) => (batcher: Batcher<Map<T, U>>) : Batcher<Map<T, U>> => _mapFilter(batcher, fn);
+export const $mapFilter = <T, U> (batcher: Batcher<Map<T, U>>) => (fn: MapFilterFn<T, U>) : Batcher<Map<T, U>> => _mapFilter(batcher, fn); 
 
 export const mapMap = <T, U, V, W>(fn: (key: T, value: U, map: Map<T, U>) => [V, W]) => (batcher: Batcher<Map<T, U>>) : Batcher<Map<V, W>> => _mapMap(batcher, fn);
 export const $mapMap = <T, U, V, W> (batcher: Batcher<Map<T, U>>) => (fn: (key: T, value: U, map: Map<T, U>) => [V, W]) : Batcher<Map<V, W>> => _mapMap(batcher, fn);

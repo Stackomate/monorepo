@@ -1,5 +1,5 @@
 import {Batcher} from './batcher';
-import { useSetBatcher } from "./set-batcher";
+import { useSetBatcher } from "./sets/set-batcher";
 
 type addWithTarget<T> = {target: Set<T>, item: T, mutate?: boolean};
 type addWithBatcher<T> = {item: T, batcher: Batcher<Set<T>>};

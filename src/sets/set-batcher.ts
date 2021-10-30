@@ -1,8 +1,8 @@
-import { Batcher } from "./batcher";
+import { Batcher } from "../batcher";
 
 export const cloneSet = <T>(initial: Set<T>) => new Set<T>(initial);
 
-export const createBatcher = <T>(target: Set<T>, mutate: boolean = false) => {
+const createBatcher = <T>(target: Set<T>, mutate: boolean = false) => {
     return new Batcher(target, mutate, cloneSet);
 };
 interface Prepare {

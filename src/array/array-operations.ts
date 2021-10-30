@@ -4,6 +4,7 @@ import { arrFilterForLocked } from './filter-for-locked';
 import { arrFilterForUnlocked } from './filter-for-unlocked';
 import { arrMapForLocked } from './map-for-locked';
 import { arrMapForUnlocked } from './map-for-unlocked';
+import { forEachYield } from './for-each-yield';
 
 /** Returns the index corresponding to an input number.
  * If number >= 0, index will be the number itself.
@@ -150,10 +151,50 @@ export const _arrInsert = <T>(batcher: Batcher<Array<T>>, index: number, item: T
     return batcher;
 }
 
+
+/* IMPORTANT: There are differences between forEach and for of */
+/*
+let arr = [1, 2, 3]
+arr.forEach(i => arr.push(i + 2))
+
+let arr = [1, 2, 3]
+for (let i of arr) {
+    arr.push(i + 2)
+}
+
+*/
+
 /** Loop through items of the array and apply a given function to each of them. */
 export const _arrForEach = <T>(batcher: Batcher<Array<T>>, fn: (a: T, index: number, array: Array<T>) => void) : Batcher<Array<T>> => {
     batcher.currentValue.forEach(fn);
     return batcher;
+}
+
+export const BREAK = Symbol('BREAK');
+
+/** Similar to _arrForEach, but allows the loop to break by returning BREAK symbol.
+ * This is similar to for of with _arrIteratorForEach, by has the limitation of not being able to stop the main function execution from within the callback function.
+ */
+export const _arrForEachWithBreak = <T>(batcher: Batcher<Array<T>>, fn: (a: T, index: number, array: Array<T>) => void | typeof BREAK) : Batcher<Array<T>> => {
+    for (let [item, index, arr] of _arrIteratorForEach(batcher)) {
+        let result = fn(item, index, arr);
+        if (result === BREAK) {
+            return batcher;
+        } 
+    }
+    return batcher;
+}
+
+/** Similar to _arrForEachWithBreak, but returns a summary of what happened inside of the array
+ */
+export const _arrForEachWithBreakAndSummary = <T>(batcher: Batcher<Array<T>>, fn: (a: T, index: number, array: Array<T>) => void | typeof BREAK) : [Batcher<Array<T>>, {success: true} | {success: false, item: T, index: number, arr: T[]}] => {
+    for (let [item, index, arr] of _arrIteratorForEach(batcher)) {
+        let result = fn(item, index, arr);
+        if (result === BREAK) {
+            return [batcher, {success: false, item, index, arr}];
+        } 
+    }
+    return [batcher, {success: true}];
 }
 
 
@@ -181,4 +222,151 @@ export const _arrMap = <T, U>(batcher: Batcher<Array<T>>, fn: (a: T) => U) : Bat
         return arrMapForUnlocked(batcher, fn);
     }
     return arrMapForLocked(batcher, fn);    
+}
+
+export const _arrEntries = <T>(batcher: Batcher<Array<T>>) : IterableIterator<[number, T]> => {
+    return batcher.currentValue.entries();
+}
+
+export const _arrValues = <T>(batcher: Batcher<Array<T>>) : IterableIterator<T> => {
+    return batcher.currentValue.values();
+}
+
+export const _arrIterator = _arrValues;
+
+/* 2 differences: does not include empty indexes, and maybe should not loop forever (only includes initial items?) */
+
+/* forEach stops in the length of the original array */
+/* TODO: Use the polyfill and add yield for the fn call (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach#Modifying_the_array_during_iteration) */
+export const _arrIteratorForEach = <T>(batcher: Batcher<Array<T>>) : IterableIterator<[T, number, T[]]> => {
+    return forEachYield(batcher.currentValue);
+}
+/* TODO: Compare this with set foreach https://tc39.es/ecma262/#sec-set.prototype.foreach */
+
+/* If you choose forEach iterator, the loop is guaranteed to stop and will skip empty slots in the array. Otherwise, default iterator will be used */
+/* TODO: Create function maybe stop, that stops batcher steps similar to a return statement */
+/* TODO: BATCHER SHOULD BE A FUNCTION THAT STORES THE CLASS AS A PROPERTY? Performance issues vs flexibility */
+// https://stackoverflow.com/questions/36871299/how-to-extend-function-with-es6-classes
+// https://stackoverflow.com/questions/19335983/can-you-make-an-object-callable
+/* Notice that forEach traverses only defined keys, while for of does not */
+/* 
+
+maybeContinue/shouldContinue or maybeReturn/shouldReturn
+ifElse()
+
+return maybeUpdate() || maybeInsert()
+
+b.run(
+    breakOnReturn(
+        arrForEachWithBreak((item, index, arr) => {
+                if (findOne(item, index, arr)) {
+                    _arrSetIndex(b, index, fn(item, index, arr))
+                    return BREAK;
+                }
+        }),
+        
+        pass(() => {
+            batcher;
+        })
+    )
+)
+
+OR 
+
+    for (let item of _arrIterate(batcher)) { //iterate needs to be like forEach, not like default forOf
+        if (findOne(item, index, arr)) {
+            _arrSetIndex(batcher, index, fn(item, index, arr))
+            return batcher;
+        }
+    });
+
+    _arrPush(batcher, fallback(_arrLength(batcher), batcher.currentValue));
+    return batcher;
+
+OR
+
+    let [stopped, b] = _arrMaybeForEach(batcher, (item, index, arr) => {
+        if (findOne(item, index, arr)) {
+            _arrSetIndex(batcher, index, fn(item, index, arr))
+            return false;
+        }
+    });
+
+    if (stopped) batcher;
+
+    _arrPush(batcher, fallback(_arrLength(batcher), batcher.currentValue));
+    return batcher;
+
+*/
+
+/* Find traverses empty slots */
+export const _arrFind = <T>(batcher: Batcher<Array<T>>, fn: (item: T, index: number, array: Array<T>) => boolean) => {
+    return batcher.currentValue.find(fn);
+}
+
+export const _arrFindWithForEach = <T>(batcher: Batcher<Array<T>>, fn: (item: T, index: number, array: Array<T>) => boolean) => {
+    for (let [item, index, arr] of _arrIteratorForEach(batcher)) {
+        if (fn(item, index, arr)) {
+            return item;
+        }
+    }
+    return undefined;
+}
+
+
+
+/* TODO: Add option for function to include empty slots */
+/**
+ * Attempt to find the first element that satifisfies the condition and apply a function to it.
+ * If not found, fallback to result of fallback function.
+ * Unline _arrUpsertWithFind, this method uses the forEach iterator, which always finishes and skips empty slots
+ * @param batcher 
+ * @param findOne 
+ * @param fn 
+ * @param fallback 
+ * @returns 
+ */
+export const _arrUpsertWithFindWithForEach = <T>(
+    batcher: Batcher<Array<T>>, 
+    findOne: (item: T, index: number, array: Array<T>) => boolean,
+    fn: (item: T, index: number, array: Array<T>) => T, 
+    fallback: (index: number, array: Array<T>) => T
+) => {
+    for (let [item, index, arr] of _arrIteratorForEach(batcher)) {
+        if (findOne(item, index, arr)) {
+            _arrSetIndex(batcher, index, fn(item, index, arr))
+            return batcher;
+        }
+    };
+
+    _arrPush(batcher, fallback(_arrLength(batcher), batcher.currentValue));
+    return batcher;
+}
+
+export const _arrUpsertWithFind = <T>(
+    batcher: Batcher<Array<T>>, 
+    findOne: (item: T, index: number, array: Array<T>) => boolean,
+    fn: (item: T, index: number, array: Array<T>) => T, 
+    fallback: (index: number, array: Array<T>) => T
+) => {
+    let arr = batcher.currentValue;
+    for (let [index, item] of _arrEntries(batcher)) {
+        if (findOne(item, index, arr)) {
+            _arrSetIndex(batcher, index, fn(item, index, arr))
+            return batcher;
+        }
+    };
+
+    _arrPush(batcher, fallback(_arrLength(batcher), batcher.currentValue));
+    return batcher;
+}
+
+export const _arrUpsert =  <T>(
+    batcher: Batcher<Array<T>>, 
+    item: T,
+    fn: (item: T, index: number, array: Array<T>) => T, 
+    fallback: (index: number, array: Array<T>) => T,
+    useDefaultIterator: boolean = true
+) => {
+    return (useDefaultIterator ? _arrUpsertWithFind : _arrUpsertWithFindWithForEach) (batcher, (i) => i === item, fn, fallback);
 }

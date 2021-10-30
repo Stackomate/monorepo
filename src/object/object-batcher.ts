@@ -2,8 +2,7 @@ import { Batcher } from "../batcher";
 
 export const cloneObject = <T extends Object>(initial: T): T => ({...initial});
 
-
-export const createBatcher = <T extends Object>(target: T, mutate: boolean = false) => {
+const createBatcher = <T extends Object>(target: T, mutate: boolean = false) => {
     return new Batcher(target, mutate, cloneObject);
 };
 interface Prepare {
