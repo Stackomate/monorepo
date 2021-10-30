@@ -5,3 +5,4 @@ export * from './map';
 export * from './object';
 export * from './sets';
 export * from './utils';
+export * from './json/filter/filter';
