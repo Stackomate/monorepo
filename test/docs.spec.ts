@@ -1,6 +1,7 @@
 import { _arrFilter, useArrayBatcher } from "../src/array"
-import { $arrFilter, arrFilter, arrLength, arrMap, arrPush, arrSet, arrSetLength, arrSpread } from "../src/array/pipeables";
-import { Batcher, value, forkAndLock } from "../src/batcher";
+import { $arrFilter, arrFilter, arrLength, arrMap, arrPush, arrSetLength, arrSpread } from "../src/array/pipeables";
+import { Batcher } from "../src/batcher";
+import { value, forkAndLock } from "../src/utils";
 import { batch } from "../src/batch-fn";
 
 /* 4 ways of calling operations:
@@ -24,11 +25,11 @@ describe('documentation', () => {
     describe('example 1', () => {
         it ('should not clone array', () => {
             const batcherA = useArrayBatcher([1, 2, 3, 4]);
-            batcherA.batch(
+            batcherA.run(
                 arrFilter(i => i % 2 === 1)
             )
             const novoBatcher = forkAndLock(batcherA);
-            novoBatcher.batch(
+            novoBatcher.run(
                 arrFilter(i => i < 3)
             )
             // console.log(value(batcherA)) // [1, 3]
