@@ -1,6 +1,6 @@
-import { Batcher } from "../src/batcher"
-import { useObjectBatcher } from "../src/object/object-batcher"
-import {_objGet, _objHas, _objSet, _objKeys, _objValues, _objEntries, _objClear, _objDelete, _objForEach, _objSpread, _objMap} from "../src/object/object-operations"
+import { Batcher } from "../batcher"
+import { useObjectBatcher } from "./object-batcher"
+import {_objGet, _objHas, _objSet, _objKeys, _objValues, _objEntries, _objClear, _objDelete, _objForEach, _objSpread, _objMap} from "./object-operations"
 
 describe('obj exports', () => {
     describe('has', () => {

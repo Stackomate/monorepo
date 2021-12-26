@@ -1,7 +1,7 @@
-import { BinarySearchTree } from "../src/trees/binary-search-tree"
-import { createBinarySearchTreeBatcher } from "../src/trees/binary-search-tree-batcher"
-import { BinaryTreeNode } from "../src/trees/binary-tree-node"
-import { btrAdd, btrInorderIterator, btrIsEmpty, _btrIsEmpty } from "../src/trees/tree-operations"
+import { BinarySearchTree } from "./binary-search-tree"
+import { createBinarySearchTreeBatcher } from "./binary-search-tree-batcher"
+import { BinaryTreeNode } from "./binary-tree-node"
+import { btrAdd, btrInorderIterator, btrIsEmpty, _btrIsEmpty } from "./tree-operations"
 
 describe('Binary Tree exports - mutable', () => {
     describe('add', () => {

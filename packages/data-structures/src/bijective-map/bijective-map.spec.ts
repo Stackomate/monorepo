@@ -1,4 +1,4 @@
-import { BijectiveMap } from '../src/data-structures'
+import { BijectiveMap } from '../data-structures'
 
 describe('BijectiveMap', () => {
   describe('new', () => {

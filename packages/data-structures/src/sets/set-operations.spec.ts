@@ -1,6 +1,6 @@
-import {add, filter, remove} from '../src/set-operations';
-import { Batcher } from '../src/batcher';
-import { cloneSet, useSetBatcher } from "../src/sets/set-batcher";
+import {add, filter, remove} from '../set-operations';
+import { Batcher } from '../batcher';
+import { cloneSet, useSetBatcher } from "./set-batcher";
 
 xdescribe('SetOperations', () => {
     describe('add', () => {
