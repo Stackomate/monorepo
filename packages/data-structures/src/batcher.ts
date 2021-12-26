@@ -21,7 +21,7 @@ export class Batcher<T> {
     constructor(
         public initialValue: T,
         public mutateInitial: boolean,
-        public cloneFn: (a: T) => T
+        public cloneFn: (a: T, batcher: Batcher<T>) => T
     ) { 
         this.currentValue = initialValue;
         this.isUnlocked = mutateInitial;
@@ -36,7 +36,7 @@ export class Batcher<T> {
             this.hasChanged = true;
             return false;            
         } else {
-            this.currentValue = this.cloneFn(this.currentValue || this.initialValue);
+            this.currentValue = this.cloneFn(this.currentValue || this.initialValue, this);
             this.isUnlocked = true;
             this.hasChanged = true;
             return true;

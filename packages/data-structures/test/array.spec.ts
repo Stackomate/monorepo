@@ -4,7 +4,7 @@ import { arrFilterForLocked } from "../src/array/filter-for-locked";
 import { arrFilterForUnlocked } from "../src/array/filter-for-unlocked";
 import { arrMapForLocked } from "../src/array/map-for-locked";
 import { arrMapForUnlocked } from "../src/array/map-for-unlocked";
-import { cloneValue, value } from "../src/utils";
+import { cloneValue, getValue } from "../src/utils";
 
 describe('Array exports', () => {
     describe('indexAt', () => {
@@ -105,7 +105,7 @@ describe('Array exports', () => {
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, 5)).not.toThrow();
-                expect(value(batcher)).toBe(arr);
+                expect(getValue(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot1);
                 expect(_arrLength(batcher)).toBe(5);
             })
@@ -117,7 +117,7 @@ describe('Array exports', () => {
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, 0)).not.toThrow();
-                expect(value(batcher)).toBe(arr);
+                expect(getValue(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot1);
                 expect(_arrLength(batcher)).toBe(0);                
             })
@@ -129,7 +129,7 @@ describe('Array exports', () => {
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, -55)).not.toThrow();
-                expect(value(batcher)).toBe(arr);
+                expect(getValue(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot1);
                 expect(_arrLength(batcher)).toBe(0);                          
             })
@@ -142,7 +142,7 @@ describe('Array exports', () => {
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, 7)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
-                let result = value(batcher);
+                let result = getValue(batcher);
                 expect(result).not.toBe(arr);
                 expect(result).toEqual(['a', 'b', 'c', 'd', 'e', undefined, undefined]);
                 expect(6 in result).toBe(false);
@@ -160,7 +160,7 @@ describe('Array exports', () => {
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, 3)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
-                let result = value(batcher);
+                let result = getValue(batcher);
                 expect(result).not.toBe(arr);
                 expect(result).toEqual(['a', 'b', 'c']);
                 expect(2 in result).toBe(true);
@@ -177,7 +177,7 @@ describe('Array exports', () => {
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, -2)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
-                let result = value(batcher);
+                let result = getValue(batcher);
                 expect(result).not.toBe(arr);
                 expect(result).toEqual(['a', 'b', 'c']);
                 expect(2 in result).toBe(true);
@@ -194,7 +194,7 @@ describe('Array exports', () => {
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, 0)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
-                let result = value(batcher);
+                let result = getValue(batcher);
                 expect(result).not.toBe(arr);
                 expect(result).toEqual([]);
                 expect(2 in result).toBe(false);
@@ -211,7 +211,7 @@ describe('Array exports', () => {
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, -5)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
-                let result = value(batcher);
+                let result = getValue(batcher);
                 expect(result).not.toBe(arr);
                 expect(result).toEqual([]);
                 expect(2 in result).toBe(false);
@@ -228,7 +228,7 @@ describe('Array exports', () => {
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, -49)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
-                let result = value(batcher);
+                let result = getValue(batcher);
                 expect(result).not.toBe(arr);
                 expect(result).toEqual([]);
                 expect(2 in result).toBe(false);
@@ -245,7 +245,7 @@ describe('Array exports', () => {
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, -1)).not.toThrow();
                 expect(arr).toEqual(snapshot1);
-                let result = value(batcher);
+                let result = getValue(batcher);
                 expect(result).not.toBe(arr);
                 expect(result).toEqual(['a', 'b', 'c', 'd']);
                 expect(5 in result).toBe(false);
@@ -253,7 +253,7 @@ describe('Array exports', () => {
                 expect(4 in result).toBe(false);
                 expect(_arrLength(batcher)).toBe(4);     
                 expect(() => _arrSetLength(batcher, -1)).not.toThrow();                
-                let result2 = value(batcher);
+                let result2 = getValue(batcher);
                 expect(result).not.toBe(arr);
                 expect(result2).toBe(result);
                 expect(result).toEqual(['a', 'b', 'c']);
@@ -266,7 +266,7 @@ describe('Array exports', () => {
                 let snapshot1 = cloneValue(batcher);
                 expect(snapshot1).not.toBe(arr);
                 expect(() => _arrSetLength(batcher, 0)).not.toThrow();
-                expect(value(batcher)).toBe(arr);
+                expect(getValue(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot1);
                 expect(_arrLength(batcher)).toBe(0);  
 
@@ -274,7 +274,7 @@ describe('Array exports', () => {
                 expect(snapshot2).not.toBe(arr);
                 expect(snapshot2).not.toBe(snapshot1);
                 expect(() => _arrSetLength(batcher, 0)).not.toThrow();
-                expect(value(batcher)).toBe(arr);
+                expect(getValue(batcher)).toBe(arr);
                 expect(arr).toEqual(snapshot2);
                 expect(_arrLength(batcher)).toBe(0);  
             })
@@ -287,14 +287,14 @@ describe('Array exports', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             _arrFilter(batcher, (i) => i % 2 === 0)
-            let s1 = value(batcher);
+            let s1 = getValue(batcher);
             expect(s1).not.toBe(arr);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
             expect(arr.length).toEqual(7);
             expect(s1).toEqual([2, 84, 122, 126]);
 
             _arrFilter(batcher, (i) => i > 50);
-            let s2 = value(batcher);
+            let s2 = getValue(batcher);
             expect(s2).toBe(s1);
             expect(s2).toEqual([84, 122, 126]);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
@@ -308,7 +308,7 @@ describe('Array exports', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             _arrFilter(batcher, (i) => i < 1000)
-            let s1 = value(batcher);
+            let s1 = getValue(batcher);
             expect(s1).toBe(arr);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
             expect(arr.length).toEqual(7);
@@ -316,7 +316,7 @@ describe('Array exports', () => {
             expect(s1.length).toEqual(7);
 
             _arrFilter(batcher, (i) => i > -55);
-            let s2 = value(batcher);
+            let s2 = getValue(batcher);
             expect(s2).toBe(s1);
             expect(s1).toBe(arr);
             expect(s2).toEqual([1, 2, 5, 3, 84, 122, 126]);
@@ -333,18 +333,18 @@ describe('Array exports', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             let batcher2 = _arrMap(batcher, (i) => i % 2 === 0)
-            expect(value(batcher2)).not.toBe(arr);
+            expect(getValue(batcher2)).not.toBe(arr);
             expect(batcher).toBe(batcher2);
-            expect(value(batcher2)).toEqual([false, true, false, false, true, true, true]);
+            expect(getValue(batcher2)).toEqual([false, true, false, false, true, true, true]);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
 
             let batcher3 = _arrMap(batcher2, (i) => i ? 1 : 0)
-            expect(value(batcher3)).toBe(value(batcher2));
-            expect(value(batcher2)).not.toBe(arr);
-            expect(value(batcher3)).not.toBe(arr);
-            expect(value(batcher2)).toEqual([0, 1, 0, 0, 1, 1, 1]);
-            expect(value(batcher3)).toEqual([0, 1, 0, 0, 1, 1, 1]);            
+            expect(getValue(batcher3)).toBe(getValue(batcher2));
+            expect(getValue(batcher2)).not.toBe(arr);
+            expect(getValue(batcher3)).not.toBe(arr);
+            expect(getValue(batcher2)).toEqual([0, 1, 0, 0, 1, 1, 1]);
+            expect(getValue(batcher3)).toEqual([0, 1, 0, 0, 1, 1, 1]);            
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);    
         })
@@ -353,20 +353,20 @@ describe('Array exports', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             let batcher2 = arrMapForUnlocked(batcher, i => i)
-            expect(value(batcher2)).toBe(arr);
+            expect(getValue(batcher2)).toBe(arr);
             expect(batcher).toBe(batcher2);
-            expect(value(batcher2)).toEqual(arr);
+            expect(getValue(batcher2)).toEqual(arr);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
 
             let batcher3 = arrMapForUnlocked(batcher, i => i)
-            expect(value(batcher3)).toBe(arr);
+            expect(getValue(batcher3)).toBe(arr);
             expect(batcher).toBe(batcher2);
             expect(batcher3).toBe(batcher2);
-            expect(value(batcher3)).toEqual(arr);
+            expect(getValue(batcher3)).toEqual(arr);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]); 
-            expect(value(batcher3)).toEqual(arr);
+            expect(getValue(batcher3)).toEqual(arr);
         })
     })
     
@@ -376,7 +376,7 @@ describe('Array exports', () => {
                 let emptyArr: number[] = [];
                 let batcher = useArrayBatcher(emptyArr);
                 let r1 = _arrRemove(batcher,2);
-                expect(value(r1)).toBe(emptyArr)
+                expect(getValue(r1)).toBe(emptyArr)
             })    
         })
         describe('in a non-empty array', () =>{
@@ -384,24 +384,24 @@ describe('Array exports', () => {
                 let arr = [1, 4, 7, 9, 15];
                 let batcher = useArrayBatcher(arr);
                 let r1 = _arrRemove(batcher, 2);
-                expect(value(r1)).toEqual([1, 4, 9, 15]);
-                expect(value(r1)).not.toBe(arr);
+                expect(getValue(r1)).toEqual([1, 4, 9, 15]);
+                expect(getValue(r1)).not.toBe(arr);
             })
 
             it('should remove the index of array referenced, with a negative index', () => {
                 let arr = [1, 4, 7, 9, 15];
                 let batcher = useArrayBatcher(arr);
                 let r1 = _arrRemove(batcher,-2);
-                expect(value(r1)).toEqual([1, 4, 7, 15]);
-                expect(value(r1)).not.toBe(arr);
+                expect(getValue(r1)).toEqual([1, 4, 7, 15]);
+                expect(getValue(r1)).not.toBe(arr);
             })
 
             it('should not change the array', () => {
                 let arr = [1, 4, 7, 9, 15];
                 let batcher = useArrayBatcher(arr);
                 let r1 = _arrRemove(batcher, 7);
-                expect(value(r1)).toEqual([1, 4, 7, 9, 15]);
-                expect(value(r1)).toBe(arr);
+                expect(getValue(r1)).toEqual([1, 4, 7, 9, 15]);
+                expect(getValue(r1)).toBe(arr);
             })    
         })
        
@@ -412,9 +412,9 @@ describe('Array exports', () => {
                 let arr = [1, 5, 8, 19, 22];
                 let batcher = useArrayBatcher(arr);
                 let batcher2 = _arrSetLength(batcher, 10);
-                expect(value(batcher2)).not.toBe(arr);
+                expect(getValue(batcher2)).not.toBe(arr);
                 batcher2 = _arrTrimLength(batcher);
-                expect(value(batcher2)).toEqual([1, 5, 8, 19, 22]);
+                expect(getValue(batcher2)).toEqual([1, 5, 8, 19, 22]);
             })
         })
         describe('in a empty array', () => {
@@ -422,9 +422,9 @@ describe('Array exports', () => {
                 let emptyArr : number[] = [];
                 let batcher = useArrayBatcher(emptyArr);
                 let batcher2 = _arrSetLength(batcher, 3);
-                expect(value(batcher2)).not.toBe(emptyArr);
+                expect(getValue(batcher2)).not.toBe(emptyArr);
                 batcher2 = _arrTrimLength(batcher);
-                expect(value(batcher2)).toEqual([]);
+                expect(getValue(batcher2)).toEqual([]);
             })
         })
     })
@@ -435,24 +435,24 @@ describe('Array exports', () => {
                 let arr = [1, 2, 5, 3, 84, 122, 126];
                 let batcher = useArrayBatcher(arr);
                 let batcher2 = _arrDel(batcher, 3);
-                expect(value(batcher2)).not.toBe(arr);
-                expect(value(batcher2)).toEqual([1, 2, 5, undefined, 84, 122, 126]);
+                expect(getValue(batcher2)).not.toBe(arr);
+                expect(getValue(batcher2)).toEqual([1, 2, 5, undefined, 84, 122, 126]);
             })
 
             it('should use a negative index and has a undefined value on a deleted position', () => {
                 let arr = [1, 8, 11, 32, 4, 122, 149];
                 let batcher = useArrayBatcher(arr);
                 let batcher2 = _arrDel(batcher, -2);
-                expect(value(batcher2)).not.toBe(arr);
-                expect(value(batcher2)).toEqual([1, 8, 11, 32, 4, undefined, 149]);
+                expect(getValue(batcher2)).not.toBe(arr);
+                expect(getValue(batcher2)).toEqual([1, 8, 11, 32, 4, undefined, 149]);
             })
             
             it('should use a index out of range and has a toBe = true for batcher and array', () => {
                 let arr = [1, 8, 11, 32, 4, 122, 149];
                 let batcher = useArrayBatcher(arr);
                 let batcher2 = _arrDel(batcher, 9);
-                expect(value(batcher2)).toBe(arr);
-                expect(value(batcher2)).toEqual([1, 8, 11, 32, 4, 122, 149]);
+                expect(getValue(batcher2)).toBe(arr);
+                expect(getValue(batcher2)).toEqual([1, 8, 11, 32, 4, 122, 149]);
             })
 
 
@@ -462,7 +462,7 @@ describe('Array exports', () => {
                 let emptyArr : number[] = [];
                 let batcher = useArrayBatcher(emptyArr);
                 let batcher2 = _arrDel(batcher, 2);
-                expect(value(batcher2)).toBe(emptyArr);
+                expect(getValue(batcher2)).toBe(emptyArr);
             })
         })
     })
@@ -510,30 +510,30 @@ describe('Array exports', () => {
                 let arr = [1, 2, 5, 3, 84, 122, 126];
                 let batcher = useArrayBatcher(arr);
                 let batcher2 = _arrInsert(batcher, 3, 5);
-                expect(value(batcher2)).not.toBe(arr);
-                expect(value(batcher2)).toEqual([1, 2, 5, 5, 3, 84, 122, 126]);
+                expect(getValue(batcher2)).not.toBe(arr);
+                expect(getValue(batcher2)).toEqual([1, 2, 5, 5, 3, 84, 122, 126]);
             })
             it('should insert a item in a especified negative index', () => {
                 let arr = [1, 2, 8, 32, 128, 256];
                 let batcher = useArrayBatcher(arr);
                 let batcher2 = _arrInsert(batcher, -2, 64);
-                expect(value(batcher2)).not.toBe(arr);
-                expect(value(batcher2)).toEqual([1, 2, 8, 32, 64, 128, 256]);
+                expect(getValue(batcher2)).not.toBe(arr);
+                expect(getValue(batcher2)).toEqual([1, 2, 8, 32, 64, 128, 256]);
             })
             it('should insert a item in a especified index', () => {
                 let arr = [1, 2, 8, 32, 128, 256];
                 let batcher = useArrayBatcher(arr);
                 let batcher2 = _arrInsert(batcher, 0, 64);
-                expect(value(batcher2)).not.toBe(arr);
-                expect(value(batcher2)).toEqual([64, 1, 2, 8, 32, 128, 256]);
+                expect(getValue(batcher2)).not.toBe(arr);
+                expect(getValue(batcher2)).toEqual([64, 1, 2, 8, 32, 128, 256]);
             })
             
             it('should insert a item in a index out of range', () => {
                 let arr = [1, 2, 8, 32, 128, 256];
                 let batcher = useArrayBatcher(arr);
                 let batcher2 = _arrInsert(batcher, 8, 64);
-                expect(value(batcher2)).not.toBe(arr);
-                expect(value(batcher2)).toEqual([1, 2, 8, 32, 128, 256, undefined, undefined, 64]);
+                expect(getValue(batcher2)).not.toBe(arr);
+                expect(getValue(batcher2)).toEqual([1, 2, 8, 32, 128, 256, undefined, undefined, 64]);
             })
         })
     })
@@ -585,7 +585,7 @@ describe('Array protected methods', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr, true);
             arrFilterForUnlocked(batcher, (i) => i % 2 === 0)
-            expect(value(batcher)).toBe(arr);
+            expect(getValue(batcher)).toBe(arr);
             expect(arr).toEqual([2, 84, 122, 126])
             expect(arr.length).toEqual(4)
         })
@@ -594,7 +594,7 @@ describe('Array protected methods', () => {
             let arr = [-12, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr, true);
             arrFilterForUnlocked(batcher, (i) => i % 2 === 0)
-            expect(value(batcher)).toBe(arr);
+            expect(getValue(batcher)).toBe(arr);
             expect(arr).toEqual([-12, 2, 84, 122, 126])
             expect(arr.length).toEqual(5);
         })
@@ -603,7 +603,7 @@ describe('Array protected methods', () => {
             let arr = [-12, 2, 5, 3, 84, 122, 1265];
             let batcher = useArrayBatcher(arr, true);
             arrFilterForUnlocked(batcher, (i) => i % 2 === 0)
-            expect(value(batcher)).toBe(arr);
+            expect(getValue(batcher)).toBe(arr);
             expect(arr).toEqual([-12, 2, 84, 122])
             expect(arr.length).toEqual(4);
         })
@@ -614,7 +614,7 @@ describe('Array protected methods', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             arrFilterForLocked(batcher, (i) => i % 2 === 0)
-            let s1 = value(batcher);
+            let s1 = getValue(batcher);
             expect(s1).not.toBe(arr);
             expect(s1).toEqual([2, 84, 122, 126]);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
@@ -626,7 +626,7 @@ describe('Array protected methods', () => {
             let arr = [-12, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             arrFilterForLocked(batcher, (i) => i % 2 === 0)
-            let s1 = value(batcher);
+            let s1 = getValue(batcher);
             expect(s1).not.toBe(arr);
             expect(s1).toEqual([-12, 2, 84, 122, 126]);
             expect(s1.length).toEqual(5);
@@ -638,7 +638,7 @@ describe('Array protected methods', () => {
             let arr = [-12, 2, 5, 3, 84, 122, 1265];
             let batcher = useArrayBatcher(arr);
             arrFilterForLocked(batcher, (i) => i % 2 === 0)
-            let s1 = value(batcher);
+            let s1 = getValue(batcher);
             expect(s1).not.toBe(arr);
             expect(s1).toEqual([-12, 2, 84, 122])
             expect(s1.length).toEqual(4);
@@ -652,9 +652,9 @@ describe('Array protected methods', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             let batcher2 = arrMapForLocked(batcher, (i) => i % 2 === 0)
-            expect(value(batcher2)).not.toBe(arr);
+            expect(getValue(batcher2)).not.toBe(arr);
             expect(batcher).toBe(batcher2);
-            expect(value(batcher2)).toEqual([false, true, false, false, true, true, true]);
+            expect(getValue(batcher2)).toEqual([false, true, false, false, true, true, true]);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
         })
@@ -663,9 +663,9 @@ describe('Array protected methods', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             let batcher2 = arrMapForLocked(batcher, i => i)
-            expect(value(batcher2)).toBe(arr);
+            expect(getValue(batcher2)).toBe(arr);
             expect(batcher).toBe(batcher2);
-            expect(value(batcher2)).toEqual(arr);
+            expect(getValue(batcher2)).toEqual(arr);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
         })
@@ -676,9 +676,9 @@ describe('Array protected methods', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             let batcher2 = arrMapForUnlocked(batcher, (i) => i % 2 === 0)
-            expect(value(batcher2)).toBe(arr);
+            expect(getValue(batcher2)).toBe(arr);
             expect(batcher).toBe(batcher2);
-            expect(value(batcher2)).toEqual([false, true, false, false, true, true, true]);
+            expect(getValue(batcher2)).toEqual([false, true, false, false, true, true, true]);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([false, true, false, false, true, true, true]);
         })
@@ -687,9 +687,9 @@ describe('Array protected methods', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = useArrayBatcher(arr);
             let batcher2 = arrMapForUnlocked(batcher, i => i)
-            expect(value(batcher2)).toBe(arr);
+            expect(getValue(batcher2)).toBe(arr);
             expect(batcher).toBe(batcher2);
-            expect(value(batcher2)).toEqual(arr);
+            expect(getValue(batcher2)).toEqual(arr);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
         })

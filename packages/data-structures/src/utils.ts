@@ -23,7 +23,7 @@ export const forkAndLock = <T>(batcher: Batcher<T>): Batcher<T> => {
     return new Batcher(batcher.currentValue, false, batcher.cloneFn);
 };
 
-export const value = <T>(batcher: Batcher<T>): T => {
+export const getValue = <T>(batcher: Batcher<T>): T => {
     return batcher.currentValue;
 };
 
@@ -32,5 +32,5 @@ export const hasChanged = <T>(batcher: Batcher<T>): boolean => {
 }
 
 export const cloneValue = <T>(batcher: Batcher<T>): T => {
-    return batcher.cloneFn(value(batcher));
+    return batcher.cloneFn(getValue(batcher), batcher);
 };

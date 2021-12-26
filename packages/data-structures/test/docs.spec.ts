@@ -1,7 +1,7 @@
 import { _arrFilter, useArrayBatcher } from "../src/array"
 import { $arrFilter, arrFilter, arrLength, arrMap, arrPush, arrSetLength, arrSpread } from "../src/array/pipeables";
 import { Batcher } from "../src/batcher";
-import { value, forkAndLock } from "../src/utils";
+import { getValue, forkAndLock } from "../src/utils";
 import { batch } from "../src/batch-fn";
 
 /* 4 ways of calling operations:
@@ -34,8 +34,8 @@ describe('documentation', () => {
             )
             // console.log(value(batcherA)) // [1, 3]
             // console.log(value(novoBatcher)) // [1]
-            expect(value(batcherA)).toEqual([1, 3]);
-            expect(value(novoBatcher)).toEqual([1]);
+            expect(getValue(batcherA)).toEqual([1, 3]);
+            expect(getValue(novoBatcher)).toEqual([1]);
         })
 
         // it ('should ', () => {
