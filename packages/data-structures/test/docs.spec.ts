@@ -1,4 +1,4 @@
-import { _arrFilter, useArrayBatcher } from "../src/array"
+import { _arrFilter, createArrayBatcher } from "../src/array"
 import { $arrFilter, arrFilter, arrLength, arrMap, arrPush, arrSetLength, arrSpread } from "../src/array/pipeables";
 import { Batcher } from "../src/batcher";
 import { getValue, forkAndLock } from "../src/utils";
@@ -24,7 +24,7 @@ import { batch } from "../src/batch-fn";
 describe('documentation', () => {
     describe('example 1', () => {
         it ('should not clone array', () => {
-            const batcherA = useArrayBatcher([1, 2, 3, 4]);
+            const batcherA = createArrayBatcher([1, 2, 3, 4]);
             batcherA.run(
                 arrFilter(i => i % 2 === 1)
             )

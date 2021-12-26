@@ -1,4 +1,4 @@
-import { useArrayBatcher } from './array-batcher';
+import { createArrayBatcher } from './array-batcher';
 import {Batcher} from '../batcher';
 import { arrFilterForLocked } from './filter-for-locked';
 import { arrFilterForUnlocked } from './filter-for-unlocked';
