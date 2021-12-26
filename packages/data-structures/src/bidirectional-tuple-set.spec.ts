@@ -1,4 +1,4 @@
-import { BidirectionalTupleSet, _btsAdd, _btsClear, _btsDelete, _btsEntries, _btsFirstKeys, _btsForEach, _btsGet, _btsHas, _btsInverseHas, _btsInvert, _btsSecondKeys, _btsToInverseMap } from '../src/data-structures'
+import { BidirectionalTupleSet, _btsAdd, _btsClear, _btsDelete, _btsEntries, _btsFirstKeys, _btsForEach, _btsGet, _btsHas, _btsInverseHas, _btsInvert, _btsSecondKeys, _btsToInverseMap } from './data-structures'
 
 describe('BidirectionalTupleSet', () => {
   describe('new', () => {

@@ -1,10 +1,10 @@
-import { useArrayBatcher } from "../src/array/array-batcher"
-import { _arrFilter, _arrIndexAt, _arrLastIndex, _arrLength, _arrMap, _arrSetLength, _arrRemove, _arrTrimLength, _arrDel, _arrAt, _arrInsert, _arrIndexDefined } from "../src/array/array-operations";
-import { arrFilterForLocked } from "../src/array/filter-for-locked";
-import { arrFilterForUnlocked } from "../src/array/filter-for-unlocked";
-import { arrMapForLocked } from "../src/array/map-for-locked";
-import { arrMapForUnlocked } from "../src/array/map-for-unlocked";
-import { cloneValue, getValue } from "../src/utils";
+import { useArrayBatcher } from "./array-batcher"
+import { _arrFilter, _arrIndexAt, _arrLastIndex, _arrLength, _arrMap, _arrSetLength, _arrRemove, _arrTrimLength, _arrDel, _arrAt, _arrInsert, _arrIndexDefined } from "./array-operations";
+import { arrFilterForLocked } from "./filter-for-locked";
+import { arrFilterForUnlocked } from "./filter-for-unlocked";
+import { arrMapForLocked } from "./map-for-locked";
+import { arrMapForUnlocked } from "./map-for-unlocked";
+import { cloneValue, getValue } from "../utils";
 
 describe('Array exports', () => {
     describe('indexAt', () => {
