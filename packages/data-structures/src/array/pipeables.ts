@@ -1,5 +1,21 @@
 import { Batcher } from "../batcher";
-import { _arrAt, _arrDel, _arrFilter, _arrForEach, _arrIndexAt, _arrIndexDefined, _arrInsert, _arrLastIndex, _arrLength, _arrMap, _arrPositiveIndexDefined, _arrPush, _arrRemove, _arrSetIndex, _arrSetLength, _arrSpread, _arrTrimLength } from "./array-operations";
+import { _arrMap } from "./operations/_arrMap";
+import { _arrFilter } from "./operations/_arrFilter";
+import { _arrSpread } from "./operations/_arrSpread";
+import { _arrForEach } from "./queries/_arrForEach";
+import { _arrInsert } from "./operations/_arrInsert";
+import { _arrRemove } from "./operations/_arrRemove";
+import { _arrDel } from "./operations/_arrDel";
+import { _arrTrimLength } from "./operations/_arrTrimLength";
+import { _arrPush } from "./operations/_arrPush";
+import { _arrSetIndex } from "./operations/_arrSetIndex";
+import { _arrIndexDefined } from "./queries/_arrIndexDefined";
+import { _arrPositiveIndexDefined } from "./queries/_arrPositiveIndexDefined";
+import { _arrAt } from "./queries/_arrAt";
+import { _arrLastIndex } from "./queries/_arrLastIndex";
+import { _arrSetLength } from "./operations/_arrSetLength";
+import { _arrLength } from "./queries/_arrLength";
+import { _arrIndexAt } from "./queries/_arrIndexAt";
 
 export const arrIndexAt = <T> (index: number) => (batcher: Batcher<Array<T>>) : number => _arrIndexAt(batcher, index);
 export const $arrIndexAt = <T> (batcher: Batcher<Array<T>>) => (index: number) : number => _arrIndexAt(batcher, index);

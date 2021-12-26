@@ -1,4 +1,4 @@
-import { arrFilterForUnlocked } from "../array/filter-for-unlocked"
+import { arrFilterForUnlocked } from "../array/operations/filter-for-unlocked"
 import { batch } from "../batch-fn"
 import { MapFilterFn } from "../map/map-operations"
 import { useSetBatcher } from "./set-batcher"

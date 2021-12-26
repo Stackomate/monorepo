@@ -1,5 +1,5 @@
-import { Batcher } from '../batcher';
-import { _arrForEach } from './array-operations';
+import { Batcher } from '../../batcher';
+import { _arrForEach } from "../queries/_arrForEach";
 
 
 export const arrMapForUnlocked = <T, U>(batcher: Batcher<Array<T>>, fn: (a: T) => U): Batcher<Array<U>> => {

@@ -1,5 +1,5 @@
-import { Batcher } from '../batcher';
-import { _arrForEach } from './array-operations';
+import { Batcher } from '../../batcher';
+import { _arrForEach } from "../queries/_arrForEach";
 
 export function arrFilterForLocked<T>(batcher: Batcher<T[]>, fn: (a: T) => boolean) {
     const result: Array<T> = [];

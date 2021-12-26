@@ -1,9 +1,20 @@
-import { createArrayBatcher } from "./array-batcher"
-import { _arrFilter, _arrIndexAt, _arrLastIndex, _arrLength, _arrMap, _arrSetLength, _arrRemove, _arrTrimLength, _arrDel, _arrAt, _arrInsert, _arrIndexDefined } from "./array-operations";
-import { arrFilterForLocked } from "./filter-for-locked";
-import { arrFilterForUnlocked } from "./filter-for-unlocked";
-import { arrMapForLocked } from "./map-for-locked";
-import { arrMapForUnlocked } from "./map-for-unlocked";
+import { createArrayBatcher } from "./batcher"
+import { _arrMap } from "./operations/_arrMap";
+import { _arrFilter } from "./operations/_arrFilter";
+import { _arrInsert } from "./operations/_arrInsert";
+import { _arrRemove } from "./operations/_arrRemove";
+import { _arrDel } from "./operations/_arrDel";
+import { _arrTrimLength } from "./operations/_arrTrimLength";
+import { _arrIndexDefined } from "./queries/_arrIndexDefined";
+import { _arrAt } from "./queries/_arrAt";
+import { _arrLastIndex } from "./queries/_arrLastIndex";
+import { _arrSetLength } from "./operations/_arrSetLength";
+import { _arrLength } from "./queries/_arrLength";
+import { _arrIndexAt } from "./queries/_arrIndexAt";
+import { arrFilterForLocked } from "./operations/filter-for-locked";
+import { arrFilterForUnlocked } from "./operations/filter-for-unlocked";
+import { arrMapForLocked } from "./operations/map-for-locked";
+import { arrMapForUnlocked } from "./operations/map-for-unlocked";
 import { cloneValue, getValue } from "../utils";
 
 describe('Array exports', () => {

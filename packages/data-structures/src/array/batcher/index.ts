@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher";
+import { Batcher } from "../../batcher";
 
 export const cloneArray = <T>(initial: Array<T>) => [...initial];
 interface CreateArrayBatcherFunction {

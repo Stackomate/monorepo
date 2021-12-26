@@ -1,3 +1,3 @@
-export * from './array-batcher'
-export * from './array-operations'
+export * from './batcher'
+export * from './operations/array-operations'
 export * from './pipeables';
