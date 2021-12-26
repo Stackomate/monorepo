@@ -31,12 +31,13 @@ export class Batcher<T> {
     isUnlocked = false;
 
     /* TODO: Join with similar function, but preserve performance */
-    willChange() {
+    /* TODO: Allow for generic typings for arguments passed */
+    willChange(...args: any[]) {
         if (this.isUnlocked) {
             this.hasChanged = true;
             return false;            
         } else {
-            this.currentValue = this.cloneFn(this.currentValue || this.initialValue, this);
+            this.currentValue = this.cloneFn(this.currentValue || this.initialValue, this, ...args);
             this.isUnlocked = true;
             this.hasChanged = true;
             return true;
