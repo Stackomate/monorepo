@@ -7,7 +7,6 @@ import { _arrPositiveIndexDefined } from '../queries/_arrPositiveIndexDefined';
  * This will not change the array length.
  *
  */
-
 export const _arrDel = <T>(batcher: Batcher<Array<T>>, index: number): Batcher<Array<T>> => {
     let i = _arrIndexAt(batcher, index);
     if (_arrPositiveIndexDefined(batcher, i)) {

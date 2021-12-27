@@ -13,8 +13,7 @@ import { _arrLength } from "./queries/_arrLength";
 import { _arrIndexAt } from "./queries/_arrIndexAt";
 import { arrFilterForLocked } from "./operations/filter-for-locked";
 import { arrFilterForUnlocked } from "./operations/filter-for-unlocked";
-import { arrMapForLocked } from "./operations/map-for-locked";
-import { arrMapForUnlocked } from "./operations/map-for-unlocked";
+
 import { cloneValue, getValue } from "../utils";
 
 describe('Array exports', () => {
@@ -363,14 +362,14 @@ describe('Array exports', () => {
         it('should not change the array', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = createArrayBatcher(arr);
-            let batcher2 = arrMapForUnlocked(batcher, i => i)
+            let batcher2 = _arrMap(batcher, i => i)
             expect(getValue(batcher2)).toBe(arr);
             expect(batcher).toBe(batcher2);
             expect(getValue(batcher2)).toEqual(arr);
             expect(arr.length).toEqual(7);
             expect(arr).toEqual([1, 2, 5, 3, 84, 122, 126]);
 
-            let batcher3 = arrMapForUnlocked(batcher, i => i)
+            let batcher3 = _arrMap(batcher, i => i)
             expect(getValue(batcher3)).toBe(arr);
             expect(batcher).toBe(batcher2);
             expect(batcher3).toBe(batcher2);
@@ -662,7 +661,7 @@ describe('Array protected methods', () => {
         it('should map the items into new array', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = createArrayBatcher(arr);
-            let batcher2 = arrMapForLocked(batcher, (i) => i % 2 === 0)
+            let batcher2 = _arrMap(batcher, (i) => i % 2 === 0)
             expect(getValue(batcher2)).not.toBe(arr);
             expect(batcher).toBe(batcher2);
             expect(getValue(batcher2)).toEqual([false, true, false, false, true, true, true]);
@@ -673,7 +672,7 @@ describe('Array protected methods', () => {
         it('should map and preserve array', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
             let batcher = createArrayBatcher(arr);
-            let batcher2 = arrMapForLocked(batcher, i => i)
+            let batcher2 = _arrMap(batcher, i => i)
             expect(getValue(batcher2)).toBe(arr);
             expect(batcher).toBe(batcher2);
             expect(getValue(batcher2)).toEqual(arr);
@@ -685,8 +684,8 @@ describe('Array protected methods', () => {
     describe('mapForUnlocked', () => {
         it('should map the items into new array', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
-            let batcher = createArrayBatcher(arr);
-            let batcher2 = arrMapForUnlocked(batcher, (i) => i % 2 === 0)
+            let batcher = createArrayBatcher(arr, true);
+            let batcher2 = _arrMap(batcher, (i) => i % 2 === 0)
             expect(getValue(batcher2)).toBe(arr);
             expect(batcher).toBe(batcher2);
             expect(getValue(batcher2)).toEqual([false, true, false, false, true, true, true]);
@@ -696,8 +695,8 @@ describe('Array protected methods', () => {
 
         it('should map and preserve array', () => {
             let arr = [1, 2, 5, 3, 84, 122, 126];
-            let batcher = createArrayBatcher(arr);
-            let batcher2 = arrMapForUnlocked(batcher, i => i)
+            let batcher = createArrayBatcher(arr, true);
+            let batcher2 = _arrMap(batcher, i => i)
             expect(getValue(batcher2)).toBe(arr);
             expect(batcher).toBe(batcher2);
             expect(getValue(batcher2)).toEqual(arr);

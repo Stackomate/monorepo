@@ -79,17 +79,17 @@ describe('json', () => {
                     choices.push(randomDeleteItemProperty)
                 }
                 let action: AddOperation<any> | RemoveOperation = randomChoice(choices)(doc);
-                console.log('ORIGINAL (BEFORE)', doc);
-                console.log('ACTION', action);
+                // console.log('ORIGINAL (BEFORE)', doc);
+                // console.log('ACTION', action);
                 doc = applyOperation(doc, action).newDocument;
-                console.log('ORIGINAL (AFTER)', doc);
+                // console.log('ORIGINAL (AFTER)', doc);
 
-                console.log('FILTERED (BEFORE)', filterResult)
+                // console.log('FILTERED (BEFORE)', filterResult)
                 let summary = filterStream([action])
                 filterResult = summary[1];
-                console.log('FILTERED ACTION', summary[0]);                
-                console.log('FILTERED (AFTER)', summary[1]);
-                console.log('INDEX MAPPING (AFTER)', summary[2]);
+                // console.log('FILTERED ACTION', summary[0]);                
+                // console.log('FILTERED (AFTER)', summary[1]);
+                // console.log('INDEX MAPPING (AFTER)', summary[2]);
 
 
                 expect(summary[1]).toEqual(doc.filter(i => i.age >= 18));

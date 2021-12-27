@@ -21,7 +21,8 @@ export class Batcher<T> {
     constructor(
         public initialValue: T,
         public mutateInitial: boolean,
-        public cloneFn: (a: T, batcher: Batcher<T>) => T
+        /* TODO:  Improve typing */
+        public cloneFn: (a: T, batcher: Batcher<T>, ...args: any[]) => T
     ) { 
         this.currentValue = initialValue;
         this.isUnlocked = mutateInitial;
@@ -58,6 +59,7 @@ export class Batcher<T> {
 
     lock() {
         this.isUnlocked = false;
+        /* We should not change .hasChanged here, since a batcher can be locked and contain changes */
     }
  
 }

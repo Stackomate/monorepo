@@ -2,9 +2,11 @@ import { Batcher } from '../../batcher';
 import { arrFilterForLocked } from './filter-for-locked';
 import { arrFilterForUnlocked } from './filter-for-unlocked';
 
-/* Note: Filter will use a new array for the batcher's currentValue */
-
-
+/**
+ * Filter out only the items that satisfy a given function.
+ * If batcher is unlocked, will modify existing array and return it;
+ * If batcher is locked, will copy filtered results in new array and return it. 
+ */
 export const _arrFilter = <T>(batcher: Batcher<Array<T>>, fn: (a: T) => boolean): Batcher<Array<T>> => {
     if (batcher.isUnlocked) {
         return arrFilterForUnlocked(batcher, fn);

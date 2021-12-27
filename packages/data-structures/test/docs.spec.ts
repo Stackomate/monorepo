@@ -1,4 +1,4 @@
-import { _arrFilter, createArrayBatcher } from "../src/array"
+import { createArrayBatcher } from "../src/array"
 import { $arrFilter, arrFilter, arrLength, arrMap, arrPush, arrSetLength, arrSpread } from "../src/array/pipeables";
 import { Batcher } from "../src/batcher";
 import { getValue, forkAndLock } from "../src/utils";
