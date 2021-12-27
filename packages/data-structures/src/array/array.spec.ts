@@ -14,9 +14,24 @@ import { _arrIndexAt } from "./queries/_arrIndexAt";
 import { arrFilterForLocked } from "./operations/filter-for-locked";
 import { arrFilterForUnlocked } from "./operations/filter-for-unlocked";
 
-import { cloneValue, getValue } from "../utils";
+import { cloneValue, getValue, hasChanged } from "../utils";
+import { _arrSetIndex } from "./operations/_arrSetIndex";
 
 describe('Array exports', () => {
+
+    describe('setIndex', () => {
+        it('should set undefined for empty index greater than array length', () => {
+            let arr: Array<number | undefined> = [];
+            arr.length = 2;
+            let batcher = createArrayBatcher(arr);
+            expect(batcher.currentValue).toEqual([undefined, undefined])
+            expect(batcher.currentValue.length).toBe(2);
+            let b2 = _arrSetIndex(batcher, 4, undefined);
+            expect(getValue(b2)).not.toBe(arr);
+            expect(batcher.currentValue.length).toBe(5);
+        })
+    })
+
     describe('indexAt', () => {
         describe('should return input when >= 0 and walk backwards when <0', () => {
             it('for array with 4 items', () => {
@@ -380,6 +395,8 @@ describe('Array exports', () => {
         })
     })
     
+
+    /* TODO: Test references */
     describe ('remove', () => {
         describe('in a empty array', () => {
             it('should not change array', ()=>{
@@ -396,6 +413,43 @@ describe('Array exports', () => {
                 let r1 = _arrRemove(batcher, 2);
                 expect(getValue(r1)).toEqual([1, 4, 9, 15]);
                 expect(getValue(r1)).not.toBe(arr);
+            })
+
+            it('should remove the index of array referenced (with void spaces)', () => {
+                let arr = [];
+                arr[3] = 15;
+                let batcher = createArrayBatcher(arr);
+                expect(getValue(batcher)).toEqual([undefined, undefined, undefined, 15]);
+                let r1 = _arrRemove(batcher, 1);
+                expect(getValue(r1)).toEqual([undefined, undefined, 15]);
+                expect(getValue(r1)).not.toBe(arr);
+            })
+
+            it('should remove the index of array referenced (with void spaces), with a negative index', () => {
+                let arr = [];
+                arr[3] = 15;
+                arr.length = 5;
+                let batcher = createArrayBatcher(arr);
+                expect(getValue(batcher)).toEqual([undefined, undefined, undefined, 15, undefined]);
+                let r1 = _arrRemove(batcher, -2);
+                expect(getValue(r1)).toEqual([undefined, undefined, undefined, undefined]);
+                expect(getValue(r1)).not.toBe(arr);
+            })       
+            
+            it('should not remove the index of array referenced (with void spaces), with an invalid index', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = createArrayBatcher(arr);
+                let r1 = _arrRemove(batcher, 5);
+                expect(getValue(r1)).toEqual([1, 4, 7, 9, 15]);
+                expect(getValue(r1)).toBe(arr);
+            })
+
+            it('should not remove the index of array referenced (with void spaces), with an invalid negative index', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = createArrayBatcher(arr);
+                let r1 = _arrRemove(batcher, -6);
+                expect(getValue(r1)).toEqual([1, 4, 7, 9, 15]);
+                expect(getValue(r1)).toBe(arr);
             })
 
             it('should remove the index of array referenced, with a negative index', () => {
@@ -416,6 +470,89 @@ describe('Array exports', () => {
         })
        
     })
+
+    describe ('remove mutable', () => {
+        describe('in a empty array', () => {
+            it('should not change array', ()=>{
+                let emptyArr: number[] = [];
+                let batcher = createArrayBatcher(emptyArr, true);
+                let r1 = _arrRemove(batcher,2);
+                expect(hasChanged(r1)).toBe(false);
+                expect(getValue(r1)).toBe(emptyArr)
+            })    
+        })
+        describe('in a non-empty array', () =>{
+            it('should remove the index of array referenced', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = createArrayBatcher(arr, true);
+                let r1 = _arrRemove(batcher, 2);
+                expect(hasChanged(r1)).toBe(true);
+                expect(getValue(r1)).toEqual([1, 4, 9, 15]);
+                expect(getValue(r1)).toBe(arr);
+            })
+
+            it('should remove the index of array referenced (with void spaces)', () => {
+                let arr = [];
+                arr[3] = 15;
+                let batcher = createArrayBatcher(arr, true);
+                expect(getValue(batcher)).toEqual([undefined, undefined, undefined, 15]);
+                let r1 = _arrRemove(batcher, 1);
+                expect(hasChanged(r1)).toBe(true);
+                expect(getValue(r1)).toEqual([undefined, undefined, 15]);
+                expect(getValue(r1)).toBe(arr);
+            })
+
+            it('should remove the index of array referenced (with void spaces), with a negative index', () => {
+                let arr = [];
+                arr[3] = 15;
+                arr.length = 5;
+                let batcher = createArrayBatcher(arr, true);
+                expect(getValue(batcher)).toEqual([undefined, undefined, undefined, 15, undefined]);
+                let r1 = _arrRemove(batcher, -2);
+                expect(hasChanged(r1)).toBe(true);                
+                expect(getValue(r1)).toEqual([undefined, undefined, undefined, undefined]);
+                expect(getValue(r1)).toBe(arr);
+            })       
+            
+            it('should not remove the index of array referenced (with void spaces), with an invalid index', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = createArrayBatcher(arr, true);
+                let r1 = _arrRemove(batcher, 5);
+                expect(getValue(r1)).toEqual([1, 4, 7, 9, 15]);
+                expect(hasChanged(r1)).toBe(false);                
+                expect(getValue(r1)).toBe(arr);
+            })
+
+            it('should not remove the index of array referenced (with void spaces), with an invalid negative index', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = createArrayBatcher(arr, true);
+                let r1 = _arrRemove(batcher, -6);
+                expect(getValue(r1)).toEqual([1, 4, 7, 9, 15]);
+                expect(getValue(r1)).toBe(arr);
+                expect(hasChanged(r1)).toBe(false);                
+            })
+
+            it('should remove the index of array referenced, with a negative index', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = createArrayBatcher(arr, true);
+                let r1 = _arrRemove(batcher,-2);
+                expect(getValue(r1)).toEqual([1, 4, 7, 15]);
+                expect(getValue(r1)).toBe(arr);
+                expect(hasChanged(r1)).toBe(true);                
+            })
+
+            it('should not change the array', () => {
+                let arr = [1, 4, 7, 9, 15];
+                let batcher = createArrayBatcher(arr, true);
+                let r1 = _arrRemove(batcher, 7);
+                expect(getValue(r1)).toEqual([1, 4, 7, 9, 15]);
+                expect(getValue(r1)).toBe(arr);
+                expect(hasChanged(r1)).toBe(false);                
+            })    
+        })
+       
+    })
+
     describe ('trimLength', () => {   
         describe('in a non-empty array', () => {
             it('should remove all undefined positions of array', () => {
@@ -516,28 +653,41 @@ describe('Array exports', () => {
 
     describe('insert', () => {    
         describe('non-empty array',() => {
-            it('should insert a item in a especified positive index', () => {
+            it('should insert a item in a specified positive index', () => {
                 let arr = [1, 2, 5, 3, 84, 122, 126];
                 let batcher = createArrayBatcher(arr);
                 let batcher2 = _arrInsert(batcher, 3, 5);
                 expect(getValue(batcher2)).not.toBe(arr);
                 expect(getValue(batcher2)).toEqual([1, 2, 5, 5, 3, 84, 122, 126]);
             })
-            it('should insert a item in a especified negative index', () => {
+            it('should insert a item in the last index', () => {
+                let arr = [1, 2, 5, 3, 84, 122, 126];
+                let batcher = createArrayBatcher(arr);
+                let batcher2 = _arrInsert(batcher, 7, 5);
+                expect(getValue(batcher2)).not.toBe(arr);
+                expect(getValue(batcher2)).toEqual([1, 2, 5, 3, 84, 122, 126, 5]);
+            })            
+            it('should insert a item in a specified negative index', () => {
                 let arr = [1, 2, 8, 32, 128, 256];
                 let batcher = createArrayBatcher(arr);
                 let batcher2 = _arrInsert(batcher, -2, 64);
                 expect(getValue(batcher2)).not.toBe(arr);
                 expect(getValue(batcher2)).toEqual([1, 2, 8, 32, 64, 128, 256]);
             })
-            it('should insert a item in a especified index', () => {
+            it('should insert a item in a specified index', () => {
                 let arr = [1, 2, 8, 32, 128, 256];
                 let batcher = createArrayBatcher(arr);
                 let batcher2 = _arrInsert(batcher, 0, 64);
                 expect(getValue(batcher2)).not.toBe(arr);
                 expect(getValue(batcher2)).toEqual([64, 1, 2, 8, 32, 128, 256]);
             })
-            
+            it('should not insert an item when negative index is invalid', () => {
+                let arr = [1, 2, 8, 32, 128, 256];
+                let batcher = createArrayBatcher(arr);
+                let batcher2 = _arrInsert(batcher, -7, 64);
+                expect(getValue(batcher2)).toBe(arr);
+                expect(getValue(batcher2)).toEqual([1, 2, 8, 32, 128, 256]);
+            })            
             it('should insert a item in a index out of range', () => {
                 let arr = [1, 2, 8, 32, 128, 256];
                 let batcher = createArrayBatcher(arr);

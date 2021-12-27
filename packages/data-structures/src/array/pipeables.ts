@@ -10,7 +10,7 @@ import { _arrTrimLength } from "./operations/_arrTrimLength";
 import { _arrPush } from "./operations/_arrPush";
 import { _arrSetIndex } from "./operations/_arrSetIndex";
 import { _arrIndexDefined } from "./queries/_arrIndexDefined";
-import { _arrPositiveIndexDefined } from "./queries/_arrPositiveIndexDefined";
+import { _arrIndexNotVoid } from "./queries/_arrPositiveIndexDefined";
 import { _arrAt } from "./queries/_arrAt";
 import { _arrLastIndex } from "./queries/_arrLastIndex";
 import { _arrSetLength } from "./operations/_arrSetLength";
@@ -32,8 +32,8 @@ export const $arrLastIndex = <T> (batcher: Batcher<Array<T>>) => () : number => 
 export const arrAt = <T>(index: number) => (batcher: Batcher<Array<T>>) : T => _arrAt(batcher, index);
 export const $arrAt = <T>(batcher: Batcher<Array<T>>) => (index: number) : T => _arrAt(batcher, index);
 
-export const arrPositiveIndexDefined = <T> (index: number) => (batcher: Batcher<Array<T>>) : boolean => _arrPositiveIndexDefined(batcher, index);
-export const $arrPositiveIndexDefined = <T> (batcher: Batcher<Array<T>>) => (index: number) : boolean => _arrPositiveIndexDefined(batcher, index);
+export const arrPositiveIndexDefined = <T> (index: number) => (batcher: Batcher<Array<T>>) : boolean => _arrIndexNotVoid(batcher, index);
+export const $arrPositiveIndexDefined = <T> (batcher: Batcher<Array<T>>) => (index: number) : boolean => _arrIndexNotVoid(batcher, index);
 
 export const arrIndexDefined = <T> (index: number) => (batcher: Batcher<Array<T>>) : boolean => _arrIndexDefined(batcher, index);
 export const $arrIndexDefined = <T> (batcher: Batcher<Array<T>>) => (index: number) : boolean => _arrIndexDefined(batcher, index);

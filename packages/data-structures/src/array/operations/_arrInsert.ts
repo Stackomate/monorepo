@@ -4,11 +4,13 @@ import { _arrIndexAt } from '../queries/_arrIndexAt';
 /**
  * Insert an item into the array in the specified index.
  * Next items will slide forward to make room for added item.
+ * Supports positive indexes out of array length, and negative indexes within the array range
  */
 export const _arrInsert = <T>(batcher: Batcher<Array<T>>, index: number, item: T): Batcher<Array<T>> => {
     /* Resolve index where item will be added */
     let i = _arrIndexAt(batcher, index);
     if (i >= 0) {
+        /* TODO: Maybe use partial clone, like remove does */
         batcher.willChange();
 
         /* If index is not defined in the current array,
