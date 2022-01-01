@@ -1,6 +1,6 @@
 import { Batcher } from "../batcher";
 import { _arrMap } from "./operations/_arrMap";
-import { _arrFilter } from "./operations/_arrFilter";
+import { _arrFilter } from "./operations/_arrFilter/_arrFilter";
 import { _arrSpread } from "./operations/_arrSpread";
 import { _arrForEach } from "./queries/_arrForEach";
 import { _arrInsert } from "./operations/_arrInsert";

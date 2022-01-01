@@ -1,5 +1,6 @@
 import { Batcher } from '../../batcher';
-import { _arrUpsertWithFind, _arrUpsertWithFindWithForEach } from './array-operations';
+import { _arrUpsertWithFind } from './_arrUpsertWithFind';
+import { _arrUpsertWithFindWithForEach } from './_arrUpsertWithFindForEach';
 
 
 export const _arrUpsert = <T>(

@@ -1,6 +1,6 @@
-import { Batcher } from '../../batcher';
-import { _arrForEach } from "../queries/_arrForEach";
-import { _arrPush } from './_arrPush';
+import { Batcher } from '../../../batcher';
+import { _arrForEach } from "../../queries/_arrForEach";
+import { _arrPush } from '../_arrPush';
 
 export function arrFilterForLocked<T>(batcher: Batcher<T[]>, fn: (a: T) => boolean) {
     /* We could have created a new batcher and tracked changes via the .hasChanged property,

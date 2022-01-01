@@ -1,5 +1,15 @@
 import { Batcher } from "../batcher";
-import { ObjForEachFn, _objClear, _objDelete, _objEntries, _objForEach, _objGet, _objHas, _objKeys, _objMap, _objSet, _objSpread, _objValues } from "./object-operations";
+import { _objMap } from "./operations/_objMap";
+import { _objSpread } from "./operations/_objSpread";
+import { ObjForEachFn, _objForEach } from "./queries/_objForEach";
+import { _objDelete } from "./operations/_objDelete";
+import { _objClear } from "./operations/_objClear";
+import { _objEntries } from "./queries/_objEntries";
+import { _objValues } from "./queries/_objValues";
+import { _objKeys } from "./queries/_objKeys";
+import { _objSet } from "./operations/_objSet";
+import { _objGet } from "./queries/_objGet";
+import { _objHas } from "./queries/_objHas";
 
 export const objHas = <T extends Object>(key: keyof T ) => (batcher: Batcher<T>) : boolean => _objHas(batcher, key);
 export const $objHas = <T extends Object>(batcher: Batcher<T>) => (key: keyof T ) : boolean => _objHas(batcher, key);

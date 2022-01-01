@@ -31,6 +31,14 @@ export const hasChanged = <T>(batcher: Batcher<T>): boolean => {
     return batcher.hasChanged;
 }
 
+export const isUnlocked = <T>(batcher: Batcher<T>): boolean => {
+    return batcher.isUnlocked;
+}
+
+export const isLocked = <T>(batcher: Batcher<T>): boolean => {
+    return !isUnlocked(batcher);
+}
+
 export const cloneValue = <T>(batcher: Batcher<T>): T => {
     return batcher.cloneFn(getValue(batcher), batcher);
 };

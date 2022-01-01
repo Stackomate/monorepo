@@ -1,6 +1,6 @@
-import { Batcher } from '../../batcher';
-import { _arrForEach } from "../queries/_arrForEach";
-import { _arrSetLength } from "./_arrSetLength";
+import { Batcher } from '../../../batcher';
+import { _arrForEach } from "../../queries/_arrForEach";
+import { _arrSetLength } from "../_arrSetLength";
 
 /* Internal function, should not be exposed in the public api */
 export const arrFilterForUnlocked = <T>(batcher: Batcher<Array<T>>, fn: (a: T) => boolean): Batcher<Array<T>> => {

@@ -1,4 +1,5 @@
 import { Batcher } from '../../batcher';
+import { isUnlocked } from '../../utils';
 import { _arrLastIndex } from '../queries/_arrLastIndex';
 import { _arrIndexNotVoid } from '../queries/_arrPositiveIndexDefined';
 
@@ -9,11 +10,20 @@ import { _arrIndexNotVoid } from '../queries/_arrPositiveIndexDefined';
 
 export const _arrTrimLength = <T>(batcher: Batcher<Array<T>>): Batcher<Array<T>> => {
     let i = _arrLastIndex(batcher);
-    /* TODO: Optimize */
+    let initialLength = batcher.currentValue.length;
+    let finalLength = batcher.currentValue.length;
+
     while (!_arrIndexNotVoid(batcher, i) && (i >= 0)) {
-        batcher.willChange();
-        batcher.currentValue.length = i;
+        finalLength = i;
         i = i - 1;
+    }
+    if (finalLength !== initialLength) {
+        batcher.willChange({to: finalLength - 1});
+        /* The line below is necessary for unlocked batchers,
+        since they will not be cloned and need their length updated */
+        if (isUnlocked(batcher)) {
+            batcher.currentValue.length = finalLength;
+        }
     }
     return batcher;
 };

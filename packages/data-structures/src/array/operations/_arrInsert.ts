@@ -1,5 +1,7 @@
 import { Batcher } from '../../batcher';
 import { _arrIndexAt } from '../queries/_arrIndexAt';
+import { _arrCopyRight } from "./_arrCopyRight";
+import { _arrSetIndex } from './_arrSetIndex';
 
 /**
  * Insert an item into the array in the specified index.
@@ -10,8 +12,10 @@ export const _arrInsert = <T>(batcher: Batcher<Array<T>>, index: number, item: T
     /* Resolve index where item will be added */
     let i = _arrIndexAt(batcher, index);
     if (i >= 0) {
-        /* TODO: Maybe use partial clone, like remove does */
-        batcher.willChange();
+
+        let source = batcher.currentValue;        
+        /* Use partial clone up to previous item */
+        batcher.willChange({to: i - 1});
 
         /* If index is not defined in the current array,
         enlarge it until it's possible to add new item */
@@ -19,8 +23,12 @@ export const _arrInsert = <T>(batcher: Batcher<Array<T>>, index: number, item: T
             batcher.currentValue.length = i;
         }
 
-        /* Add item at position while also shifting next items to the right */
-        batcher.currentValue.splice(index, 0, item);
+        /* Shifting next items to the right by copying them.
+        Another option could be to batcher.currentValue.splice(index, 0, item); */
+        _arrCopyRight(batcher, source, i);
+
+        /* Add item to index selected */
+        _arrSetIndex(batcher, i, item);
     }
     return batcher;
 };

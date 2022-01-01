@@ -1,3 +1,4 @@
-export * from './object-batcher';
-export * from './object-operations';
+export * from './batcher';
+export * from './operations';
+export * from './queries';
 export * from './pipeables';

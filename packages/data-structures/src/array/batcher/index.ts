@@ -1,5 +1,4 @@
 import { Batcher } from "../../batcher";
-import { _arrValuesUntil } from "../queries/_arrValuesUntil";
 
 /* 
     Clone array should take into account void spaces in the arrays
@@ -24,6 +23,5 @@ export const createArrayBatcher: CreateArrayBatcherFunction = <T>(
     target: Array<T>,
     mutate: boolean = false
 ): Batcher<Array<T>> => {
-    /* TODO: Remove as Array<T> */
     return new Batcher(target, mutate, cloneArray);
 };
