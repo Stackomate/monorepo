@@ -1,89 +1,89 @@
-import { _cinFromArray } from "../operations/_cinFromArray";
-import { _cinTreeArray } from "../query/_cinTreeArray";
-import { _cinHas } from "./_cinHas";
+import { _ckmFromArray } from "../operations/_ckmFromArray";
+import { _ckmTreeArray } from "./_ckmTreeArray";
+import { _ckmHas } from "./_ckmHas";
 
 
-describe('_cinHas', () => {
+describe('_ckmHas', () => {
     it ('should not contain undefined index', () => {
-        let cin = _cinFromArray<string, number>([]);
-        expect(_cinTreeArray(cin)).toEqual([]);
+        let ckm = _ckmFromArray<string, number>([]);
+        expect(_ckmTreeArray(ckm)).toEqual([]);
 
-        expect(_cinHas(cin, [])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([]);
+        expect(_ckmHas(ckm, [])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([]);
 
-        expect(_cinHas(cin, [''])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([]);   
+        expect(_ckmHas(ckm, [''])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([]);   
         
-        expect(_cinHas(cin, [undefined])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([]);              
+        expect(_ckmHas(ckm, [undefined])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([]);              
 
-        expect(_cinHas(cin, ['a'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([]);
+        expect(_ckmHas(ckm, ['a'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([]);
 
-        expect(_cinHas(cin, ['a', 'b'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([]);        
+        expect(_ckmHas(ckm, ['a', 'b'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([]);        
 
-        expect(_cinHas(cin, ['a', 'b', 'c'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([]);        
+        expect(_ckmHas(ckm, ['a', 'b', 'c'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([]);        
 
-        expect(_cinHas(cin, ['a', 'b', 'c', 'd'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([]);            
+        expect(_ckmHas(ckm, ['a', 'b', 'c', 'd'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([]);            
     })
 
     it ('should return false for undefined nested index', () => {
-        let cin = _cinFromArray<string, number | undefined>([
+        let ckm = _ckmFromArray<string, number | undefined>([
             [['a', 'y'], undefined]
         ]);
-        expect(_cinTreeArray(cin)).toEqual([{
+        expect(_ckmTreeArray(ckm)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
                 {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);
         
-        expect(_cinHas(cin, ['a'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([{
+        expect(_ckmHas(ckm, ['a'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
                 {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);
 
-        expect(_cinHas(cin, ['a', 'b'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([{
+        expect(_ckmHas(ckm, ['a', 'b'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
                 {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);      
 
-        expect(_cinHas(cin, ['a', 'y'])).toEqual(true);
-        expect(_cinTreeArray(cin)).toEqual([{
+        expect(_ckmHas(ckm, ['a', 'y'])).toEqual(true);
+        expect(_ckmTreeArray(ckm)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
                 {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);
 
-        expect(_cinHas(cin, ['b', 'y'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([{
+        expect(_ckmHas(ckm, ['b', 'y'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
                 {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);      
         
-        expect(_cinHas(cin, ['x'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([{
+        expect(_ckmHas(ckm, ['x'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
                 {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);        
 
-        expect(_cinHas(cin, [''])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([{
+        expect(_ckmHas(ckm, [''])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
                 {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);            
         
-        expect(_cinHas(cin, [])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([{
+        expect(_ckmHas(ckm, [])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
                 {key: 'y', isKey: true, value: undefined, children: []}
             ]
@@ -92,12 +92,12 @@ describe('_cinHas', () => {
     })    
     
     it ('should return values for defined keys', () => {
-        let cin = _cinFromArray<string, number>([
+        let ckm = _ckmFromArray<string, number>([
             [['a'], 15],
             [['a', 'b', 'c'], 11],
             [['x', 'y'], 10]
         ]);
-        expect(_cinTreeArray(cin)).toEqual([
+        expect(_ckmTreeArray(ckm)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
                     {key: 'c', isKey: true, value: 11, children: []}
@@ -108,8 +108,8 @@ describe('_cinHas', () => {
             ]}
         ]);
 
-        expect(_cinHas(cin, [])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([
+        expect(_ckmHas(ckm, [])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
                     {key: 'c', isKey: true, value: 11, children: []}
@@ -120,8 +120,8 @@ describe('_cinHas', () => {
             ]}
         ]);
 
-        expect(_cinHas(cin, [''])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([
+        expect(_ckmHas(ckm, [''])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
                     {key: 'c', isKey: true, value: 11, children: []}
@@ -132,8 +132,8 @@ describe('_cinHas', () => {
             ]}
         ]);
 
-        expect(_cinHas(cin, ['a'])).toEqual(true);
-        expect(_cinTreeArray(cin)).toEqual([
+        expect(_ckmHas(ckm, ['a'])).toEqual(true);
+        expect(_ckmTreeArray(ckm)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
                     {key: 'c', isKey: true, value: 11, children: []}
@@ -144,8 +144,8 @@ describe('_cinHas', () => {
             ]}
         ]);
 
-        expect(_cinHas(cin, ['a', 'b'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([
+        expect(_ckmHas(ckm, ['a', 'b'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
                     {key: 'c', isKey: true, value: 11, children: []}
@@ -156,8 +156,8 @@ describe('_cinHas', () => {
             ]}
         ]);   
 
-        expect(_cinHas(cin, ['a', 'b', 'c'])).toEqual(true);
-        expect(_cinTreeArray(cin)).toEqual([
+        expect(_ckmHas(ckm, ['a', 'b', 'c'])).toEqual(true);
+        expect(_ckmTreeArray(ckm)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
                     {key: 'c', isKey: true, value: 11, children: []}
@@ -168,8 +168,8 @@ describe('_cinHas', () => {
             ]}
         ]);          
 
-        expect(_cinHas(cin, ['x'])).toEqual(false);
-        expect(_cinTreeArray(cin)).toEqual([
+        expect(_ckmHas(ckm, ['x'])).toEqual(false);
+        expect(_ckmTreeArray(ckm)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
                     {key: 'c', isKey: true, value: 11, children: []}
@@ -180,8 +180,8 @@ describe('_cinHas', () => {
             ]}
         ]);      
         
-        expect(_cinHas(cin, ['x', 'y'])).toEqual(true);
-        expect(_cinTreeArray(cin)).toEqual([
+        expect(_ckmHas(ckm, ['x', 'y'])).toEqual(true);
+        expect(_ckmTreeArray(ckm)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
                     {key: 'c', isKey: true, value: 11, children: []}

@@ -1,11 +1,11 @@
-import { CompositeIndexNode } from "../composite-index-node";
+import { CompositeKeyNode } from "../composite-index-node";
 
 type TreeItem <K, V> = {isKey: boolean, key: K, value: V | undefined, children: Array<TreeItem<K,V>>};
 type TreeArray<K, V> = Array<TreeItem<K,V>>;
 
-export const _cinTreeArray = <K, V>(indexRoot: CompositeIndexNode<K, V>) => {
+export const _ckmTreeArray = <K, V>(indexRoot: CompositeKeyNode<K, V>) => {
 
-    const step = <K, V>(node: CompositeIndexNode<K, V>, parentNodeKey: K) => {
+    const step = <K, V>(node: CompositeKeyNode<K, V>, parentNodeKey: K) => {
         let result: TreeItem<K, V> = {
             isKey: node.isKey,
             value: node.value,

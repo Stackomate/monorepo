@@ -11,8 +11,9 @@ A collection of useful data-structures for Typescript Development.
 2. Import desired data-structure into your project. See examples below:
 
 
-## Composite Index
-Use several keys for your mappings
+## Composite Key Map
+A map that allows multiple ordered keys (composite key) to be mapped to some value.
+Keys are stored as pointers that contain maps to the child keys.
 
 ## BijectiveMap
 

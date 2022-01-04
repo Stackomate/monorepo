@@ -1,16 +1,16 @@
-import { CompositeIndexNode } from "../composite-index-node";
+import { CompositeKeyNode } from "../composite-index-node";
 
 /* Examples */
 /* [root] => 10
     [root, 'a'] => 20
     [root, 'b', 'c'] => 30 (note that root.b is not a key) */
-export const _cinSet = <K, V>(indexRoot: CompositeIndexNode<K, V>, path: K[], value: V): CompositeIndexNode<K, V> => {
+export const _ckmSet = <K, V>(indexRoot: CompositeKeyNode<K, V>, path: K[], value: V): CompositeKeyNode<K, V> => {
     let currentNode = indexRoot;
     for (let item of path) {
         if (!currentNode.children.has(item)) {
-            currentNode.children.set(item, new CompositeIndexNode());
+            currentNode.children.set(item, new CompositeKeyNode());
         }
-        currentNode = currentNode.children.get(item) as CompositeIndexNode<K, V>;
+        currentNode = currentNode.children.get(item) as CompositeKeyNode<K, V>;
     }
     /* Mark isKey = true and assign value for last explored node */
     currentNode.isKey = true;

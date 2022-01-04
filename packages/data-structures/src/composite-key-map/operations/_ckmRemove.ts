@@ -1,11 +1,11 @@
-import { CompositeIndexNode } from "../composite-index-node";
-import { _cinHas } from "../query/_cinHas";
+import { CompositeKeyNode } from "../composite-index-node";
+import { _ckmHas } from "../query/_ckmHas";
 
 /* TODO: Behavior of path = [] */
-export const _cinRemove = <K, V>(indexRoot: CompositeIndexNode<K, V>, path: K[]): CompositeIndexNode<K, V> => {
+export const _ckmRemove = <K, V>(indexRoot: CompositeKeyNode<K, V>, path: K[]): CompositeKeyNode<K, V> => {
 
     /* TODO: Optimize performance */
-    if (!_cinHas(indexRoot, path)) {
+    if (!_ckmHas(indexRoot, path)) {
         return indexRoot;
     }
 
@@ -14,7 +14,7 @@ export const _cinRemove = <K, V>(indexRoot: CompositeIndexNode<K, V>, path: K[])
     let currentNodeIndex = 0;
 
     for (let key of path) {
-        let childNode = currentNode.children.get(key) as CompositeIndexNode<K, V>;
+        let childNode = currentNode.children.get(key) as CompositeKeyNode<K, V>;
         nodes.push(childNode);
         currentNode = childNode;
         currentNodeIndex++;
