@@ -1,5 +1,5 @@
 import { Batcher } from './batcher';
-import {add as setAdd, remove as setRemove, filter as setFilter} from './set-operations';
+import { add as setAdd, filter as setFilter, remove as setRemove } from './set-operations';
 
 export const add = <T>(batcher: Batcher<Set<T>>, item: T) => setAdd({batcher, item});
 export const remove = <T>(batcher: Batcher<Set<T>>, item: T) => setRemove({batcher, item});
