@@ -10,6 +10,10 @@ A collection of useful data-structures for Typescript Development.
 1. `npm i @stackomate/data-structures`
 2. Import desired data-structure into your project. See examples below:
 
+
+## Composite Index
+Use several keys for your mappings
+
 ## BijectiveMap
 
 * **Documentation:** [BijectiveMap](https://stackomate.github.io/data-structures/classes/bijectivemap.html)
