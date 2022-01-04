@@ -32,7 +32,7 @@ describe('_cinSet', () => {
                 ]}
             ]}
         ]);     
-        _cinSet(cin, ['a', 'b', 'c', 'd', 'e'], undefined);                   
+        _cinSet(cin, ['a', 'b', 'c', 'd', 'e'], undefined);
         expect(_cinTreeArray(cin)).toEqual([
             {key: 'a', isKey: true, value: 12, children: [
                 {key: 'b', isKey: true, value: 5, children: [

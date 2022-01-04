@@ -1,78 +1,91 @@
 import { _cinFromArray } from "../operations/_cinFromArray";
 import { _cinTreeArray } from "../query/_cinTreeArray";
-import { _cinGet } from "./_cinGet";
+import { _cinHas } from "./_cinHas";
 
 
-describe('_cinGet', () => {
-    it ('should return undefined for undefined index', () => {
+describe('_cinHas', () => {
+    it ('should not contain undefined index', () => {
         let cin = _cinFromArray<string, number>([]);
         expect(_cinTreeArray(cin)).toEqual([]);
 
-        expect(_cinGet(cin, [])).toEqual(undefined);
+        expect(_cinHas(cin, [])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([]);
 
-        expect(_cinGet(cin, [''])).toEqual(undefined);
-        expect(_cinTreeArray(cin)).toEqual([]);        
+        expect(_cinHas(cin, [''])).toEqual(false);
+        expect(_cinTreeArray(cin)).toEqual([]);   
+        
+        expect(_cinHas(cin, [undefined])).toEqual(false);
+        expect(_cinTreeArray(cin)).toEqual([]);              
 
-        expect(_cinGet(cin, ['a'])).toEqual(undefined);
+        expect(_cinHas(cin, ['a'])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([]);
 
-        expect(_cinGet(cin, ['a', 'b'])).toEqual(undefined);
+        expect(_cinHas(cin, ['a', 'b'])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([]);        
 
-        expect(_cinGet(cin, ['a', 'b', 'c', 'd'])).toEqual(undefined);
+        expect(_cinHas(cin, ['a', 'b', 'c'])).toEqual(false);
+        expect(_cinTreeArray(cin)).toEqual([]);        
+
+        expect(_cinHas(cin, ['a', 'b', 'c', 'd'])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([]);            
     })
 
-    it ('should return undefined for undefined nested index', () => {
-        let cin = _cinFromArray<string, number>([
-            [['a', 'y'], 10]
+    it ('should return false for undefined nested index', () => {
+        let cin = _cinFromArray<string, number | undefined>([
+            [['a', 'y'], undefined]
         ]);
         expect(_cinTreeArray(cin)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
-                {key: 'y', isKey: true, value: 10, children: []}
+                {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);
         
-        expect(_cinGet(cin, ['a'])).toEqual(undefined);
+        expect(_cinHas(cin, ['a'])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
-                {key: 'y', isKey: true, value: 10, children: []}
+                {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);
 
-        expect(_cinGet(cin, ['a', 'b'])).toEqual(undefined);
+        expect(_cinHas(cin, ['a', 'b'])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
-                {key: 'y', isKey: true, value: 10, children: []}
+                {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);      
 
-        expect(_cinGet(cin, ['b', 'y'])).toEqual(undefined);
+        expect(_cinHas(cin, ['a', 'y'])).toEqual(true);
         expect(_cinTreeArray(cin)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
-                {key: 'y', isKey: true, value: 10, children: []}
+                {key: 'y', isKey: true, value: undefined, children: []}
+            ]
+        }]);
+
+        expect(_cinHas(cin, ['b', 'y'])).toEqual(false);
+        expect(_cinTreeArray(cin)).toEqual([{
+            key: 'a', isKey: false, value: undefined, children: [
+                {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);      
         
-        expect(_cinGet(cin, ['x'])).toEqual(undefined);
+        expect(_cinHas(cin, ['x'])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
-                {key: 'y', isKey: true, value: 10, children: []}
+                {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);        
 
-        expect(_cinGet(cin, [''])).toEqual(undefined);
+        expect(_cinHas(cin, [''])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
-                {key: 'y', isKey: true, value: 10, children: []}
+                {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);            
         
-        expect(_cinGet(cin, [])).toEqual(undefined);
+        expect(_cinHas(cin, [])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([{
             key: 'a', isKey: false, value: undefined, children: [
-                {key: 'y', isKey: true, value: 10, children: []}
+                {key: 'y', isKey: true, value: undefined, children: []}
             ]
         }]);             
 
@@ -95,7 +108,7 @@ describe('_cinGet', () => {
             ]}
         ]);
 
-        expect(_cinGet(cin, [])).toEqual(undefined);
+        expect(_cinHas(cin, [])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
@@ -107,7 +120,7 @@ describe('_cinGet', () => {
             ]}
         ]);
 
-        expect(_cinGet(cin, [''])).toEqual(undefined);
+        expect(_cinHas(cin, [''])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
@@ -119,7 +132,7 @@ describe('_cinGet', () => {
             ]}
         ]);
 
-        expect(_cinGet(cin, ['a'])).toEqual(15);
+        expect(_cinHas(cin, ['a'])).toEqual(true);
         expect(_cinTreeArray(cin)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
@@ -131,7 +144,7 @@ describe('_cinGet', () => {
             ]}
         ]);
 
-        expect(_cinGet(cin, ['a', 'b'])).toEqual(undefined);
+        expect(_cinHas(cin, ['a', 'b'])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
@@ -143,7 +156,7 @@ describe('_cinGet', () => {
             ]}
         ]);   
 
-        expect(_cinGet(cin, ['a', 'b', 'c'])).toEqual(11);
+        expect(_cinHas(cin, ['a', 'b', 'c'])).toEqual(true);
         expect(_cinTreeArray(cin)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
@@ -155,7 +168,7 @@ describe('_cinGet', () => {
             ]}
         ]);          
 
-        expect(_cinGet(cin, ['x'])).toEqual(undefined);
+        expect(_cinHas(cin, ['x'])).toEqual(false);
         expect(_cinTreeArray(cin)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
@@ -167,7 +180,7 @@ describe('_cinGet', () => {
             ]}
         ]);      
         
-        expect(_cinGet(cin, ['x', 'y'])).toEqual(10);
+        expect(_cinHas(cin, ['x', 'y'])).toEqual(true);
         expect(_cinTreeArray(cin)).toEqual([
             {key: 'a', isKey: true, value: 15, children: [
                 {key: 'b', isKey: false, value: undefined, children: [
