@@ -67,9 +67,9 @@ export const JSONFilter = <T>(objFn: () => T[], fn: FilterFn<T>) => {
       /* If op is add or remove for an array index (root),
       update index mapping and map the action into the possible new item in filtered array */
       if (isRootArrayChange(operation)) {
-        // console.log('IS ROOT')
+
         if (operation.op === Ops.Add) {
-          // console.log('IS ADD')
+
           let originalIndex = getOriginalIndex(operation);
           let originalItem = objFn()[originalIndex];
 

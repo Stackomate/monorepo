@@ -58,7 +58,6 @@ export const JSONFilter = <T>(objFn: () => T[], fn: FilterFn<T>) => {
     /* TODO: Add support for all actions (move, copy, test, replace) */
 
     for (let operation of inputOps) {
-      // console.log('operation', operation)
 
       /* This may not work for move action */
 
