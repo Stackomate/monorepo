@@ -2,5 +2,8 @@
   "extends": [
     "tslint-config-standard",
     "tslint-config-prettier"
-  ]
+  ],
+  "rules": {
+    "one-variable-per-declaration": false
+  }
 }
