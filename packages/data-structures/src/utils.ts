@@ -1,6 +1,6 @@
 import { Batcher } from "./batcher";
 
-//TODO: create a swap method;
+// TODO: create a swap method;
 
 export const toValues = <T>(batcher: Batcher<T>[]): T[] => {
     let arr: T[] = [];

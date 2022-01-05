@@ -3,8 +3,8 @@ import { applyOperation } from './addItem';
 import { JSONFilter, Ops } from './filter';
 import { v4 as uuidv4 } from 'uuid';
 
-var seedrandom = require('seedrandom');
-var rng = seedrandom('JSON Streams');
+let seedrandom = require('seedrandom');
+let rng = seedrandom('JSON Streams');
 
 const randomIndex = <T>(array: T[], extra = 0) => {
     let randomNumber = rng();

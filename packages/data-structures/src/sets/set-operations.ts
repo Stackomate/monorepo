@@ -3,19 +3,19 @@ import { setFilterForLocked } from './filter-for-locked';
 import { setFilterForUnlocked } from './filter-for-unlocked';
 import { useSetBatcher } from "./set-batcher";
 
-//TODO: make a size for batchers of sets
+// TODO: make a size for batchers of sets
 
-//ok
+// ok
 export const _setIsEmpty = <T>(batcher: Batcher<Set<T>>): boolean => {
     return batcher.currentValue.size === 0
 };
 
-//ok
+// ok
 export const _setHas = <T>(batcher: Batcher<Set<T>>, item: T): boolean => {
     return batcher.currentValue.has(item);
 }
 
-//ok
+// ok
 export const _setEquals = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => {
     if (set1.currentValue === set2) {
         return true;
@@ -33,7 +33,7 @@ export const _setEquals = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => {
     return true;
 }
 
-//ok
+// ok
 export const _setAdd = <T>(set: Batcher<Set<T>>, item: T): Batcher<Set<T>> => {
     if (!set.currentValue.has(item)) {
         set.willChange();
@@ -42,7 +42,7 @@ export const _setAdd = <T>(set: Batcher<Set<T>>, item: T): Batcher<Set<T>> => {
     return set;
 }
 
-//ok
+// ok
 /* TODO: Maybe change signature */
 /* TODO: Optimize like setIntersection */
 export const _setUnion = <T>(set: Batcher<Set<T>>, set2: Set<T>): Batcher<Set<T>> => {
@@ -52,7 +52,7 @@ export const _setUnion = <T>(set: Batcher<Set<T>>, set2: Set<T>): Batcher<Set<T>
     return set;
 }
 
-//ok
+// ok
 export const _setRemove = <T>(set: Batcher<Set<T>>, item: T): Batcher<Set<T>> => {
     if (set.currentValue.has(item)) {
         set.willChange();
@@ -60,7 +60,7 @@ export const _setRemove = <T>(set: Batcher<Set<T>>, item: T): Batcher<Set<T>> =>
     }
     return set;
 }
-//TODO left difference and right difference
+// TODO left difference and right difference
 /* TODO: Optimize like setIntersection */
 export const _setDifference = <T>(set1: Batcher<Set<T>>, set2: Set<T>): Batcher<Set<T>> => {
     // set1.currentValue.forEach(value => {
@@ -72,7 +72,7 @@ export const _setDifference = <T>(set1: Batcher<Set<T>>, set2: Set<T>): Batcher<
     return set1;
 }
 
-//ok
+// ok
 /* TODO: Maybe change signature */
 export const _setIntersection = <T>(set1: Batcher<Set<T>>, set2: Set<T>): Batcher<Set<T>> => {
 
@@ -113,15 +113,15 @@ const _setOrder = <T>(batcher: Batcher<Set<T>>, ...sets: Set<T>[]): Set<T>[] => 
     return arr.sort((a, b) => (a.size > b.size) ? 1 : -1);
 }
 
-//TODO: make a stop point after found a false value
+// TODO: make a stop point after found a false value
 export const _setDisjoint = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => {
     /* TODO: This can be optimized to not use the intersection, and stop in the first positive result */
     return _setIntersection(set1, set2).currentValue.size === 0
 }
 
-//ok
+// ok
 export const _isSubSet = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => {
-    //a bigger set cant be a sub set of a smaller set
+    // a bigger set cant be a sub set of a smaller set
     if (set1.currentValue.size > set2.size) {
         return false;
     }
@@ -134,9 +134,9 @@ export const _isSubSet = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => {
     return true;
 }
 
-//ok
+// ok
 export const _isSuperSet = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => {
-    //a smaller set cant be a super set of a bigger set
+    // a smaller set cant be a super set of a bigger set
     if (set1.currentValue.size < set2.size) {
         return false;
     }
@@ -149,7 +149,7 @@ export const _isSuperSet = <T>(set1: Batcher<Set<T>>, set2: Set<T>): boolean => 
     return true;
 }
 
-//ok
+// ok
 /* TODO: Analyze this */
 export const _setSymmetricDifference = <T>(set1: Batcher<Set<T>>, set2: Set<T>): Batcher<Set<T>> => {
     let biggerSet = set1;
@@ -174,7 +174,7 @@ export const _setSymmetricDifference = <T>(set1: Batcher<Set<T>>, set2: Set<T>):
     return biggerSet;
 }
 
-//ok
+// ok
 export const _setEvery = <T>(set: Batcher<Set<T>>, fn: (a: T) => boolean): boolean => {
     for (let value of set.currentValue) {
         if (!fn(value)) {
@@ -184,14 +184,14 @@ export const _setEvery = <T>(set: Batcher<Set<T>>, fn: (a: T) => boolean): boole
     return true;
 }
 
-//ok
+// ok
 export const _setForEach = <T>(batcher: Batcher<Set<T>>, fn: (value: T, set: Set<T>) => void): Batcher<Set<T>> => {
     batcher.currentValue.forEach((value, b, set) => fn(value, set));
     return batcher;
 }
 
-//ok
-//TODO: setMapForUnlocked and setMapForLocked
+// ok
+// TODO: setMapForUnlocked and setMapForLocked
 export const _setMap = <T, V>(batcher: Batcher<Set<T>>, fn: (value: T, set: Set<T>) => V): Batcher<Set<V>> => {
     /* TODO: Add full [key, value] pair check for rare scenario */
     const result: Set<V> = new Set();
@@ -211,7 +211,7 @@ export const _setMap = <T, V>(batcher: Batcher<Set<T>>, fn: (value: T, set: Set<
     return batcher_;
 }
 
-//TODO: verify with Rafael
+// TODO: verify with Rafael
 export const _setFind = <T>(batcher: Batcher<Set<T>>, fn: (value: T) => boolean): any => {
     for (let item of batcher.currentValue) {
         if (fn(item as unknown as T)) {

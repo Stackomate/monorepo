@@ -6,7 +6,7 @@ export const _objMap = <T extends Object, U extends Object>(batcher: Batcher<T>,
     let result : U = {} as U;
     let hasAdded = false;
     _objForEach(batcher, (key, value, map) => {
-        let [newKey, newValue] = fn(key as keyof T, value, map);
+        let [newKey, newValue] = fn(key, value, map);
         result[newKey] = newValue;
         // if (!_objHas(batcher, newKey as unknown as keyof T)) {
         //     hasAdded = true;

@@ -117,7 +117,7 @@ describe('map exports', () => {
             let batcher = useMapBatcher(myMap);
 
             expect(_mapClear(batcher).currentValue).toEqual(new Map([]));
-            //unlocked test
+            // unlocked test
             _mapSet(batcher, 'f', 6);
             expect(_mapClear(batcher).currentValue).toEqual(new Map([]));
             expect(batcher.currentValue).not.toBe(myMap);
@@ -182,7 +182,7 @@ describe('map exports', () => {
             let batcher = useMapBatcher(myMap);
 
             expect(_mapFilter(batcher, (i, j) => (j % 2 === 0)).currentValue).toEqual(new Map([['b', 2], ['d', 4]]));
-            //unlocked test
+            // unlocked test
             expect(_mapFilter(batcher, (i, j) => {
                 return  j === 2;
             }).currentValue).toEqual(new Map([['b', 2]]));
