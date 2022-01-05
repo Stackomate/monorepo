@@ -203,12 +203,12 @@ export const _setMap = <T, V>(batcher: Batcher<Set<T>>, fn: (value: T, set: Set<
             hasAdded = true;
         }
     })
-    let batcher_ = batcher as unknown as Batcher<Set<V>>;
-    if (hasAdded || result.size !== batcher_.currentValue.size) {
-        batcher_.willChange();
-        batcher_.currentValue = result;
+    let batcherCast = batcher as unknown as Batcher<Set<V>>;
+    if (hasAdded || result.size !== batcherCast.currentValue.size) {
+        batcherCast.willChange();
+        batcherCast.currentValue = result;
     }
-    return batcher_;
+    return batcherCast;
 }
 
 // TODO: verify with Rafael
@@ -221,7 +221,7 @@ export const _setFind = <T>(batcher: Batcher<Set<T>>, fn: (value: T) => boolean)
 }
 
 export const _setCartesianProduct = <T, U>(batcher: Batcher<Set<T>>, set: Set<U>): Batcher<Set<[T, U]>> => {
-    let batcher_ = batcher as unknown as Batcher<Set<[T, U]>>;
+    let batcherCast = batcher as unknown as Batcher<Set<[T, U]>>;
     const result: Set<[T, U]> = new Set();
     batcher.currentValue.forEach(outer => {
         set.forEach(inner => {
@@ -229,8 +229,8 @@ export const _setCartesianProduct = <T, U>(batcher: Batcher<Set<T>>, set: Set<U>
         });
     });
     batcher.willChange();
-    batcher_.currentValue = result; 
-    return batcher_;
+    batcherCast.currentValue = result; 
+    return batcherCast;
 }
 
 export type SetFilterFn<T> = (value: T, set: Set<T>) => boolean

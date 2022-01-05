@@ -1,13 +1,12 @@
-import { AddOperation, Operation } from 'fast-json-patch';
 import * as jsonpatch from 'fast-json-patch';
 import { getOriginalIndex, Ops, SEPARATOR } from './filter';
 import { locateAvailablePosition } from './locatePosition';
 
 /* TODO: Improve types */
-type OperationWithValue<T> =  Operation & {value: T};
+type OperationWithValue<T> =  jsonpatch.Operation & {value: T};
 
 /** Replaces index for an item path, and returns new Path */
-export const replaceRootItemPathIndex = (operation: Operation, index: number) => {
+export const replaceRootItemPathIndex = (operation: jsonpatch.Operation, index: number) => {
   let newPath = operation.path.split(SEPARATOR);
   newPath[1] = `${index}`;
   return newPath.join(SEPARATOR);
@@ -22,7 +21,7 @@ export const addItem = <T>(
   target: T[],
   originalOperation: OperationWithValue<T>,
   indexes: number[]
-): [Operation, T[]] => {
+): [jsonpatch.Operation, T[]] => {
   
   /* Index for fn function should be from origin */
   let originalIndex = getOriginalIndex(originalOperation);
@@ -33,7 +32,7 @@ export const addItem = <T>(
   /* Adjust path for filtered array */
   let newPath = replaceRootItemPathIndex(originalOperation, filteredIndex)
 
-  let resultingOperation: AddOperation<T> = {
+  let resultingOperation: jsonpatch.AddOperation<T> = {
     op: Ops.Add,
     value: originalOperation.value,
     path: newPath

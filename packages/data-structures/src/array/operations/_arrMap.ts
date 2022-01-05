@@ -9,16 +9,16 @@ import { _arrSetIndex } from './_arrSetIndex';
 export const _arrMap = <T, U>(batcher: Batcher<Array<T>>, fn: (a: T) => U): Batcher<Array<U>> => {
     /* Create another variable to change array type
     Note that this still points to the same batcher instance */
-    let batcher_ = batcher as unknown as Batcher<U[]>;
+    let batcherCast = batcher as unknown as Batcher<U[]>;
 
     _arrForEach(batcher, (item, index) => {
         const itemOutput = fn(item);
         if ((itemOutput as any) !== (item as any)) {
             /* Clone previous elements in the first change */
             batcher.willChange({to: index - 1})
-            _arrSetIndex(batcher_, index, itemOutput);
+            _arrSetIndex(batcherCast, index, itemOutput);
         }
     });
 
-    return batcher_;
+    return batcherCast;
 };

@@ -7,7 +7,7 @@ export const NO_VALUE_SYMBOL = Symbol('NO_VALUE_SYMBOL');
 
 /** Returns if the Map contains a key 
  * Optionally, if passed a value, will check if the exact (key, value) pair exists
-*/
+ */
 export const _mapHas = <T, U>(batcher: Batcher<Map<T, U>>, key: T, value: U | typeof NO_VALUE_SYMBOL = NO_VALUE_SYMBOL): boolean => {
     if (value === NO_VALUE_SYMBOL) {
         return batcher.currentValue.has(key);
@@ -125,10 +125,10 @@ export const _mapMap = <T, U, V, W>(batcher: Batcher<Map<T, U>>, fn: (key: T, va
             hasAdded = true;
         }
     })
-    let batcher_ = batcher as unknown as Batcher<Map<V, W>>;    
-    if (hasAdded || result.size !== batcher_.currentValue.size) {
-        batcher_.willChange();
-        batcher_.currentValue = result;
+    let batcherCast = batcher as unknown as Batcher<Map<V, W>>;    
+    if (hasAdded || result.size !== batcherCast.currentValue.size) {
+        batcherCast.willChange();
+        batcherCast.currentValue = result;
     }
-    return batcher_;
+    return batcherCast;
 }

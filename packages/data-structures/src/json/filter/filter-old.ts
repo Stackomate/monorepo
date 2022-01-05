@@ -17,7 +17,7 @@ import { removeItemIfPresent } from './removeItemIfPresent';
  * 
  * will be represented as
  * [4, 5]
-*/
+ */
 export type IndexMapping = number[];
 export type FilterFn<T> = (a: T, b: number) => boolean;
 
@@ -98,12 +98,9 @@ export const JSONFilter = <T>(objFn: () => T[], fn: FilterFn<T>) => {
 
 
         } else if (operation.op === Ops.Remove) {
-          let [op, target] = removeItemIfPresent(filteredResult, operation, indexMapping, true)
+          let [op, target] = removeItemIfPresent(filteredResult, operation, indexMapping, true);
           /* Remove item if it was in filtered array */
-          pushIfTruthy(outputOps)
-            (
-              op
-            );
+          pushIfTruthy(outputOps)(op);
           filteredResult = target;
 
         }
@@ -148,10 +145,7 @@ export const JSONFilter = <T>(objFn: () => T[], fn: FilterFn<T>) => {
           /* new invalidation */
 
           let [op, target] = removeItemIfPresent(filteredResult, { ...operation, path: operation.path.split(SEPARATOR).slice(0, 2).join(SEPARATOR) }, indexMapping);
-          pushIfTruthy(outputOps)
-            (
-              op
-            );
+          pushIfTruthy(outputOps)(op);
           filteredResult = target;
 
         } else {

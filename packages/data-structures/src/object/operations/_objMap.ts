@@ -12,10 +12,10 @@ export const _objMap = <T extends Object, U extends Object>(batcher: Batcher<T>,
         //     hasAdded = true;
         // }
     })
-    let batcher_ = batcher as unknown as Batcher<U>;    
+    let batcherCast = batcher as unknown as Batcher<U>;    
     // if (hasAdded || Object.keys(result).length !== Object.keys(batcher_.currentValue).length) {
     //     batcher_.willChange();
     //     batcher_.currentValue = result;
     // }
-    return batcher_;
+    return batcherCast;
 }

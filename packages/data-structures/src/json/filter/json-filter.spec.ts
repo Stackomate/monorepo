@@ -46,7 +46,9 @@ const randomAddItemProperty = <T>(array: T[]) : AddOperation<any> => {
         value: randomChars()
     };    
 }
-const randomChangeItemProperty = () => {}
+
+/* TODO: Maybe add random change item function
+const randomChangeItemProperty = () => {} */
 
 const randomDeleteItemProperty = <T>(array: T[]) : RemoveOperation => {
     let chosenIndex = randomIndex(array);
