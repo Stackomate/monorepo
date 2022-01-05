@@ -2,5 +2,17 @@
   "packages": [
     "packages/*"
   ],
-  "version": "0.0.0"
+  "version": "independent",
+  "command": {
+    "version": {
+      "conventionalCommits": true,
+      "message": "chore(release): publish release [skip ci]",
+      "concurrency": 8,
+      "ignoreChanges": []
+    },
+    "publish": {
+      "allowBranch": "main",
+      "yes": true
+    }
+  }  
 }
