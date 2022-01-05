@@ -11,7 +11,7 @@ A collection of useful data-structures for Typescript Development.
 2. Import desired data-structure into your project. See examples below:
 
 
-## Composite Key Map
+## Composite Key Map (`ckm` prefix)
 
 * **Documentation:** [CompositeKeyMap](./classes/composite_key_map_composite_key_node.compositekeynode.html)
 
