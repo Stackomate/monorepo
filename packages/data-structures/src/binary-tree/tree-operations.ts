@@ -56,13 +56,6 @@ export const btrInorderIterator = function* <T>(node: BinaryTreeNode<T> | null) 
     }
 }
 
-// export const btrInorderArray = <T>() => (treeBatcher: Batcher<BinaryTree<T>>): Batcher<BinaryTree<T>> => {
-//     let currentNode = treeBatcher.currentValue.root;
-//     while (currentNode !== null) {
-        
-//     }
-// }
-
 export const btrAdd = <T>(value: T) => (treeBatcher: Batcher<BinarySearchTree<T>>): Batcher<BinarySearchTree<T>> => {
     return _btrAdd(treeBatcher, value);
 };
