@@ -10,6 +10,7 @@ A collection of useful data-structures for Typescript Development.
 1. `npm i @stackomate/data-structures`
 2. Import desired data-structure into your project. See examples below:
 
+Each data-structure contains a prefix to better differentiate similar methods
 
 ## Composite Key Map (`ckm` prefix)
 

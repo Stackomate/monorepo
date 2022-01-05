@@ -26,6 +26,14 @@ jobs:
         with:
           fail-fast: true
 
+      - name: Configure CI Github User
+      run: |
+        git config --global user.name 'Rafael Calpena Rodrigues'
+        git config --global user.email 'rafael.calpena@gmail.com'
+        git remote set-url origin https://$GITHUB_ACTOR:$GH_TOKEN@github.com/Stackomate/monorepo
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
