@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-development.2](https://github.com/stackomate/data-structures/compare/@stackomate/data-structures@0.0.0-development.1...@stackomate/data-structures@0.0.0-development.2) (2022-01-05)
+
+
+### Bug Fixes
+
+* add prepublishOnly script ([2bc23c2](https://github.com/stackomate/data-structures/commit/2bc23c27cc4031213dd9223039c1559c4495c2ea))
+
+
+
+
+
 # [0.0.0-development.1](https://github.com/stackomate/data-structures/compare/@stackomate/data-structures@0.0.0-development.0...@stackomate/data-structures@0.0.0-development.1) (2022-01-05)
 
 
