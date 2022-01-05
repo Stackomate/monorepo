@@ -18,7 +18,7 @@ export const fromValues = <T>(arr: T[], fn: (value: T) => Batcher<T>): Batcher<T
     return arrBatcher;
 };
 
-export const forkAndLock = <T>(batcher: Batcher<T>): Batcher<T> => {
+export const lockAndFork = <T>(batcher: Batcher<T>): Batcher<T> => {
     batcher.lock();
     return new Batcher(batcher.currentValue, false, batcher.cloneFn);
 };

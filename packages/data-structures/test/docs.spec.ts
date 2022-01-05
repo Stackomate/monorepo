@@ -1,6 +1,6 @@
 import { createArrayBatcher } from "../src/array";
 import { arrFilter } from "../src/array/pipeables";
-import { forkAndLock, getValue } from "../src/utils";
+import { lockAndFork, getValue } from "../src/utils";
 
 /* 4 ways of calling operations:
 - $arrPush (b) (1, 'abc')    // (Preferred) for single operations
@@ -26,7 +26,7 @@ describe('documentation', () => {
             batcherA.run(
                 arrFilter(i => i % 2 === 1)
             )
-            const novoBatcher = forkAndLock(batcherA);
+            const novoBatcher = lockAndFork(batcherA);
             novoBatcher.run(
                 arrFilter(i => i < 3)
             )
