@@ -1,5 +1,6 @@
 import * as jsonpatch from 'fast-json-patch';
-import { getOriginalIndex, Ops, SEPARATOR } from './filter';
+import { getOriginalIndex } from "./getOriginalIndex";
+import { Ops, SEPARATOR } from "./Ops";
 import { locateAvailablePosition } from './locatePosition';
 
 /* TODO: Improve types */

@@ -1,7 +1,6 @@
 import { Batcher } from '../batcher';
-import { setFilterForLocked } from './filter-for-locked';
-import { setFilterForUnlocked } from './filter-for-unlocked';
 import { useSetBatcher } from "./set-batcher";
+import { _setForEach } from './_setForEach';
 
 // TODO: make a size for batchers of sets
 
@@ -185,12 +184,6 @@ export const _setEvery = <T>(set: Batcher<Set<T>>, fn: (a: T) => boolean): boole
 }
 
 // ok
-export const _setForEach = <T>(batcher: Batcher<Set<T>>, fn: (value: T, set: Set<T>) => void): Batcher<Set<T>> => {
-    batcher.currentValue.forEach((value, b, set) => fn(value, set));
-    return batcher;
-}
-
-// ok
 // TODO: setMapForUnlocked and setMapForLocked
 export const _setMap = <T, V>(batcher: Batcher<Set<T>>, fn: (value: T, set: Set<T>) => V): Batcher<Set<V>> => {
     /* TODO: Add full [key, value] pair check for rare scenario */
@@ -233,11 +226,4 @@ export const _setCartesianProduct = <T, U>(batcher: Batcher<Set<T>>, set: Set<U>
     return batcherCast;
 }
 
-export type SetFilterFn<T> = (value: T, set: Set<T>) => boolean
 
-export const _setFilter = <T>(batcher: Batcher<Set<T>>, fn: SetFilterFn<T>): Batcher<Set<T>> => {
-    if (batcher.isUnlocked) {
-        return setFilterForUnlocked(batcher, fn);
-    }
-    return setFilterForLocked(batcher, fn);
-}

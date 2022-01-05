@@ -1,5 +1,7 @@
 import { Batcher } from "../batcher";
-import { SetFilterFn, _isSubSet, _isSuperSet, _setAdd, _setCartesianProduct, _setDifference, _setDisjoint, _setEquals, _setEvery, _setFilter, _setFind, _setForEach, _setHas, _setIntersection, _setIsEmpty, _setMap, _setRemove, _setSymmetricDifference, _setUnion,  } from "./set-operations";
+import { _isSubSet, _isSuperSet, _setAdd, _setCartesianProduct, _setDifference, _setDisjoint, _setEquals, _setEvery, _setFind, _setHas, _setIntersection, _setIsEmpty, _setMap, _setRemove, _setSymmetricDifference, _setUnion,  } from "./set-operations";
+import { _setForEach } from "./_setForEach";
+import { SetFilterFn, _setFilter } from "./SetFilterFn";
 
 export const setIsEmpty = <T> () => (batcher: Batcher<Set<T>>): boolean => _setIsEmpty(batcher);
 export const $setIsEmpty = <T> (batcher: Batcher<Set<T>>) => () : boolean => _setIsEmpty(batcher);

@@ -1,6 +1,7 @@
 import { AddOperation, Operation, RemoveOperation } from 'fast-json-patch';
 import { applyOperation } from './addItem';
-import { JSONFilter, Ops } from './filter';
+import { JSONFilter } from './filter';
+import { Ops } from "./Ops";
 import { v4 as uuidv4 } from 'uuid';
 
 let seedrandom = require('seedrandom');

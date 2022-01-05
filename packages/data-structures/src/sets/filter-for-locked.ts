@@ -1,5 +1,6 @@
 import { Batcher } from '../batcher';
-import { SetFilterFn, _setForEach } from './set-operations';
+import { _setForEach } from "./_setForEach";
+import { SetFilterFn } from "./SetFilterFn";
 
 export const setFilterForLocked = <T, U>(batcher: Batcher<Set<T>>, fn: SetFilterFn<T>): Batcher<Set<T>> => {
     const result: Set<T> = new Set();

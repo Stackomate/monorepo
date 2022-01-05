@@ -1,6 +1,8 @@
 import { Batcher } from '../batcher';
 import { mapFilterForLocked } from './filter-for-locked';
 import { mapFilterForUnlocked } from './filter-for-unlocked';
+import { MapFilterFn } from './MapFilterFn';
+import { _mapForEach } from './_mapForEach';
 
 /** This symbol represents the absence of an argument for value parameter */
 export const NO_VALUE_SYMBOL = Symbol('NO_VALUE_SYMBOL');
@@ -80,17 +82,6 @@ export const _mapClear = <T, U>(batcher: Batcher<Map<T, U>>): Batcher<Map<T,U>> 
     return batcher;
 }
 
-export type MapForEachFn<T, U> = (key: T, value: U, map: Map<T, U>) => void;
-/**
- * Check whether an array index is not void. Negative indexes will count backwards from end of the array.
- * Note: Passed function will be called with (key, value, map) argument order
- */
-export const _mapForEach = <T, U>(batcher: Batcher<Map<T, U>>, fn: MapForEachFn<T, U>): Batcher<Map<T, U>> => {
-    /* Inverted ordering of key, value arguments */
-    batcher.currentValue.forEach((value, key, map) => fn(key, value, map));
-    return batcher;
-}
-
 /* TODO: Loosen types in copyArrays to return array of joined types */
 /** Copy one or more arrays into a target array */
 export const _mapSpread = <T, U>(batcher: Batcher<Map<T, U>>, copyMaps: Batcher<Map<T, U>>[]): Batcher<Map<T, U>> => {
@@ -101,8 +92,6 @@ export const _mapSpread = <T, U>(batcher: Batcher<Map<T, U>>, copyMaps: Batcher<
     })
     return batcher;
 }
-
-export type MapFilterFn<T, U> = (key: T, value: U, map: Map<T, U>) => boolean
 
 export const _mapFilter = <T, U>(batcher: Batcher<Map<T, U>>, fn: MapFilterFn<T, U>) : Batcher<Map<T, U>> => {
     if (batcher.isUnlocked) {
