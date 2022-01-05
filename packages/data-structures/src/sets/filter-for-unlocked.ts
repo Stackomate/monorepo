@@ -1,5 +1,6 @@
 import { Batcher } from '../batcher';
-import { SetFilterFn, _setForEach } from './set-operations';
+import { _setForEach } from "./_setForEach";
+import { SetFilterFn } from "./SetFilterFn";
 
 
 /* This is a protected function, therefore should not be exposed in the public api */

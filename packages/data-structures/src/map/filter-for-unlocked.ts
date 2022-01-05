@@ -1,5 +1,6 @@
 import { Batcher } from '../batcher';
-import { MapFilterFn, _mapForEach } from './map-operations';
+import { _mapForEach } from "./_mapForEach";
+import { MapFilterFn } from "./MapFilterFn";
 
 
 /* This is a protected function, therefore should not be exposed in the public api */

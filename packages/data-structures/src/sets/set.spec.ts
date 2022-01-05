@@ -1,8 +1,10 @@
 import { arrFilterForUnlocked } from "../array/operations/_arrFilter/filter-for-unlocked"
 import { batch } from "../batch-fn"
-import { MapFilterFn } from "../map/map-operations"
+import { MapFilterFn } from "../map/MapFilterFn"
 import { useSetBatcher } from "./set-batcher"
-import { _setAdd, _setIsEmpty, _setRemove, _setEquals, _setUnion, _setDifference, _setIntersection, _isSubSet, _isSuperSet, _setDisjoint, _setHas, _setSymmetricDifference, _setEvery, _setMap, _setForEach, _setFind, _setFilter} from "./set-operations"
+import { _setAdd, _setIsEmpty, _setRemove, _setEquals, _setUnion, _setDifference, _setIntersection, _isSubSet, _isSuperSet, _setDisjoint, _setHas, _setSymmetricDifference, _setEvery, _setMap, _setFind} from "./set-operations"
+import { _setForEach } from "./_setForEach"
+import { _setFilter } from "./SetFilterFn"
 
 describe('Set exports', () => {
     describe('add', () => {

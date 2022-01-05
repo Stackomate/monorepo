@@ -1,5 +1,8 @@
 import { Batcher } from "../batcher";
-import { MapFilterFn, MapForEachFn, NO_VALUE_SYMBOL, _mapClear, _mapDelete, _mapEntries, _mapFilter, _mapForEach, _mapGet, _mapHas, _mapKeys, _mapMap, _mapSet, _mapSize, _mapSpread, _mapValues } from "./map-operations";
+import { NO_VALUE_SYMBOL, _mapClear, _mapDelete, _mapEntries, _mapFilter, _mapGet, _mapHas, _mapKeys, _mapMap, _mapSet, _mapSize, _mapSpread, _mapValues } from "./map-operations";
+import { MapForEachFn } from "./MapForEachFn";
+import { _mapForEach } from "./_mapForEach";
+import { MapFilterFn } from "./MapFilterFn";
 
 export const mapHas = <T, U>(key: T, value: U | typeof NO_VALUE_SYMBOL = NO_VALUE_SYMBOL) => (batcher: Batcher<Map<T, U>>): boolean => _mapHas(batcher, key, value);
 export const $mapHas = <T, U>(batcher: Batcher<Map<T, U>>) => (key: T, value: U | typeof NO_VALUE_SYMBOL = NO_VALUE_SYMBOL) : boolean => _mapHas(batcher, key, value);

@@ -1,5 +1,6 @@
 import { Batcher } from '../batcher';
-import { MapFilterFn, _mapForEach } from './map-operations';
+import { _mapForEach } from "./_mapForEach";
+import { MapFilterFn } from "./MapFilterFn";
 
 export const mapFilterForLocked = <T, U>(batcher: Batcher<Map<T, U>>, fn: MapFilterFn<T, U>): Batcher<Map<T, U>> => {
     const result: Map<T, U> = new Map();

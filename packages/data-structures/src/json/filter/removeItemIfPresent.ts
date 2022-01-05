@@ -1,6 +1,8 @@
 import { Operation } from 'fast-json-patch';
 import { applyOperation, replaceRootItemPathIndex } from './addItem';
-import { getOriginalIndex, IndexMapping, Ops } from './filter';
+import { IndexMapping } from './filter';
+import { getOriginalIndex } from "./getOriginalIndex";
+import { Ops } from "./Ops";
 import { getIndexInFilteredArray } from './getIndexInFilteredArray';
 import { locateAvailablePosition } from './locatePosition';
 

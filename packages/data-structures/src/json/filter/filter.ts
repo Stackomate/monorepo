@@ -2,7 +2,9 @@ import { Operation } from 'fast-json-patch';
 import { addItem, applyOperation, replaceRootItemPathIndex } from './addItem';
 import { bootstrapFilterFor } from './bootstrapFilterFor';
 import { getIndexInFilteredArray } from './getIndexInFilteredArray';
+import { getOriginalIndex } from './getOriginalIndex';
 import { locateAvailablePosition } from './locatePosition';
+import { SEPARATOR, Ops } from './Ops';
 import { removeItemIfPresent } from './removeItemIfPresent';
 
 /** Maps origin array indexes into filtered array indexes 
@@ -21,16 +23,8 @@ import { removeItemIfPresent } from './removeItemIfPresent';
 export type IndexMapping = number[];
 export type FilterFn<T> = (a: T, b: number) => boolean;
 
-export enum Ops {
-  Add = 'add',
-  Remove = 'remove'
-};
-export const SEPARATOR = '/'
-
 /** Decides if the operation changes the root array by adding or removing items to it */
 const isRootArrayChange = (op: Operation) => op.path.split(SEPARATOR).length === 2;
-export const getOriginalIndex = (op: Operation) => Number(op.path.split(SEPARATOR)[1]);
-
 export const pushIfTruthy = <T>(target: T[]) => (...items: (T | null)[]) => {
   for (let item of items) {
     if (item) {
