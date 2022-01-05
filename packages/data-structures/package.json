@@ -1,0 +1,127 @@
+{
+  "name": "@stackomate/data-structures",
+  "version": "0.0.0-development",
+  "description": "",
+  "keywords": [],
+  "main": "dist/data-structures.umd.js",
+  "module": "dist/data-structures.es5.js",
+  "typings": "dist/types/src/data-structures.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "rafaelcalpena <rafael.calpena@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stackomate/data-structures"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prebuild": "rimraf dist",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --theme minimal src",
+    "start": "rollup -c rollup.config.ts -w",
+    "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch",
+    "test:prod": "npm run lint && npm run test -- --no-cache",
+    "deploy-docs": "ts-node tools/gh-pages-publish",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release",
+    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
+    "precommit": "lint-staged",
+    "travis-deploy-once": "travis-deploy-once --pro"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{js,ts}"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^14.18.3",
+    "@types/uuid": "^8.3.3",
+    "colors": "^1.4.0",
+    "commitizen": "^4.2.4",
+    "coveralls": "^3.1.1",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "jest-config": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^2.5.1",
+    "prompt": "^1.2.0",
+    "replace-in-file": "^6.3.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.62.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "seedrandom": "^3.0.5",
+    "semantic-release": "^17.4.7",
+    "shelljs": "^0.8.4",
+    "travis-deploy-once": "^5.0.11",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.3.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^9.0.0",
+    "typedoc": "^0.20.36",
+    "typescript": "~4.2.4",
+    "uuid": "^8.3.2"
+  },
+  "dependencies": {
+    "fast-json-patch": "^3.1.0"
+  }
+}
