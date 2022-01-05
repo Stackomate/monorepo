@@ -1,7 +1,12 @@
-import { CompositeKeyNode } from "../composite-index-node";
+import { CompositeKeyNode } from "../composite-key-node";
 import { _ckmHas } from "../query/_ckmHas";
 
-/* TODO: Behavior of path = [] */
+/**
+ * Removes a path from the map (if existent)
+ * @param indexRoot Node representing the root of Composite Key Map
+ * @param path Path to object to be removed
+ * @returns Root object with changes
+ */
 export const _ckmRemove = <K, V>(indexRoot: CompositeKeyNode<K, V>, path: K[]): CompositeKeyNode<K, V> => {
 
     /* TODO: Optimize performance */

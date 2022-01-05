@@ -1,9 +1,12 @@
-import { CompositeKeyNode } from "../composite-index-node";
+import { CompositeKeyNode } from "../composite-key-node";
 
-/* Examples */
-/* [root] => 10
-    [root, 'a'] => 20
-    [root, 'b', 'c'] => 30 (note that root.b is not a key) */
+/**
+ * Set Composite key in Map
+ * @param indexRoot Root node for Composite Key Map
+ * @param path Path to be set
+ * @param value Value which path will be mapped to
+ * @returns 
+ */
 export const _ckmSet = <K, V>(indexRoot: CompositeKeyNode<K, V>, path: K[], value: V): CompositeKeyNode<K, V> => {
     let currentNode = indexRoot;
     for (let item of path) {

@@ -12,12 +12,26 @@ A collection of useful data-structures for Typescript Development.
 
 
 ## Composite Key Map
+
+* **Documentation:** [CompositeKeyMap](./classes/composite_key_map_composite_key_node.compositekeynode.html)
+
 A map that allows multiple ordered keys (composite key) to be mapped to some value.
 Keys are stored as pointers that contain maps to the child keys.
+**Important:** Order of iteration is not preserved for the keys
+
+
+### Examples
+```
+[root] => 10
+[root, 'a'] => 20
+[root, 'b', 'c'] => 30 (note that root.b is not a key) 
+```
+
+
 
 ## BijectiveMap
 
-* **Documentation:** [BijectiveMap](https://stackomate.github.io/data-structures/classes/bijectivemap.html)
+* **Documentation:** [BijectiveMap](./classes/bijectivemap.html)
 
 A stricter type of map that only allows Bijective (one-to-one) relationships.
 
