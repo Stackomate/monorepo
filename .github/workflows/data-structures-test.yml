@@ -16,7 +16,9 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./packages/data-structures   
+        working-directory: ./packages/data-structures 
+
+    runs-on: ubuntu-latest          
 
     strategy:
       matrix:
