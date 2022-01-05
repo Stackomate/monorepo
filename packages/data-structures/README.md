@@ -17,7 +17,7 @@ Each data-structure contains a prefix to better differentiate similar methods
 * **Documentation:** [CompositeKeyMap](./classes/composite_key_map_composite_key_node.compositekeynode.html)
 
 A map that allows multiple ordered keys (composite key) to be mapped to some value. Can contain an arbitrary number of keys.
-Keys are stored as pointers that contain maps to the child keys.
+Keys are stored as pointers that contain maps to the child keys, in recursive tree structure.
 **Important:** Order of iteration is not preserved for the keys
 
 
