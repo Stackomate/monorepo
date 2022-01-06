@@ -22,6 +22,9 @@ Keys are stored as pointers that contain maps to the child keys, in recursive tr
 
 
 ### Examples
+
+See live example in Stackblitz: [Demo](https://stackblitz.com/edit/typescript-hi91jd?devtoolsheight=60&file=index.ts)
+
 ```
 [root] => 10
 [root, 'a'] => 20
