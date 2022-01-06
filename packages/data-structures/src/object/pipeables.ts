@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher";
+import { Batcher } from "../precompile-output/batcher";
 import { _objMap } from "./operations/_objMap";
 import { _objSpread } from "./operations/_objSpread";
 import { ObjForEachFn, _objForEach } from "./queries/_objForEach";

@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 
 /** Returns the length of the array. */
 

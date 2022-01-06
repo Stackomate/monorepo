@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher";
+import { Batcher } from "../precompile-output/batcher";
 
 export const cloneMap = <T, S>(initial: Map<T, S>) => new Map(initial);
 

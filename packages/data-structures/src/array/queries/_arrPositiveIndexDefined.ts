@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 
 /**
  * Check whether an array index is not void. Only accepts positive indexes.

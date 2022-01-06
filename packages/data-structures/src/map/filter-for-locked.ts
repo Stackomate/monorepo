@@ -1,4 +1,4 @@
-import { Batcher } from '../batcher';
+import { Batcher } from '../precompile-output/batcher';
 import { _mapForEach } from "./_mapForEach";
 import { MapFilterFn } from "./MapFilterFn";
 

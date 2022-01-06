@@ -1,4 +1,4 @@
-import { Batcher } from '../batcher';
+import { Batcher } from '../precompile-output/batcher';
 import { setFilterForLocked } from './filter-for-locked';
 import { setFilterForUnlocked } from './filter-for-unlocked';
 

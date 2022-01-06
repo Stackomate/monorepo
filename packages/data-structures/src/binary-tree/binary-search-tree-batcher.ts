@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher";
+import { Batcher } from "../precompile-output/batcher";
 import { BinarySearchTree } from "./binary-search-tree";
 
 export const cloneBinarySearchTree = <T>(initial: BinarySearchTree<T>) => new BinarySearchTree(initial.root);

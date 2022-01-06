@@ -1,4 +1,4 @@
-import { Batcher } from '../batcher';
+import { Batcher } from '../precompile-output/batcher';
 import { mapFilterForLocked } from './filter-for-locked';
 import { mapFilterForUnlocked } from './filter-for-unlocked';
 import { MapFilterFn } from './MapFilterFn';

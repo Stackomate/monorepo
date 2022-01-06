@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { _arrIndexAt } from '../queries/_arrIndexAt';
 import { _arrIndexInRange } from '../queries/_arrIndexInRange';
 import { _arrIndexNotVoid } from '../queries/_arrPositiveIndexDefined';

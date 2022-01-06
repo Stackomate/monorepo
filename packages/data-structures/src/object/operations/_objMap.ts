@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import {_objForEach} from '../queries/_objForEach'
 
 export const _objMap = <T extends Object, U extends Object>(batcher: Batcher<T>, fn: (key: keyof T, value: T[keyof T], obj: T) => [keyof U, U[keyof U]]) : Batcher<U> => {

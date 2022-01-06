@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher";
+import { Batcher } from "../precompile-output/batcher";
 import { NO_VALUE_SYMBOL, _mapClear, _mapDelete, _mapEntries, _mapFilter, _mapGet, _mapHas, _mapKeys, _mapMap, _mapSet, _mapSize, _mapSpread, _mapValues } from "./map-operations";
 import { MapForEachFn } from "./MapForEachFn";
 import { _mapForEach } from "./_mapForEach";

@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { arrInsert } from '../pipeables';
 import { _arrIndexAt } from '../queries/_arrIndexAt';
 import { _arrCopyRight } from "./_arrCopyRight";

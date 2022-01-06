@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 
 /* IMPORTANT: There are differences between forEach and for of */
 /*

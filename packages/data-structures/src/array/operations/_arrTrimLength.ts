@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { isUnlocked } from '../../utils';
 import { _arrLastIndex } from '../queries/_arrLastIndex';
 import { _arrIndexNotVoid } from '../queries/_arrPositiveIndexDefined';

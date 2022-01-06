@@ -1,5 +1,7 @@
 export * from './bijective-map/bijective-map';
 export * from './bidirectional-tuple-set';
+export * from './binary-tree'
+export * from './composite-key-map'
 export * from './array';
 export * from './map';
 export * from './object';

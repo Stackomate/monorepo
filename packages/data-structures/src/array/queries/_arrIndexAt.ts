@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 
 /** Returns the index corresponding to an input number.
  * If number >= 0, index will be the number itself.

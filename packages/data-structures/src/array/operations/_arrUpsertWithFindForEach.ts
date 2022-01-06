@@ -1,7 +1,7 @@
 
 /* TODO: Add option for function to include empty slots */
 
-import { Batcher } from "../../batcher";
+import { Batcher } from "../../precompile-output/batcher";
 import { _arrPush } from "./_arrPush";
 import { _arrSetIndex } from "./_arrSetIndex";
 import { _arrIteratorForEach } from "../queries/_arrIteratorForEach";

@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { _objHas } from '../queries/_objHas';
 import { _objGet } from '../queries/_objGet';
 

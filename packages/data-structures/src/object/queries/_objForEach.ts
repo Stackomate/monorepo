@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 
 export type ObjForEachFn<T extends Object> = (key: keyof T, value: T[keyof T], obj: T) => void;
 export const _objForEach = <T extends Object>(batcher: Batcher<T>, fn: ObjForEachFn<T>): Batcher<T> => {

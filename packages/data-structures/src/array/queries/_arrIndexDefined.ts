@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { _arrIndexAt } from './_arrIndexAt';
 import { _arrIndexNotVoid } from './_arrPositiveIndexDefined';
 

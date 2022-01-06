@@ -1,3 +1,5 @@
+import { arrFilter, arrIndexAt, arrMap } from "..";
+import { batch } from "../../precompile-output/batch-fn";
 import { getValue } from "../../utils";
 import { createArrayBatcher } from "../batcher";
 import { _arrDel } from "./_arrDel";

@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher";
+import { Batcher } from "../precompile-output/batcher";
 import { _isSubSet, _isSuperSet, _setAdd, _setCartesianProduct, _setDifference, _setDisjoint, _setEquals, _setEvery, _setFind, _setHas, _setIntersection, _setIsEmpty, _setMap, _setRemove, _setSymmetricDifference, _setUnion,  } from "./set-operations";
 import { _setForEach } from "./_setForEach";
 import { SetFilterFn, _setFilter } from "./SetFilterFn";

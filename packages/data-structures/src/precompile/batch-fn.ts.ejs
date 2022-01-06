@@ -1,0 +1,17 @@
+import { Batcher } from "./batcher";
+
+export type Fn<A, B> = (a: A) => B;
+export type FnBatcherArg<T, A> = (a: Batcher<T>) => A;
+
+/* Must edit batch function inside batcher too */
+interface Batch {
+<%- getBatchPipeableTypings() -%>
+}
+
+export const batch: Batch = (b: any, ...ops: any) => {
+    let lastResult = b;
+    for (let op of ops) {
+        lastResult = op(lastResult);
+    }
+    return lastResult;
+};

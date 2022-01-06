@@ -1,4 +1,4 @@
-import { Batcher } from '../batcher';
+import { Batcher } from '../precompile-output/batcher';
 import { _setForEach } from "./_setForEach";
 import { SetFilterFn } from "./SetFilterFn";
 
