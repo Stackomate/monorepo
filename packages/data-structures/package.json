@@ -1,6 +1,6 @@
 {
   "name": "@stackomate/data-structures",
-  "version": "0.0.0-development.7",
+  "version": "0.0.0-development.8",
   "description": "",
   "keywords": [],
   "main": "dist/data-structures.umd.js",
