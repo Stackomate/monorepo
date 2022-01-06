@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher";
+import { Batcher } from "../precompile-output/batcher";
 import { BinaryTreeNode } from "./binary-tree-node";
 
 export const cloneBinaryTreeNode = <T>(initial: BinaryTreeNode<T>) => new BinaryTreeNode(

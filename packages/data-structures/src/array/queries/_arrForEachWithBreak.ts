@@ -1,4 +1,4 @@
-import { Batcher } from "../../batcher";
+import { Batcher } from "../../precompile-output/batcher";
 import { BREAK } from "./_arrForEach";
 import { _arrIteratorForEach } from "./_arrIteratorForEach";
 

@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { _objForEach } from '../queries/_objForEach';
 import { _objSet } from './_objSet';
 

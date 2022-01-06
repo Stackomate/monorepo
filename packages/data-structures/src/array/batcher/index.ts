@@ -1,4 +1,5 @@
-import { Batcher } from "../../batcher";
+import { Batcher } from "../../precompile-output/batcher";
+
 
 /* 
     Clone array should take into account void spaces in the arrays

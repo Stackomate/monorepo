@@ -1,4 +1,4 @@
-import { Batcher } from "../../batcher";
+import { Batcher } from "../../precompile-output/batcher";
 import { _arrIteratorForEach } from "./_arrIteratorForEach";
 
 export const _arrFindWithForEach = <T>(batcher: Batcher<Array<T>>, fn: (item: T, index: number, array: Array<T>) => boolean) => {

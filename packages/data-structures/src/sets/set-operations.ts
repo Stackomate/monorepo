@@ -1,4 +1,4 @@
-import { Batcher } from '../batcher';
+import { Batcher } from '../precompile-output/batcher';
 import { useSetBatcher } from "./set-batcher";
 import { _setForEach } from './_setForEach';
 

@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher"
+import { Batcher } from "../precompile-output/batcher"
 import { createObjectBatcher } from "./batcher"
 import {_objMap} from "./operations"
 import { _objSpread } from "./operations/_objSpread"

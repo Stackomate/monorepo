@@ -1,5 +1,5 @@
 import { arrRemove } from '..';
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { _arrIndexAt } from '../queries/_arrIndexAt';
 import { _arrCopyRight } from "./_arrCopyRight";
 import { _arrSetIndex } from './_arrSetIndex';

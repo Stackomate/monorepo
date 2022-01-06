@@ -1,5 +1,5 @@
 import { arrFilterForUnlocked } from "../array/operations/_arrFilter/filter-for-unlocked"
-import { batch } from "../batch-fn"
+import { batch } from "../precompile-output/batch-fn"
 import { MapFilterFn } from "../map/MapFilterFn"
 import { useSetBatcher } from "./set-batcher"
 import { _setAdd, _setIsEmpty, _setRemove, _setEquals, _setUnion, _setDifference, _setIntersection, _isSubSet, _isSuperSet, _setDisjoint, _setHas, _setSymmetricDifference, _setEvery, _setMap, _setFind} from "./set-operations"

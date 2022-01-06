@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { _arrUpsertWithFind } from './_arrUpsertWithFind';
 import { _arrUpsertWithFindWithForEach } from './_arrUpsertWithFindForEach';
 

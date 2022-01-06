@@ -1,4 +1,4 @@
-import { Batcher } from "../batcher";
+import { Batcher } from "../precompile-output/batcher";
 import { BinaryTreeNode } from "./binary-tree-node";
 import { BinarySearchTree } from "./binary-search-tree";
 

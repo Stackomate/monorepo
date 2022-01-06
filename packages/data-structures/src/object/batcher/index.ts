@@ -1,4 +1,4 @@
-import { Batcher } from "../../batcher";
+import { Batcher } from "../../precompile-output/batcher";
 
 export const cloneObject = <T extends Object>(initial: T): T => ({...initial});
 

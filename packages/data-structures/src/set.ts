@@ -1,4 +1,4 @@
-import { Batcher } from './batcher';
+import { Batcher } from './precompile-output/batcher';
 import { add as setAdd, filter as setFilter, remove as setRemove } from './set-operations';
 
 export const add = <T>(batcher: Batcher<Set<T>>, item: T) => setAdd({batcher, item});

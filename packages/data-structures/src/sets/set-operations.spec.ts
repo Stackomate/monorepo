@@ -1,5 +1,5 @@
 import {add, filter, remove} from '../set-operations';
-import { Batcher } from '../batcher';
+import { Batcher } from '../precompile-output/batcher';
 import { cloneSet, useSetBatcher } from "./set-batcher";
 
 xdescribe('SetOperations', () => {

@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 
 
 export const _objKeys = <T extends Object>(batcher: Batcher<T>): string[] => {

@@ -1,16 +1,9 @@
-import { batch, Fn } from "./batch-fn";
+import { batch, Fn, FnBatcherArg } from "./batch-fn";
 
 export class Batcher<T> {
     public currentValue!: T;
 
-    public run <A>(f1: (a: Batcher<T>) => A) : A;
-    public run <A, B>(f1: (a: Batcher<T>) => A, f2: Fn<A, B>): B;
-    public run <A, B, C>(f1: (a: Batcher<T>) => A, f2: Fn<A, B>, f3: Fn<B, C>): C;
-    public run <A, B, C, D>(f1: (a: Batcher<T>) => A, f2: Fn<A, B>, f3: Fn<B, C>, f4: Fn<C, D>): D;
-    public run <A, B, C, D, E>(f1: (a: Batcher<T>) => A, f2: Fn<A, B>, f3: Fn<B, C>, f4: Fn<C, D>, f5: Fn<D, E>): E;
-    public run <A, B, C, D, E, F>(f1: (a: Batcher<T>) => A, f2: Fn<A, B>, f3: Fn<B, C>, f4: Fn<C, D>, f5: Fn<D, E>, f6: Fn<E, F>): F;
-    public run <Q>(...args: any) : Q    
-
+<%- getPipeableTypings() -%>
     public run(...ops: any) {
         return batch(this, ...ops);
     }

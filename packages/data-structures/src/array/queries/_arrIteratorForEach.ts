@@ -1,4 +1,4 @@
-import { Batcher } from '../../batcher';
+import { Batcher } from '../../precompile-output/batcher';
 import { forEachYield } from './for-each-yield';
 
 /* 2 differences: does not include empty indexes, and maybe should not loop forever (only includes initial items?) */

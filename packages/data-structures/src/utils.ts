@@ -1,4 +1,4 @@
-import { Batcher } from "./batcher";
+import { Batcher } from "./precompile-output/batcher";
 
 // TODO: create a swap method;
 
