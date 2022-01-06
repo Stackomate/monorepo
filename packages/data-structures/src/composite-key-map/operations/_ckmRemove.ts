@@ -44,3 +44,5 @@ export const _ckmRemove = <K, V>(indexRoot: CompositeKeyNode<K, V>, path: K[]): 
 
     return indexRoot;
 };
+
+export const ckmRemove = <K, V>(path: K[]) => (indexRoot: CompositeKeyNode<K, V>) => _ckmRemove(indexRoot, path);

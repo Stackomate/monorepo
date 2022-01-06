@@ -19,3 +19,5 @@ export const _ckmGet = <K, V>(indexRoot: CompositeKeyNode<K, V>, path: K[]): V |
     }
     return currentNode.isKey ? currentNode.value : undefined;
 };
+
+export const ckmGet = <K, V>(path: K[]) => (indexRoot: CompositeKeyNode<K, V>) => _ckmGet(indexRoot, path);

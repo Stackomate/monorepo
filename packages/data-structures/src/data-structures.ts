@@ -8,3 +8,5 @@ export * from './object';
 export * from './sets';
 export * from './utils';
 export * from './json/filter/filter';
+export * from './precompile-output/batch-fn';
+export * from './precompile-output/batcher';

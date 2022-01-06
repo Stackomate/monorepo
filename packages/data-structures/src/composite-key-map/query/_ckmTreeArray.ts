@@ -32,3 +32,5 @@ export const _ckmTreeArray = <K, V>(indexRoot: CompositeKeyNode<K, V>) => {
     return r;
 
 }
+
+export const ckmTreeArrayn = <K, V>() => (indexRoot: CompositeKeyNode<K, V>) => _ckmTreeArray(indexRoot);
