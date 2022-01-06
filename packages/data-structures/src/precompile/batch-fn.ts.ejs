@@ -8,10 +8,22 @@ interface Batch {
 <%- getBatchPipeableTypings() -%>
 }
 
+/* TODO: call apply method if possible */
 export const batch: Batch = (b: any, ...ops: any) => {
     let lastResult = b;
     for (let op of ops) {
         lastResult = op(lastResult);
     }
     return lastResult;
-};
+}
+
+interface Apply {
+<%- getApplyPipeableTypings() -%>
+}
+export const apply: Apply = (item: any, ...ops: any) => {
+    let lastResult = item;
+    for (let op of ops) {
+        lastResult = op(lastResult);
+    }
+    return lastResult;
+}

@@ -23,3 +23,5 @@ export const _ckmSet = <K, V>(indexRoot: CompositeKeyNode<K, V>, path: K[], valu
     /* For modify part, find modify path and possibly clone all nodes in the path */
     return indexRoot;
 };
+
+export const ckmSet = <K, V>(path: K[], value: V) => (indexRoot: CompositeKeyNode<K, V>) => _ckmSet(indexRoot, path, value);

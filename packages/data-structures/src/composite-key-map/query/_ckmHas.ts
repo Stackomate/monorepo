@@ -18,3 +18,5 @@ export const _ckmHas = <K, V>(indexRoot: CompositeKeyNode<K, V>, path: K[]): boo
     }
     return currentNode.isKey;
 };
+
+export const ckmHas = <K, V>(path: K[]) => (indexRoot: CompositeKeyNode<K, V>) => _ckmHas(indexRoot, path);
