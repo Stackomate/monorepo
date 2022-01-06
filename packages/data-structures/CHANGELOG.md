@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-development.9](https://github.com/stackomate/data-structures/compare/@stackomate/data-structures@0.0.0-development.8...@stackomate/data-structures@0.0.0-development.9) (2022-01-06)
+
+
+### Features
+
+* add pipeables ([9be5f06](https://github.com/stackomate/data-structures/commit/9be5f06dd2446aaca8ffb4311658b6240faa2e04))
+
+
+
+
+
 # [0.0.0-development.8](https://github.com/stackomate/data-structures/compare/@stackomate/data-structures@0.0.0-development.7...@stackomate/data-structures@0.0.0-development.8) (2022-01-06)
 
 **Note:** Version bump only for package @stackomate/data-structures
