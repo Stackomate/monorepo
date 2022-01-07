@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-development.11](https://github.com/stackomate/data-structures/compare/@stackomate/data-structures@0.0.0-development.10...@stackomate/data-structures@0.0.0-development.11) (2022-01-07)
+
+
+### Bug Fixes
+
+* add export ([b642971](https://github.com/stackomate/data-structures/commit/b642971c9d2d7659ad326d9c78518df5c408fb41))
+
+
+
+
+
 # [0.0.0-development.10](https://github.com/stackomate/data-structures/compare/@stackomate/data-structures@0.0.0-development.9...@stackomate/data-structures@0.0.0-development.10) (2022-01-07)
 
 
