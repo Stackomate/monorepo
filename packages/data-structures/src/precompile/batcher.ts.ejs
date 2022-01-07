@@ -4,8 +4,9 @@ export class Batcher<T> {
     public currentValue!: T;
 
 <%- getPipeableTypings() -%>
-    public run(...ops: any) {
-        return batch(this, ...ops);
+    public apply(...ops: any[]) {
+        /* TODO: Remove as any while keeping pipe typings working */
+        return (batch as any)(this, ...ops);
     }
 
     /* TODO: Fix tests and add $ */

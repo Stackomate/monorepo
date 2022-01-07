@@ -1,10 +1,13 @@
+import { apply, Fn } from "../precompile-output/batch-fn";
+import { FnCompositeKeyMapArg } from "../composite-key-map/types";
+
 /* We will probably need two versions, one that's mutable and another immutable
 otherwise index will be necessary by batcher to index itself */ 
 
 /**
  * Composite Key Node representing an entry in the Composite Key Map
  */
-export class CompositeKeyNode<K, V> {
+export class CompositeKeyNode<Y, Z> {
     constructor(
         /**
          * Only truthy is node is leaf of some assigned path
@@ -12,9 +15,15 @@ export class CompositeKeyNode<K, V> {
         public isKey: boolean = false,
 
         /** Holds assigned values for assigned paths */
-        public value: V | undefined = undefined,
+        public value: Z | undefined = undefined,
 
         /** Map of children that contain node as part of the path */
-        public children: Map<K, CompositeKeyNode<K, V>> = new Map()
+        public children: Map<Y, CompositeKeyNode<Y, Z>> = new Map()
     ) {}
+
+<%- getApplyClassTypings() -%>    
+    public apply(...ops: any) {
+        /* TODO: Remove as any while keeping pipe typings working */
+        return (apply as any)(this, ...ops);
+    }    
 }

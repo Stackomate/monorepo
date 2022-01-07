@@ -1,4 +1,4 @@
-import { CompositeKeyNode } from "../composite-key-node";
+import { CompositeKeyNode } from "../../precompile-output/composite-key-node";
 
 type TreeItem <K, V> = {isKey: boolean, key: K, value: V | undefined, children: Array<TreeItem<K,V>>};
 type TreeArray<K, V> = Array<TreeItem<K,V>>;

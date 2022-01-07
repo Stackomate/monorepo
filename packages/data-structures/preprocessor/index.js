@@ -16,13 +16,13 @@ const getPipeableTypings = (limit = 20) => {
 
     let paddingLeft = `    `;
     let genericsForType = (n) => [...Array(n + 1).keys()].map(k => String.fromCharCode(65 + k)).join(', ')    
-    let genericsDef = (n) => `public run <${genericsForType(n)}>`
+    let genericsDef = (n) => `public apply <${genericsForType(n)}>`
 
-    let fallbackType = `${paddingLeft}public run <T, Q>(f1: FnBatcherArg<T, any>, ...args: Fn<any, any>[]) : Q;`;
+    let fallbackType = `${paddingLeft}public apply <T, Q>(f1: FnBatcherArg<T, any>, ...args: Fn<any, any>[]) : Q;`;
 
     let types = keysArray.map(i => `${paddingLeft}${genericsDef(i)}(f1: FnBatcherArg<T, A>${i > 0 ? `, ` : ``}${keysArray.slice(0, i).map(j => argTemplate(j)).join(', ')}): ${String.fromCharCode(65 + i)};`).join('\n');
     
-    return `${types}\n${fallbackType}\n`;
+    return `${types}\n`;
 }
 
 const getBatchPipeableTypings = (limit = 20) => {
@@ -42,7 +42,28 @@ const getBatchPipeableTypings = (limit = 20) => {
 
     let types = keysArray.map(i => `${paddingLeft}${genericsDef(i)}(a: Batcher<Z>, f1: FnBatcherArg<Z, A>${i > 0 ? `, ` : ``}${keysArray.slice(0, i).map(j => argTemplate(j)).join(', ')}): ${String.fromCharCode(65 + i)};`).join('\n');
     
-    return `${noFnType}\n${types}\n${fallbackType}\n`;
+    return `${noFnType}\n${types}\n`;
+
+}
+
+const getApplyClassTypings = (limit = 20) => {
+
+    /* Return argument name and its type */
+    let argTemplate = (n) => `f${n + 2}: Fn<${String.fromCharCode(65 + n, 65 + n + 1).split('').join(', ')}>`
+
+    let keysArray = [...Array(limit).keys()];
+
+
+    let paddingLeft = `    `;
+    let genericsForType = (n) => [...Array(n + 1).keys()].map(k => String.fromCharCode(65 + k)).join(', ')    
+    let genericsDef = (n) => `public apply<${genericsForType(n)}>`
+
+    let noFnType = `${paddingLeft}public apply() : CompositeKeyNode<Y, Z>`;
+    let fallbackType = `${paddingLeft}<Q>(...args: Fn<any, any>[]) : Q;`;
+
+    let types = keysArray.map(i => `${paddingLeft}${genericsDef(i)}(f1: FnCompositeKeyMapArg<Y, Z, A>${i > 0 ? `, ` : ``}${keysArray.slice(0, i).map(j => argTemplate(j)).join(', ')}): ${String.fromCharCode(65 + i)};`).join('\n');
+    
+    return `\n${types}`;
 
 }
 
@@ -63,9 +84,52 @@ const getApplyPipeableTypings = (limit = 20) => {
 
     let types = keysArray.map(i => `${paddingLeft}${genericsDef(i)}(a: Z, f1: Fn<Z, A>${i > 0 ? `, ` : ``}${keysArray.slice(0, i).map(j => argTemplate(j)).join(', ')}): ${String.fromCharCode(65 + i)};`).join('\n');
     
-    return `${noFnType}\n${types}\n${fallbackType}\n`;
+    return `${noFnType}\n${types}\n`;
 
 }
+
+const getPipePipeableTypings = (limit = 20) => {
+
+    /* Return argument name and its type */
+    let argTemplate = (n) => `f${n + 2}: Fn<${String.fromCharCode(65 + n, 65 + n + 1).split('').join(', ')}>`
+
+    let keysArray = [...Array(limit).keys()];
+
+
+    let paddingLeft = `    `;
+    let genericsForType = (n) => [...Array(n + 1).keys()].map(k => String.fromCharCode(65 + k)).join(', ')    
+    let genericsDef = (n) => `<Z, ${genericsForType(n)}>`
+
+    let noFnType = `${paddingLeft}<Z>() : (a: Z) => Z;`;
+    let fallbackType = `${paddingLeft}<Z, Q>(...args: Fn<any, any>[]) : (a: Z) => Q;`;
+
+    let types = keysArray.map(i => `${paddingLeft}${genericsDef(i)}(f1: Fn<Z, A>${i > 0 ? `, ` : ``}${keysArray.slice(0, i).map(j => argTemplate(j)).join(', ')}) : (a: Z) => ${String.fromCharCode(65 + i)};`).join('\n');
+    
+    return `${noFnType}\n${types}\n`;
+
+}
+
+const getTapPipeableTypings = (limit = 20) => {
+
+    /* Return argument name and its type */
+    let argTemplate = (n) => `f${n + 2}: Fn<${String.fromCharCode(65 + n, 65 + n + 1).split('').join(', ')}>`
+
+    let keysArray = [...Array(limit).keys()];
+
+
+    let paddingLeft = `    `;
+    let genericsForType = (n) => [...Array(n + 1).keys()].map(k => String.fromCharCode(65 + k)).join(', ')    
+    let genericsDef = (n) => `<Z, ${genericsForType(n)}>`
+
+    let noFnType = `${paddingLeft}<Z>() : (a: Z) => Z;`;
+    let fallbackType = `${paddingLeft}<Z, Q>(...args: Fn<any, any>[]) : (a: Z) => Z;`;
+
+    let types = keysArray.map(i => `${paddingLeft}${genericsDef(i)}(f1: Fn<Z, A>${i > 0 ? `, ` : ``}${keysArray.slice(0, i).map(j => argTemplate(j)).join(', ')}) : (a: Z) => Z;`).join('\n');
+    
+    return `${noFnType}\n${types}\n`;
+
+}
+
 
 glob(`**/*.ejs`, {dot: true, cwd: path.resolve(__dirname, '../src/'), absolute: true}, function (er, files) {
 
@@ -74,7 +138,14 @@ glob(`**/*.ejs`, {dot: true, cwd: path.resolve(__dirname, '../src/'), absolute: 
     files.forEach(file => {
         console.log(`Processing`, file);
 
-        ejs.renderFile(file, {getPipeableTypings, getBatchPipeableTypings, getApplyPipeableTypings}, {}, function(err, str) {
+        ejs.renderFile(file, {
+            getPipeableTypings, 
+            getBatchPipeableTypings, 
+            getApplyPipeableTypings,
+            getPipePipeableTypings, 
+            getTapPipeableTypings,
+            getApplyClassTypings
+        }, {}, function(err, str) {
             if(err) {
                 throw new Error(err);
             }

@@ -1,0 +1,29 @@
+import { apply, Fn } from "../precompile-output/batch-fn";
+
+interface Pipe {
+<%- getPipePipeableTypings() -%>
+}
+/* TODO: Remove as any, but keep pipe typings working */
+export const pipe: Pipe = <Z>(...args: Fn<any, any>[]) => (a: Z) => (apply as any)(a, ...args)
+
+type VoidFn<A> = (a: A) => void;
+
+interface Tap {
+<%- getTapPipeableTypings() -%>
+}
+
+/* TODO: Remove as any, but keep pipe typings working */
+/** Used to execute side effects.
+ * For convenience, tap pipes the provided functions, behaving like pipe(),
+ * but returns same value as tap's input 
+ */
+export const tap: Tap = <Z>(...args: Fn<any, any>[]) => (a: Z): Z => {
+  (apply as any)(a, ...args);
+  return a;
+};
+
+/* TODO: Improve Types */
+export const log = <R, T extends any[]>(...args: T) => tap((item: R) => console.log(item, ...args));
+
+/* TODO: tapLog and tapLogEach, logs every step of tap */
+/* TODO: tapDebug */

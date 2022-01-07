@@ -2,7 +2,6 @@ import { _ckmFromArray } from "../operations/_ckmFromArray";
 import { _ckmTreeArray } from "./_ckmTreeArray";
 import { _ckmHas } from "./_ckmHas";
 
-
 describe('_ckmHas', () => {
     it ('should not contain undefined index', () => {
         let ckm = _ckmFromArray<string, number>([]);
