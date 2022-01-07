@@ -10,7 +10,7 @@ import { _arrSetIndex } from './_arrSetIndex';
  * Supports positive indexes out of array length, and negative indexes within the array range
  */
 export const _arrShift = <T>(batcher: Batcher<Array<T>>): Batcher<Array<T>> => {
-    return batcher.run(
+    return batcher.apply(
         arrRemove(0)
     );
 };

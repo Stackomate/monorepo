@@ -11,7 +11,7 @@ describe('Binary Tree exports - mutable', () => {
             expect(batcher.currentValue).toBe(tree);
             expect(_btrIsEmpty(batcher)).toBe(true);
             expect(batcher.currentValue.root).toBe(null);
-            batcher.run(
+            batcher.apply(
                 btrAdd(1)
             )
             expect(_btrIsEmpty(batcher)).toBe(false);            
@@ -22,7 +22,7 @@ describe('Binary Tree exports - mutable', () => {
             expect(rootNode.right).toBe(null);
 
             /* add 0 to the tree */ 
-            batcher.run(
+            batcher.apply(
                 btrAdd(0)
             )
             expect(_btrIsEmpty(batcher)).toBe(false);            
@@ -43,7 +43,7 @@ describe('Binary Tree exports - mutable', () => {
             /* Needs to use true here */
             let batcher = createBinarySearchTreeBatcher(tree, true);
             for (let item of items) {
-                batcher.run(
+                batcher.apply(
                     btrAdd(item)
                 )
             }

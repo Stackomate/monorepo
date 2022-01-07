@@ -16,9 +16,9 @@ const getPipeableTypings = (limit = 20) => {
 
     let paddingLeft = `    `;
     let genericsForType = (n) => [...Array(n + 1).keys()].map(k => String.fromCharCode(65 + k)).join(', ')    
-    let genericsDef = (n) => `public run <${genericsForType(n)}>`
+    let genericsDef = (n) => `public apply <${genericsForType(n)}>`
 
-    let fallbackType = `${paddingLeft}public run <T, Q>(f1: FnBatcherArg<T, any>, ...args: Fn<any, any>[]) : Q;`;
+    let fallbackType = `${paddingLeft}public apply <T, Q>(f1: FnBatcherArg<T, any>, ...args: Fn<any, any>[]) : Q;`;
 
     let types = keysArray.map(i => `${paddingLeft}${genericsDef(i)}(f1: FnBatcherArg<T, A>${i > 0 ? `, ` : ``}${keysArray.slice(0, i).map(j => argTemplate(j)).join(', ')}): ${String.fromCharCode(65 + i)};`).join('\n');
     
