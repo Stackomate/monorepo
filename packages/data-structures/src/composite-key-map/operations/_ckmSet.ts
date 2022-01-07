@@ -1,4 +1,4 @@
-import { CompositeKeyNode } from "../composite-key-node";
+import { CompositeKeyNode } from "../../precompile-output/composite-key-node";
 
 /**
  * Set Composite key in Map

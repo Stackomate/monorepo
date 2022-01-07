@@ -46,6 +46,27 @@ const getBatchPipeableTypings = (limit = 20) => {
 
 }
 
+const getApplyClassTypings = (limit = 20) => {
+
+    /* Return argument name and its type */
+    let argTemplate = (n) => `f${n + 2}: Fn<${String.fromCharCode(65 + n, 65 + n + 1).split('').join(', ')}>`
+
+    let keysArray = [...Array(limit).keys()];
+
+
+    let paddingLeft = `    `;
+    let genericsForType = (n) => [...Array(n + 1).keys()].map(k => String.fromCharCode(65 + k)).join(', ')    
+    let genericsDef = (n) => `public apply<${genericsForType(n)}>`
+
+    let noFnType = `${paddingLeft}public apply() : CompositeKeyNode<Y, Z>`;
+    let fallbackType = `${paddingLeft}<Q>(...args: Fn<any, any>[]) : Q;`;
+
+    let types = keysArray.map(i => `${paddingLeft}${genericsDef(i)}(f1: FnCompositeKeyMapArg<Y, Z, A>${i > 0 ? `, ` : ``}${keysArray.slice(0, i).map(j => argTemplate(j)).join(', ')}): ${String.fromCharCode(65 + i)};`).join('\n');
+    
+    return `\n${types}`;
+
+}
+
 const getApplyPipeableTypings = (limit = 20) => {
 
     /* Return argument name and its type */
@@ -117,7 +138,14 @@ glob(`**/*.ejs`, {dot: true, cwd: path.resolve(__dirname, '../src/'), absolute: 
     files.forEach(file => {
         console.log(`Processing`, file);
 
-        ejs.renderFile(file, {getPipeableTypings, getBatchPipeableTypings, getApplyPipeableTypings, getPipePipeableTypings, getTapPipeableTypings}, {}, function(err, str) {
+        ejs.renderFile(file, {
+            getPipeableTypings, 
+            getBatchPipeableTypings, 
+            getApplyPipeableTypings,
+            getPipePipeableTypings, 
+            getTapPipeableTypings,
+            getApplyClassTypings
+        }, {}, function(err, str) {
             if(err) {
                 throw new Error(err);
             }

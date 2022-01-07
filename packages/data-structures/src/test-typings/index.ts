@@ -33,3 +33,24 @@ let map = _ckmFromArray([
     tap(ckmGet(['x']), log()),
     tap(ckmGet(['x', 'y']), log())
   );
+
+let y = _ckmFromArray([
+    [['a'], 1],
+    [['a', 'b'], 2],
+    [['x'], 3],
+    [['x', 'y'], 4],
+  ]);
+let finalResult = y.apply(
+  tap(ckmHas(['m']), log()),
+  tap(ckmHas(['a']), log()),
+  tap(ckmHas(['a', 'b']), log()),
+  tap(ckmHas(['a', 'c']), log()),
+  ckmSet(['m'], 12),
+  tap(ckmHas(['m'])),
+  tap(ckmGet(['a', 'c']), log()),
+  tap(ckmGet(['x']), log()),
+  tap(ckmGet(['x', 'y']), log()),
+  ckmRemove(['x']),
+  tap(ckmGet(['x']), log()),
+  tap(ckmGet(['x', 'y']), log())
+)
