@@ -10,3 +10,4 @@ export * from './utils';
 export * from './json/filter/filter';
 export * from './precompile-output/batch-fn';
 export * from './precompile-output/batcher';
+export * from './precompile-output/tap-fn';
