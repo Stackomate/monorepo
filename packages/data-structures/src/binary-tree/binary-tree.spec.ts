@@ -6,7 +6,7 @@ import { btrAdd, btrInorderIterator, btrIsEmpty, _btrIsEmpty } from "./tree-oper
 describe('Binary Tree exports - mutable', () => {
     describe('add', () => {
         it('should add initial value to the node', () => {
-            let tree = new BinarySearchTree();
+            let tree = new BinarySearchTree<number>();
             let batcher = createBinarySearchTreeBatcher(tree);
             expect(batcher.currentValue).toBe(tree);
             expect(_btrIsEmpty(batcher)).toBe(true);
@@ -39,7 +39,7 @@ describe('Binary Tree exports - mutable', () => {
     describe('inOrder iterator', () => {
         it('should return correct order of elements', () => {
             let items = [1, 0, 2, 4, 3, 6, 5, 8, 7, 9, 32, 11, 15, 16];
-            let tree = new BinarySearchTree();
+            let tree = new BinarySearchTree<number>();
             /* Needs to use true here */
             let batcher = createBinarySearchTreeBatcher(tree, true);
             for (let item of items) {
