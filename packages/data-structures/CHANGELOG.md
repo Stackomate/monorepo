@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-development.10](https://github.com/stackomate/data-structures/compare/@stackomate/data-structures@0.0.0-development.9...@stackomate/data-structures@0.0.0-development.10) (2022-01-07)
+
+
+### Bug Fixes
+
+* replace run method with apply ([e7a5c93](https://github.com/stackomate/data-structures/commit/e7a5c9344b67e974290b5bdb9e7eb772d22a9e43))
+
+
+### Features
+
+* add pipes to ckm ([43c953d](https://github.com/stackomate/data-structures/commit/43c953d452b9b5f21445df306a66cf06369d0314))
+
+
+
+
+
 # [0.0.0-development.9](https://github.com/stackomate/data-structures/compare/@stackomate/data-structures@0.0.0-development.8...@stackomate/data-structures@0.0.0-development.9) (2022-01-06)
 
 
